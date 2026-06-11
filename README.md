@@ -2,7 +2,7 @@
 
 Site pessoal desenvolvido com React + Vite, apresentando meus projetos, habilidades e formas de contato.
 
-🔗 **[Ver ao vivo](https://SEU-LINK-AQUI.vercel.app)** <!-- adiciona o link após o deploy -->
+🔗 **[Ver ao vivo](https://portfolio-4o2vd01de-samuel-lourencos-projects.vercel.app/)**
 
 ---
 
