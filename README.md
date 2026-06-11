@@ -2,7 +2,7 @@
 
 Site pessoal desenvolvido com React + Vite, apresentando meus projetos, habilidades e formas de contato.
 
-🔗 **[Ver ao vivo](https://portfolio-4o2vd01de-samuel-lourencos-projects.vercel.app/)**
+🔗 **[Ver ao vivo](https://portfolio-murex-zeta-35.vercel.app/)**
 
 ---
 
