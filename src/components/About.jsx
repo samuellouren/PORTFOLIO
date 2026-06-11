@@ -27,9 +27,21 @@ export default function About() {
               <span className="gradient-text">movido por metas</span>
             </h2>
             <div className="space-y-4 text-muted leading-relaxed">
-              <p>Sou de Maceió, Alagoas, estudando Engenharia de Software na UMJ. Tenho background técnico em desenvolvimento web pelo SENAI, o que me deu uma base prática antes mesmo de entrar na faculdade.</p>
-              <p>Construo projetos reais para aprender — não apenas sigo tutoriais. Minha metodologia é Aprender → Construir → Revisar, porque é fazendo que a coisa gruda de verdade.</p>
-              <p>Meu objetivo é conseguir uma vaga como dev remoto — no Brasil ou internacionalmente — e crescer construindo produto que as pessoas usam de verdade.</p>
+              <p>
+                Sou de Maceió, Alagoas, estudando Engenharia de Software na UMJ.
+                Tenho background técnico em desenvolvimento web pelo SENAI, o
+                que me deu uma base prática antes mesmo de entrar na faculdade.
+              </p>
+              <p>
+                Construo projetos reais para aprender — não apenas sigo
+                tutoriais. Minha metodologia é Aprender → Construir → Revisar,
+                porque é fazendo que a coisa gruda de verdade.
+              </p>
+              <p>
+                Meu objetivo é conseguir uma vaga como dev remoto — no Brasil ou
+                internacionalmente — e crescer construindo produto que as
+                pessoas usam de verdade.
+              </p>
             </div>
           </div>
 
@@ -51,8 +63,8 @@ export default function About() {
         {/* Cards de info — agora embaixo do grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
           {[
-            { label: "Projetos no GitHub", value: "3+" },
-            { label: "Tecnologias", value: "8+" },
+            { label: "Projetos no GitHub", value: "5+" },
+            { label: "Tecnologias", value: "10+" },
             { label: "Formação", value: "UMJ" },
             { label: "Localização", value: "Maceió, AL" },
           ].map((item) => (
