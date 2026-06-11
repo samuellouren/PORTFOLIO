@@ -1,16 +1,63 @@
-# React + Vite
+# 🗂️ Samuel Louren — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site pessoal desenvolvido com React + Vite, apresentando meus projetos, habilidades e formas de contato.
 
-Currently, two official plugins are available:
+🔗 **[Ver ao vivo](https://SEU-LINK-AQUI.vercel.app)** <!-- adiciona o link após o deploy -->
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Seções
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Hero** — apresentação com status de disponibilidade
+- **Sobre** — background, metodologia e informações pessoais
+- **Projetos** — cards com stack, descrição e links para o GitHub
+- **Skills** — stack técnico com barras de progresso animadas
+- **Contato** — links diretos para GitHub, LinkedIn e email
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tecnologias
+
+- [React](https://react.dev) + [Vite](https://vitejs.dev)
+- [Tailwind CSS](https://tailwindcss.com) — estilização utilitária com tokens de design customizados
+- [Framer Motion](https://www.framer.com/motion) — animações de entrada e scroll-triggered
+
+---
+
+## 🚀 Rodando localmente
+
+```bash
+# Clone o repositório
+git clone https://github.com/samuellouren/portfolio
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
+
+Acesse `http://localhost:5173`
+
+---
+
+## 📁 Estrutura
+
+```
+src/
+├── components/     # Navbar, Hero, About, Projects, Skills, Contact, Footer
+├── data/           # projects.js — edite aqui para adicionar projetos
+├── hooks/          # useInView — scroll-triggered animations
+└── index.css       # estilos globais e tokens Tailwind
+```
+
+---
+
+## 📬 Contato
+
+- GitHub: [@samuellouren](https://github.com/samuellouren)
+- LinkedIn: [linkedin.com/in/samuellouren](https://linkedin.com/in/samuellouren)
+
+---
+
+<p align="center">Feito com React por <strong>Samuel Louren</strong></p>
