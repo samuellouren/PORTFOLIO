@@ -16,7 +16,7 @@ export const projects = [
       "Sistema full-stack de gestão de candidatos e vagas de emprego. Backend REST com autenticação JWT, banco SQLite e frontend React com contexto global.",
     tech: ["React", "Node.js", "Express", "SQLite", "JWT", "Axios"],
     github: "https://github.com/samuellouren/projetointegrador25",
-    demo: null,
+    demo: "https://talent-match-two.vercel.app",
     featured: false,
   },
   {
