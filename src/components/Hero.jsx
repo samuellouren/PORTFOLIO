@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-// UX principle: cursor piscando = elemento de atenção que remete a código
-// Mantém o olho do usuário no título sem precisar de animação pesada
 function TerminalCursor() {
   const [visible, setVisible] = useState(true);
   useEffect(() => {

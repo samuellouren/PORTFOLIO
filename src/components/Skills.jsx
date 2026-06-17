@@ -2,9 +2,6 @@ import { motion } from "framer-motion";
 import { useInView } from "../hooks/useInView";
 import { skills } from "../data/projects";
 
-// UX: Barras de progresso nas skills são um padrão de portfólio
-// A escolha certa é mostrar competências relativas, não absolutas —
-// o recrutador quer saber o que você faz melhor, não notas
 function SkillBar({ name, level, index }) {
   const [ref, inView] = useInView(0.3);
 

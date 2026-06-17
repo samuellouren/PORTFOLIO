@@ -29,6 +29,16 @@ export const projects = [
     demo: null,
     featured: false,
   },
+  {
+    id: 4,
+    title: "jobtracker",
+    description:
+      "REST API built with FastAPI and SQLite to track job applications.",
+    tech: ["Python", "FastAPI", "SQLite", "Uvicorn"],
+    github: "https://github.com/samuellouren/JobTracker-API",
+    demo: null,
+    featured: false,
+  },
 ];
 
 export const skills = [
@@ -38,6 +48,6 @@ export const skills = [
   { name: "Node.js", level: 55 },
   { name: "HTML & CSS", level: 85 },
   { name: "C#", level: 50 },
-  { name: "Python", level: 55 },
+  { name: "Python", level: 70 },
   { name: "SQL", level: 50 },
 ];

@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import { useInView } from "../hooks/useInView";
 import avatarImg from "../assets/avatar.jpeg";
 
-// UX: Seção "Sobre" tem um único trabalho — fazer o visitante se conectar com você
-// como pessoa antes de ver os projetos. Curta, direta, sem clichês.
 export default function About() {
   const [ref, inView] = useInView(0.2);
 
@@ -63,7 +61,7 @@ export default function About() {
         {/* Cards de info — agora embaixo do grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
           {[
-            { label: "Projetos no GitHub", value: "5+" },
+            { label: "Projetos no GitHub", value: "7+" },
             { label: "Tecnologias", value: "10+" },
             { label: "Formação", value: "UMJ" },
             { label: "Localização", value: "Maceió, AL" },
