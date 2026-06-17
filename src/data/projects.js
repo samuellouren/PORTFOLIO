@@ -33,8 +33,8 @@ export const projects = [
     id: 4,
     title: "jobtracker",
     description:
-      "REST API built with FastAPI and SQLite to track job applications.",
-    tech: ["Python", "FastAPI", "SQLite", "Uvicorn"],
+      "API REST desenvolvida em Python com FastAPI para rastrear candidaturas a vagas de emprego. Conta com autenticação JWT, banco de dados SQLite, operações CRUD completas e validação de status com Enum. Documentação automática via Swagger UI.",
+    tech: ["Python", "FastAPI", "SQLite", "Uvicorn", "JWT", "REST API"],
     github: "https://github.com/samuellouren/JobTracker-API",
     demo: null,
     featured: false,
