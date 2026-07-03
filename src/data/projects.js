@@ -1,5 +1,23 @@
 export const projects = [
   {
+    id: 1,
+    title: "Chute do Vidente",
+    description:
+      "Bolão da Copa do Mundo 2026 com identidade mística. Plataforma full-stack com palpites em tempo real, grupos privados com convite, ranking geral e por grupo, gamificação com cristais e níveis, e processamento automático de pontuação via integração com API oficial.",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "JWT",
+      "Turso",
+      "Tailwind CSS",
+    ],
+    github: "https://github.com/samuellouren/Bolao-Copa",
+    demo: "https://bolao-copa-samuel-lourencos-projects.vercel.app/",
+    featured: true,
+  },
+  {
     id: 2,
     title: "FocusDrop",
     description:
@@ -20,16 +38,6 @@ export const projects = [
     featured: false,
   },
   {
-    id: 5,
-    title: "Elemental Depths",
-    description:
-      "Jogo produzido em equipe na Global Game Jam de Alagoas. Desenvolvimento colaborativo em C# com Unity sob pressão de tempo real.",
-    tech: ["C#", "Unity", "Game Jam"],
-    github: "https://github.com/samuellouren/Elemental-Depths_Global-game-jam",
-    demo: null,
-    featured: false,
-  },
-  {
     id: 4,
     title: "jobtracker",
     description:
@@ -40,22 +48,14 @@ export const projects = [
     featured: false,
   },
   {
-    id: 1,
-    title: "Chute do Vidente",
+    id: 5,
+    title: "Elemental Depths",
     description:
-      "Bolão da Copa do Mundo 2026 com identidade mística. Plataforma full-stack com palpites em tempo real, grupos privados com convite, ranking geral e por grupo, gamificação com cristais e níveis, e processamento automático de pontuação via integração com API oficial.",
-    tech: [
-      "Next.js",
-      "TypeScript",
-      "Node.js",
-      "Express",
-      "JWT",
-      "Turso",
-      "Tailwind CSS",
-    ],
-    github: "https://github.com/samuellouren/Bolao-Copa",
-    demo: "https://bolao-copa-samuel-lourencos-projects.vercel.app/",
-    featured: true,
+      "Jogo produzido em equipe na Global Game Jam de Alagoas. Desenvolvimento colaborativo em C# com Unity sob pressão de tempo real.",
+    tech: ["C#", "Unity", "Game Jam"],
+    github: "https://github.com/samuellouren/Elemental-Depths_Global-game-jam",
+    demo: null,
+    featured: false,
   },
 ];
 
