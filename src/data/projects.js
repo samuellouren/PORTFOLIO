@@ -39,15 +39,34 @@ export const projects = [
     demo: null,
     featured: false,
   },
+  {
+    id: 5,
+    title: "Chute do Vidente",
+    description:
+      "Bolão da Copa do Mundo 2026 com identidade mística. Plataforma full-stack com palpites em tempo real, grupos privados com convite, ranking geral e por grupo, gamificação com cristais e níveis, e processamento automático de pontuação via integração com API oficial.",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "JWT",
+      "Turso",
+      "Tailwind CSS",
+    ],
+    github: "https://github.com/samuellouren/Bolao-Copa",
+    demo: "https://bolao-copa-samuel-lourencos-projects.vercel.app/",
+    featured: true,
+  },
 ];
 
 export const skills = [
   { name: "React", level: 80 },
   { name: "JavaScript", level: 75 },
-  { name: "TypeScript", level: 65 },
-  { name: "Node.js", level: 75 },
+  { name: "TypeScript", level: 75 },
+  { name: "Node.js", level: 80 },
   { name: "HTML & CSS", level: 85 },
   { name: "C#", level: 50 },
   { name: "Python", level: 70 },
-  { name: "SQL", level: 50 },
+  { name: "SQL", level: 60 },
+  { name: "Next.js", level: 70 },
 ];
