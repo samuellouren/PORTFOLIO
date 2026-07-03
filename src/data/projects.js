@@ -1,6 +1,6 @@
 export const projects = [
   {
-    id: 1,
+    id: 2,
     title: "FocusDrop",
     description:
       "App de produtividade e bem-estar com ciclos Pomodoro, rastreamento de humor e estatísticas semanais. Cresceu de um simples timer para uma ferramenta completa de wellness.",
@@ -10,7 +10,7 @@ export const projects = [
     featured: true,
   },
   {
-    id: 2,
+    id: 3,
     title: "TalentMatch",
     description:
       "Sistema full-stack de gestão de candidatos e vagas de emprego. Backend REST com autenticação JWT, banco SQLite e frontend React com contexto global.",
@@ -20,7 +20,7 @@ export const projects = [
     featured: false,
   },
   {
-    id: 3,
+    id: 5,
     title: "Elemental Depths",
     description:
       "Jogo produzido em equipe na Global Game Jam de Alagoas. Desenvolvimento colaborativo em C# com Unity sob pressão de tempo real.",
@@ -40,7 +40,7 @@ export const projects = [
     featured: false,
   },
   {
-    id: 5,
+    id: 1,
     title: "Chute do Vidente",
     description:
       "Bolão da Copa do Mundo 2026 com identidade mística. Plataforma full-stack com palpites em tempo real, grupos privados com convite, ranking geral e por grupo, gamificação com cristais e níveis, e processamento automático de pontuação via integração com API oficial.",
