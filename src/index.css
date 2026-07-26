@@ -3,29 +3,76 @@
 @tailwind utilities;
 
 @layer base {
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    /* Compensa a navbar fixa quando o usuário navega por âncora */
+    scroll-padding-top: 68px;
+  }
   body {
-    background-color: #0A0A0F;
-    color: #E8E6F0;
-    font-family: 'Inter', sans-serif;
+    background-color: #1f1510;
+    color: #ede4d8;
+    font-family: Manrope, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  /* Selection highlight */
-  ::selection { background: #6C63FF40; color: #E8E6F0; }
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: #0A0A0F; }
-  ::-webkit-scrollbar-thumb { background: #6C63FF; border-radius: 2px; }
+  ::selection {
+    background: #b8860b;
+    color: #1f1510;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1f1510;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #6b4b33;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c9915b;
+  }
+  /* Foco visível — o design é escuro e de baixo contraste nas bordas */
+  :focus-visible {
+    outline: 2px solid #c9915b;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Eyebrow que abre cada seção */
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-label text-gold;
+  }
+  /* Título de seção em serifa */
+  .section-title {
+    @apply font-display font-semibold text-[clamp(1.9rem,5vw,2.625rem)] leading-[1.15] tracking-[-0.015em] text-text;
+  }
+  /* Chip de tecnologia */
+  .chip {
+    @apply border border-border bg-bgAlt text-textSoft rounded-lg;
+  }
 }
 
 @layer utilities {
-  .gradient-text {
-    background: linear-gradient(135deg, #6C63FF, #00D4C8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* Grão de filme sobre toda a página (vem do design) */
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-  .card-glow:hover {
-    box-shadow: 0 0 0 1px #6C63FF60, 0 8px 32px #6C63FF20;
+  /* Textura diagonal dos painéis de screenshot */
+  .stripes {
+    background-image: repeating-linear-gradient(
+      115deg,
+      #33241a 0 12px,
+      #3a2820 12px 24px
+    );
+  }
+  .text-pretty {
+    text-wrap: pretty;
   }
 }

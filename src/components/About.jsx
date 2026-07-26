@@ -1,83 +1,48 @@
-import { motion } from "framer-motion";
-import { useInView } from "../hooks/useInView";
-import avatarImg from "../assets/avatar.jpeg";
+import { useLanguage } from "../context/language-context";
+import Reveal from "./Reveal";
 
 export default function About() {
-  const [ref, inView] = useInView(0.2);
+  const { t } = useLanguage();
 
   return (
-    <section id="sobre" className="py-24 px-6 max-w-5xl mx-auto" ref={ref}>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-      >
-        {/* Label — UX: eyebrow tag orienta o usuário na página */}
-        <span className="text-xs text-primary font-medium tracking-widest uppercase mb-4 block">
-          // sobre mim
-        </span>
+    <section
+      id="sobre"
+      className="mx-auto max-w-[1120px] border-t border-borderSoft px-5 py-16 sm:px-7 sm:py-[88px]"
+    >
+      <Reveal className="mb-4 sm:mb-[18px]">
+        <span className="eyebrow">{t.aboutLabel}</span>
+      </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Texto — lado esquerdo, não muda */}
-          <div>
-            <h2 className="font-display font-bold text-3xl md:text-4xl mb-6 leading-tight">
-              Curioso por natureza,{" "}
-              <span className="gradient-text">movido por metas</span>
-            </h2>
-            <div className="space-y-4 text-muted leading-relaxed">
-              <p>
-                Sou de Maceió, Alagoas, estudando Engenharia de Software na UMJ.
-                Tenho background técnico em desenvolvimento web pelo SENAI, o
-                que me deu uma base prática antes mesmo de entrar na faculdade.
-              </p>
-              <p>
-                Construo projetos reais para aprender — não apenas sigo
-                tutoriais. Minha metodologia é Aprender → Construir → Revisar,
-                porque é fazendo que a coisa gruda de verdade.
-              </p>
-              <p>
-                Meu objetivo é conseguir uma vaga como dev remoto — no Brasil ou
-                internacionalmente — e crescer construindo produto que as
-                pessoas usam de verdade.
-              </p>
-            </div>
-          </div>
+      <div className="grid gap-8 md:grid-cols-2 md:gap-16 md:items-start">
+        <Reveal as="h2" className="section-title text-pretty">
+          {t.aboutTitle}
+        </Reveal>
 
-          {/* Foto — lado direito */}
-          <div className="flex justify-center">
-            <div className="relative w-64 h-64">
-              {/* Borda decorativa atrás da foto */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-cyan translate-x-2 translate-y-2" />
-              {/* A foto em si */}
-              <img
-                src={avatarImg}
-                alt="Samuel Louren"
-                className="relative w-full h-full object-cover rounded-2xl border border-border"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Cards de info — agora embaixo do grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-          {[
-            { label: "Projetos no GitHub", value: "7+" },
-            { label: "Tecnologias", value: "10+" },
-            { label: "Formação", value: "UMJ" },
-            { label: "Localização", value: "Maceió, AL" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="bg-surface border border-border rounded-xl p-5 card-glow transition-all duration-300"
-            >
-              <div className="font-display font-bold text-2xl text-primary mb-1">
-                {item.value}
-              </div>
-              <div className="text-xs text-muted">{item.label}</div>
-            </div>
+        <Reveal delay={0.08} className="flex flex-col gap-[18px]">
+          {t.aboutParagraphs.map((p) => (
+            <p key={p} className="text-base leading-[1.8] text-muted text-pretty">
+              {p}
+            </p>
           ))}
-        </div>
-      </motion.div>
+        </Reveal>
+      </div>
+
+      <div className="mt-10 grid grid-cols-2 gap-4 sm:mt-[52px] lg:grid-cols-4">
+        {t.stats.map((s, i) => (
+          <Reveal
+            key={s.label}
+            delay={i * 0.06}
+            className="rounded-2xl border border-border bg-surface p-5 shadow-card transition-colors duration-300 hover:border-borderStrong sm:px-5 sm:py-[22px]"
+          >
+            <div className="mb-1.5 font-display text-[26px] font-semibold text-accent">
+              {s.value}
+            </div>
+            <div className="text-[12.5px] tracking-[0.02em] text-subtle">
+              {s.label}
+            </div>
+          </Reveal>
+        ))}
+      </div>
     </section>
   );
 }

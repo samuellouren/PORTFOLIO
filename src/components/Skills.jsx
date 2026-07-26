@@ -1,53 +1,47 @@
-import { motion } from "framer-motion";
-import { useInView } from "../hooks/useInView";
-import { skills } from "../data/projects";
-
-function SkillBar({ name, level, index }) {
-  const [ref, inView] = useInView(0.3);
-
-  return (
-    <div ref={ref} className="space-y-2">
-      <div className="flex justify-between items-center">
-        <span className="text-sm font-medium text-text">{name}</span>
-        <span className="text-xs text-muted">{level}%</span>
-      </div>
-      <div className="h-1.5 bg-border rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${level}%` } : {}}
-          transition={{ duration: 0.8, delay: index * 0.05, ease: "easeOut" }}
-          className="h-full rounded-full"
-          style={{
-            background: `linear-gradient(90deg, #6C63FF, #00D4C8)`,
-          }}
-        />
-      </div>
-    </div>
-  );
-}
+import { useLanguage } from "../context/language-context";
+import { skillGroups } from "../data/projects";
+import Reveal from "./Reveal";
 
 export default function Skills() {
-  const [ref, inView] = useInView(0.1);
+  const { lang, t } = useLanguage();
 
   return (
-    <section id="skills" className="py-24 px-6 max-w-5xl mx-auto" ref={ref}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5 }}
-        className="mb-12"
-      >
-        <span className="text-xs text-primary font-medium tracking-widest uppercase mb-4 block">
-          // habilidades
-        </span>
-        <h2 className="font-display font-bold text-3xl md:text-4xl">
-          Meu stack técnico
-        </h2>
-      </motion.div>
+    <section
+      id="skills"
+      className="mx-auto max-w-[1120px] border-t border-borderSoft px-5 py-16 sm:px-7 sm:py-[88px]"
+    >
+      <Reveal className="mb-4 sm:mb-[18px]">
+        <span className="eyebrow">{t.skillsLabel}</span>
+      </Reveal>
 
-      <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
-        {skills.map((skill, i) => (
-          <SkillBar key={skill.name} {...skill} index={i} />
+      <Reveal as="h2" className="section-title mb-9 sm:mb-11">
+        {t.skillsTitle}
+      </Reveal>
+
+      <div className="grid gap-5 md:grid-cols-2">
+        {skillGroups.map((group, i) => (
+          <Reveal
+            key={group.id}
+            delay={i * 0.06}
+            className="rounded-[18px] border border-border bg-surface p-6 shadow-card transition-colors duration-300 hover:border-borderStrong sm:px-[26px] sm:pb-7 sm:pt-[26px]"
+          >
+            <div className="mb-[18px] flex items-center gap-2.5">
+              <span className="h-2 w-2 rotate-45 rounded-[2px] bg-gold" />
+              <span className="font-display text-xl text-text">
+                {group.title[lang]}
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-[9px]">
+              {group.items.map((chip) => (
+                <span
+                  key={chip}
+                  className="chip px-3 py-2 text-[13px] font-medium transition-colors duration-200 hover:border-accent hover:text-text"
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
+          </Reveal>
         ))}
       </div>
     </section>
