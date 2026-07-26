@@ -18,6 +18,22 @@ export const projects = [
     featured: true,
   },
   {
+    id: 7,
+    title: "Mapa Farma",
+    description:
+      "App de CRM comercial desenvolvido para um cliente do setor de distribuição farmacêutica em Maceió. Permite que representantes de vendas visualizem farmácias no mapa, registrem relatórios de visita, gerenciem pedidos e acompanhem estatísticas de vendas em tempo real. ",
+    tech: [
+      "React Native/Expo",
+      "Node.js",
+      "TypeScript",
+      "OpenStreetmap",
+      "Turso(libSQL)",
+    ],
+    github: "https://github.com/samuellouren/Mapa-Farma",
+    demo: null,
+    featured: true,
+  },
+  {
     id: 2,
     title: "FocusDrop",
     description:
@@ -57,10 +73,22 @@ export const projects = [
     demo: null,
     featured: false,
   },
+  {
+    id: 6,
+    title: "shim de pagamento Java",
+    description:
+      "Projeto de estudo criado para o primeiro contato com Java e Spring Boot, integrando um backend Java a um frontend Angular.",
+    tech: ["Java", "Spring Boot", "Angular", "TypeScript"],
+    github: "https://github.com/samuellouren/shim_de_pagamentoJava",
+    demo: null,
+    featured: false,
+  },
 ];
 
 export const skills = [
   { name: "React", level: 80 },
+  { name: "Java", level: 40 },
+  { name: "Angular", level: 40 },
   { name: "JavaScript", level: 75 },
   { name: "TypeScript", level: 75 },
   { name: "Node.js", level: 80 },
