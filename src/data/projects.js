@@ -6,6 +6,16 @@
 //   image         — src da screenshot; null usa o painel listrado como placeholder
 //   summary       — versão curta { pt, en } usada no índice compacto
 //   stack         — resumo do stack em uma linha, para o índice compacto
+//   nota          — marginália { pt, en }: frase em 1ª pessoa na margem esquerda
+//   contexto      — 1º campo do estudo de caso { label: { pt, en }, pt, en }.
+//                   O rótulo é por projeto: "Problema" em trabalho de cliente,
+//                   "Origem" em projeto que nasceu por conta própria.
+//   decisao       — escolha técnica e o motivo real { pt, en }
+//   resultado     — o que mudou de fato { pt, en }
+//
+// REGRA DE PROVENIÊNCIA (ver docs/superpowers/specs/2026-07-28-portfolio-redesign-design.md §5.1):
+// nenhum destes campos pode conter fato que não esteja no repositório ou que não
+// tenha sido dito pelo Samuel. Sem fonte, o campo fica ausente e não renderiza.
 export const projects = [
   {
     id: 1,
@@ -33,6 +43,23 @@ export const projects = [
     },
     image: "/projects/videntes.jpeg",
     stack: "Next.js · Node",
+    nota: {
+      pt: "nasceu de brincadeira por causa da Copa.",
+      en: "born as a joke, because of the World Cup.",
+    },
+    contexto: {
+      label: { pt: "Origem", en: "Origin" },
+      pt: "Não era demanda de cliente. Eu queria fazer um projeto divertido, e ele nasceu como brincadeira em torno da Copa.",
+      en: "Not client work. I wanted to build something fun, and it started as a joke around the World Cup.",
+    },
+    decisao: {
+      pt: "Os cristais são moeda fictícia, justamente por ser brincadeira — nada de dinheiro real envolvido.",
+      en: "The crystals are fictional currency, precisely because it's a joke — no real money involved.",
+    },
+    resultado: {
+      pt: "Está no ar. Os amigos usaram de verdade: mais de 25 pessoas participaram.",
+      en: "It's live. Friends actually used it: more than 25 people joined.",
+    },
   },
   {
     id: 7,
@@ -58,6 +85,23 @@ export const projects = [
     },
     image: "/projects/mapas.jpeg",
     stack: "React Native · Node",
+    nota: {
+      pt: "antes era tudo planilha.",
+      en: "before this, it was all spreadsheets.",
+    },
+    contexto: {
+      label: { pt: "Problema", en: "Problem" },
+      pt: "A distribuidora não tinha um app para isso. Os representantes controlavam visita, pedido e rota em planilhas.",
+      en: "The distributor had no app for this. Reps tracked visits, orders and routes in spreadsheets.",
+    },
+    decisao: {
+      pt: "MapLibre com OpenStreetMap em vez de Google Maps, para ficar gratuito e mais personalizável.",
+      en: "MapLibre with OpenStreetMap instead of Google Maps, to keep it free and more customizable.",
+    },
+    resultado: {
+      pt: "Está no ar e sendo usado.",
+      en: "It's live and in use.",
+    },
   },
   {
     id: 2,
@@ -74,6 +118,11 @@ export const projects = [
     shot: { pt: "screenshot — timer + humor", en: "screenshot — timer + mood" },
     image: "/projects/focos.jpeg",
     stack: "React Native · Expo",
+    nota: {
+      pt: "começou como um timer simples e virou um app focado no desvício do celular.",
+      en: "started as a plain timer and became an app about breaking the phone habit.",
+    },
+    // contexto/decisao/resultado ausentes de propósito: sem fatos confirmados.
   },
   {
     id: 3,
@@ -142,6 +191,10 @@ export const projects = [
       en: "First contact with Java and Spring Boot wired to an Angular front end.",
     },
     stack: "Java · Angular",
+    nota: {
+      pt: "projeto de estudo. primeiro contato meu com Java e Spring Boot.",
+      en: "study project. my first contact with Java and Spring Boot.",
+    },
   },
 ];
 

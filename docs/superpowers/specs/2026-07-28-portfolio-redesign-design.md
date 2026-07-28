@@ -111,21 +111,33 @@ uma declaração de três linhas, e logo abaixo, trabalho real.
 ├──────────────┼──────────────────────────────────────────────────┤
 │  2026        ┤  MAPA FARMA                       cliente real   │ ← entalhe na régua
 │              │  ┌──────────────────────────────────────────┐    │
-│  "não        │  │             screenshot                    │    │
-│   existia    │  └──────────────────────────────────────────┘    │
-│   app pra    │  [descrição existente de projects.js]            │
-│   isso na    │                                                  │
-│   distri-    │  Problema   ⌷ vazio — não renderiza               │
-│   buidora."  │  Decisão    ⌷ vazio — não renderiza               │
-│              │  Resultado  ⌷ vazio — não renderiza               │
-│  ← MARGINÁLIA│                                                  │
+│  "antes      │  │             screenshot                    │    │
+│   era tudo   │  └──────────────────────────────────────────┘    │
+│   planilha." │  [descrição existente de projects.js]            │
+│              │                                                  │
+│  ↑           │  Problema   A distribuidora não tinha um app     │
+│  MARGINÁLIA  │             para isso. Os reps controlavam       │
+│              │             visita, pedido e rota em planilhas.  │
+│              │  Decisão    MapLibre com OpenStreetMap em vez    │
+│              │             de Google Maps, para ficar gratuito  │
+│              │             e mais personalizável.               │
+│              │  Resultado  Está no ar e sendo usado.            │
+│              │                                                  │
 │              │  React Native · Node · Turso      código ↗       │
 ├──────────────┼──────────────────────────────────────────────────┤
 │  2026        ┤  CHUTE DO VIDENTE              produto próprio   │
-│  "começou    │  …                                               │
-│   como       │                                                  │
+│  "nasceu de  │  [screenshot]                                    │
 │   brinca-    │                                                  │
-│   deira…"    │                                                  │
+│   deira por  │  Origem     Não era demanda de cliente…          │ ← rótulo difere
+│   causa da   │  Decisão    Cristais como moeda fictícia…        │
+│   Copa."     │  Resultado  No ar. Mais de 25 pessoas…           │
+├──────────────┼──────────────────────────────────────────────────┤
+│  2025        ┤  FOCUSDROP                             mobile    │
+│  "começou    │  [screenshot]                                    │
+│   como um    │  [descrição existente]                           │
+│   timer      │                                                  │
+│   simples…"  │  ⌷ sem estudo de caso — três linhas não          │ ← degradação
+│              │    renderizam                                    │
 ├──────────────┼──────────────────────────────────────────────────┤
 │  o resto     │  TalentMatch       React · Node            ↗     │ ← índice enxuto, sem card
 │              │  jobtracker        Python · FastAPI        ↗     │
@@ -185,21 +197,28 @@ e ia derreter na primeira rodada") que o Samuel teria que defender numa entrevis
 
 ### 5.2 Estado do conteúdo
 
-| Projeto | Marginália | Problema/Decisão/Resultado |
+| Projeto | Marginália | Estudo de caso |
 |---|---|---|
-| Mapa Farma | `"não existia app pra isso na distribuidora. o que eu entreguei foi o primeiro."` | vazios |
-| Chute do Vidente | `"começou como brincadeira por causa da Copa de 2026."` | vazios |
-| FocusDrop | vazio | vazios |
+| Mapa Farma | `"antes era tudo planilha."` | completo — rótulo **Problema** |
+| Chute do Vidente | `"nasceu de brincadeira por causa da Copa."` | completo — rótulo **Origem** |
+| FocusDrop | `"começou como um timer simples e virou um app focado no desvício do celular."` | ausente |
 | shim de pagamento Java | `"projeto de estudo. primeiro contato meu com Java e Spring Boot."` (nota inline no índice) | n/a |
-| TalentMatch, jobtracker, Elemental Depths | vazio | n/a |
+| TalentMatch, jobtracker, Elemental Depths | ausente | n/a |
 
-Fonte das três notas: declarações do Samuel em 2026-07-28.
+Fonte de todo o conteúdo acima: declarações do Samuel em 2026-07-28, registradas em
+`src/data/projects.js`.
 
-Candidato pendente, não implementado: FocusDrop — `"começou como um timer
-simples."`, reescrita de `projects.js`. Entra só com confirmação explícita.
+**O rótulo do primeiro campo varia por projeto.** Mapa Farma resolveu o problema de
+um cliente, então o rótulo é `Problema`. Chute do Vidente nasceu de vontade própria
+— a resposta do Samuel foi "queria fazer um projeto divertido", que é origem e não
+problema. Rotular como `Problema` forçaria o conteúdo dentro do template e
+descreveria o projeto de forma levemente falsa. O rótulo passa a ser um campo do
+projeto (ver 6.7).
 
-Enquanto os campos estruturados estiverem vazios, o card em destaque mostra
-screenshot + descrição existente + stack + links. Degrada limpo, sem buraco visual.
+FocusDrop tem marginália mas não tem estudo de caso: só a nota foi confirmada. Um
+destaque sem os três campos mostra screenshot + descrição existente + stack + links.
+Degrada limpo, sem buraco visual — e reforça que os campos aparecem quando há o que
+dizer, não por obrigação de layout.
 
 ### 5.3 Conteúdo que sai
 
@@ -284,14 +303,20 @@ tela-chave por projeto.
 `projects.js` vira `projects.ts`, com campos novos, todos opcionais:
 
 ```ts
-nota?:      { pt: string; en: string }   // marginália
-problema?:  { pt: string; en: string }
-decisao?:   { pt: string; en: string }
-resultado?: { pt: string; en: string }
+type Texto = { pt: string; en: string };
+
+nota?:      Texto                        // marginália
+contexto?:  Texto & { label: Texto }     // 1º campo; rótulo por projeto
+decisao?:   Texto
+resultado?: Texto
 ```
 
-Campo ausente ou string vazia não renderiza o rótulo. `skills[].level` é removido;
-`skillGroups` é achatado numa lista simples.
+`contexto.label` existe porque nem todo projeto tem "problema" (ver 5.2). Valores em
+uso: `Problema`/`Problem` e `Origem`/`Origin`. O rótulo mora no dado, não no
+componente, para que um projeto novo não seja forçado ao enquadramento errado.
+
+Campo ausente ou string vazia não renderiza rótulo nem linha. `skills[].level` é
+removido; `skillGroups` é achatado numa lista simples.
 
 ## 7. Acessibilidade
 
@@ -320,12 +345,14 @@ O critério que originou o trabalho é testável diretamente:
 
 ## 9. Questões em aberto
 
-1. Conteúdo de `problema`/`decisao`/`resultado` dos três destaques — pendente com o
-   Samuel. Não bloqueia a implementação; os campos ficam vazios.
-2. Confirmação da marginália do FocusDrop.
-3. Qualidade dos screenshots a 660px (ver 6.6).
-4. Bricolage Grotesque pode ser trocada por Archivo se parecer excêntrica demais na
+1. Qualidade dos screenshots a 660px (ver 6.6).
+2. Bricolage Grotesque pode ser trocada por Archivo se parecer excêntrica demais na
    tela.
+3. Grafia de "desvício" na nota do FocusDrop: registrada literalmente como o Samuel
+   escreveu, por ser voz dele. Se for digitação por "desvio", corrigir no dado.
+
+Resolvidos em 2026-07-28: conteúdo dos estudos de caso e das marginálias (ver 5.2),
+já gravado em `src/data/projects.js`.
 
 ## 10. Autocrítica registrada
 
