@@ -111,17 +111,19 @@ uma declaração de três linhas, e logo abaixo, trabalho real.
 ├──────────────┼──────────────────────────────────────────────────┤
 │  2026        ┤  MAPA FARMA                       cliente real   │ ← entalhe na régua
 │              │  ┌──────────────────────────────────────────┐    │
-│  "antes      │  │             screenshot                    │    │
-│   era tudo   │  └──────────────────────────────────────────┘    │
-│   planilha." │  [descrição existente de projects.js]            │
-│              │                                                  │
-│  ↑           │  Problema   A distribuidora não tinha um app     │
-│  MARGINÁLIA  │             para isso. Os reps controlavam       │
-│              │             visita, pedido e rota em planilhas.  │
-│              │  Decisão    MapLibre com OpenStreetMap em vez    │
-│              │             de Google Maps, para ficar gratuito  │
-│              │             e mais personalizável.               │
+│  "o cliente  │  │             screenshot                    │    │
+│   queria um  │  └──────────────────────────────────────────┘    │
+│   software   │  [descrição existente de projects.js]            │
+│   gratuito.  │                                                  │
+│   usei Open- │  Problema   A distribuidora não tinha um app     │
+│   StreetMap  │             para isso. Os reps controlavam       │
+│   em vez de  │             visita, pedido e rota em planilhas.  │
+│   Google     │  Decisão    MapLibre com OpenStreetMap em vez    │
+│   Maps por   │             de Google Maps. O cliente queria     │
+│   causa      │             uma solução gratuita, e essa foi a   │
+│   disso."    │             razão da escolha.                    │
 │              │  Resultado  Está no ar e sendo usado.            │
+│  ↑ MARGINÁLIA│                                                  │
 │              │                                                  │
 │              │  React Native · Node · Turso      código ↗       │
 ├──────────────┼──────────────────────────────────────────────────┤
@@ -199,7 +201,7 @@ e ia derreter na primeira rodada") que o Samuel teria que defender numa entrevis
 
 | Projeto | Marginália | Estudo de caso |
 |---|---|---|
-| Mapa Farma | `"antes era tudo planilha."` | completo — rótulo **Problema** |
+| Mapa Farma | `"o cliente queria um software gratuito. usei OpenStreetMap em vez de Google Maps por causa disso."` | completo — rótulo **Problema** |
 | Chute do Vidente | `"nasceu de brincadeira por causa da Copa."` | completo — rótulo **Origem** |
 | FocusDrop | `"começou como um timer simples e virou um app focado no desvício do celular."` | ausente |
 | shim de pagamento Java | `"projeto de estudo. primeiro contato meu com Java e Spring Boot."` (nota inline no índice) | n/a |
@@ -348,11 +350,14 @@ O critério que originou o trabalho é testável diretamente:
 1. Qualidade dos screenshots a 660px (ver 6.6).
 2. Bricolage Grotesque pode ser trocada por Archivo se parecer excêntrica demais na
    tela.
-3. Grafia de "desvício" na nota do FocusDrop: registrada literalmente como o Samuel
-   escreveu, por ser voz dele. Se for digitação por "desvio", corrigir no dado.
-
 Resolvidos em 2026-07-28: conteúdo dos estudos de caso e das marginálias (ver 5.2),
 já gravado em `src/data/projects.js`.
+
+- "desvício" na nota do FocusDrop é intencional (des-vício, largar o vício do
+  celular), não digitação. Não corrigir.
+- A escolha de MapLibre/OpenStreetMap no Mapa Farma foi **requisito do cliente**
+  (queria solução gratuita), não preferência por personalização. A primeira versão
+  deste spec dizia "gratuito e mais personalizável"; está errado e foi corrigido.
 
 ## 10. Autocrítica registrada
 

@@ -86,8 +86,8 @@ export const projects = [
     image: "/projects/mapas.jpeg",
     stack: "React Native · Node",
     nota: {
-      pt: "antes era tudo planilha.",
-      en: "before this, it was all spreadsheets.",
+      pt: "o cliente queria um software gratuito. usei OpenStreetMap em vez de Google Maps por causa disso.",
+      en: "the client wanted free software. that's why I used OpenStreetMap instead of Google Maps.",
     },
     contexto: {
       label: { pt: "Problema", en: "Problem" },
@@ -95,8 +95,8 @@ export const projects = [
       en: "The distributor had no app for this. Reps tracked visits, orders and routes in spreadsheets.",
     },
     decisao: {
-      pt: "MapLibre com OpenStreetMap em vez de Google Maps, para ficar gratuito e mais personalizável.",
-      en: "MapLibre with OpenStreetMap instead of Google Maps, to keep it free and more customizable.",
+      pt: "MapLibre com OpenStreetMap em vez de Google Maps. O cliente queria uma solução gratuita, e essa foi a razão da escolha.",
+      en: "MapLibre with OpenStreetMap instead of Google Maps. The client wanted a free solution, and that was the reason for the choice.",
     },
     resultado: {
       pt: "Está no ar e sendo usado.",
