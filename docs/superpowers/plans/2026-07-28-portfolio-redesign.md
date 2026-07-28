@@ -657,15 +657,15 @@ test("cada rota serve seu idioma no HTML, sem JS", async ({ request }) => {
   const en = await (await request.get("/en")).text();
   expect(pt).toContain("Projetos");
   expect(en).toContain("Work");
-  expect(pt).toContain('lang="pt-BR"');
-  expect(en).toContain('lang="en"');
 });
 
-test("cada rota aponta para a outra", async ({ page }) => {
-  await page.goto("/");
-  await expect(page.getByRole("link", { name: "EN" })).toHaveAttribute("href", "/en");
-  await page.goto("/en");
-  await expect(page.getByRole("link", { name: "PT" })).toHaveAttribute("href", "/");
+test("cada rota declara seu idioma", async ({ request }) => {
+  // O App Router so permite um <html>, no root layout, entao /en declara
+  // o idioma no <main>. Ver a decisao registrada na Task 10.
+  const pt = await (await request.get("/")).text();
+  const en = await (await request.get("/en")).text();
+  expect(pt).toContain('lang="pt-BR"');
+  expect(en).toMatch(/<main[^>]*lang="en"/);
 });
 ```
 
@@ -740,10 +740,8 @@ export default function Page() {
 
 - [ ] **Step 6: Rodar o teste e confirmar que passa**
 
-Este teste só fecha depois da Task 6, que traz o cabeçalho com os links PT/EN. Rodar agora e confirmar que a primeira asserção (`lang="pt-BR"`) passa e a dos links falha; a Task 6 fecha o restante.
-
 Run: `npx playwright test e2e/i18n.spec.ts`
-Expected: 1 passa, 1 falha por link ausente.
+Expected: PASS, 2 testes. A task não fecha com teste vermelho — a asserção dos links PT/EN pertence à Task 6, que é quem cria o cabeçalho.
 
 - [ ] **Step 7: Commit**
 
@@ -787,6 +785,13 @@ test("a abertura traz nome, funcao e os dois CTAs", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Samuel Lourenço");
   await expect(page.getByRole("link", { name: /ver projetos/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /currículo/i })).toBeVisible();
+});
+
+test("cada rota aponta para a outra", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: "EN" })).toHaveAttribute("href", "/en");
+  await page.goto("/en");
+  await expect(page.getByRole("link", { name: "PT" })).toHaveAttribute("href", "/");
 });
 
 test("existe skip link como primeiro foco", async ({ page }) => {
@@ -1525,7 +1530,7 @@ Em `components/Home.tsx`, no `<main>`:
 <main id="conteudo" lang={lang === "pt" ? "pt-BR" : "en"}>
 ```
 
-Ajustar o teste da Task 5 para asserir `lang="en"` no `<main>` de `/en`, não no `<html>`, e registrar no spec §6.2 que a limitação é conhecida.
+O teste da Task 5 já assere nesta forma — nenhum teste anterior é reescrito aqui. Registrar no spec §6.2 que a limitação é conhecida.
 
 - [ ] **Step 5: Criar as imagens OG**
 
