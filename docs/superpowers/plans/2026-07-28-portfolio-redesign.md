@@ -652,11 +652,9 @@ git commit -m "feat: primitiva de layout com margem anotada"
 ```ts
 import { test, expect } from "@playwright/test";
 
-test("cada rota serve seu idioma no HTML, sem JS", async ({ request }) => {
-  const pt = await (await request.get("/")).text();
-  const en = await (await request.get("/en")).text();
-  expect(pt).toContain("Projetos");
-  expect(en).toContain("Work");
+test("as duas rotas existem e sao servidas pelo servidor", async ({ request }) => {
+  expect((await request.get("/")).status()).toBe(200);
+  expect((await request.get("/en")).status()).toBe(200);
 });
 
 test("cada rota declara seu idioma", async ({ request }) => {
@@ -712,9 +710,15 @@ O `<html lang>` correto para `/en` é resolvido na Task 10 via `generateMetadata
 import type { Lang } from "@/data/types";
 
 export default function Home({ lang }: { lang: Lang }) {
-  return <main id="conteudo">{/* seções entram nas Tasks 6-9 */}</main>;
+  return (
+    <main id="conteudo" lang={lang === "pt" ? "pt-BR" : "en"}>
+      {/* seções entram nas Tasks 6-9 */}
+    </main>
+  );
 }
 ```
+
+O `lang` no `<main>` nasce aqui, não na Task 10 — é o que faz `/en` declarar seu idioma sem um segundo `<html>`. A Task 10 apenas registra a decisão no spec.
 
 - [ ] **Step 5: Ligar as duas rotas**
 
@@ -785,6 +789,13 @@ test("a abertura traz nome, funcao e os dois CTAs", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Samuel Lourenço");
   await expect(page.getByRole("link", { name: /ver projetos/i })).toBeVisible();
   await expect(page.getByRole("link", { name: /currículo/i })).toBeVisible();
+});
+
+test("cada rota serve a copy do seu idioma", async ({ request }) => {
+  const pt = await (await request.get("/")).text();
+  const en = await (await request.get("/en")).text();
+  expect(pt).toContain("Projetos");
+  expect(en).toContain("Work");
 });
 
 test("cada rota aponta para a outra", async ({ page }) => {
