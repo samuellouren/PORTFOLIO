@@ -11,7 +11,7 @@ export default function Header({ lang }: { lang: Lang }) {
     <header className="mx-auto flex max-w-[900px] flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-traco px-5 py-5 sm:px-8">
       <Link
         href={lang === "pt" ? "/" : "/en"}
-        className="font-display text-[15px] font-600 uppercase tracking-[0.14em] text-serragem"
+        className="font-display text-[15px] font-semibold uppercase tracking-[0.14em] text-serragem"
       >
         Samuel Lourenço
       </Link>

@@ -12,3 +12,11 @@ test("o corpo usa Newsreader e o titulo usa Bricolage Grotesque", async ({ page 
   await expect(page.locator("body")).toHaveCSS("font-family", /Newsreader/);
   await expect(page.locator("h1")).toHaveCSS("font-family", /Bricolage/);
 });
+
+test("o titulo renderiza em peso 600, nao no peso padrao do corpo", async ({ page }) => {
+  // Regressao: uma classe utilitaria morta (`font-600`, que o Tailwind nao gera)
+  // compilava para nada e o h1 caia de volta no peso herdado do body. `font-semibold`
+  // e a utilidade real do Tailwind para peso 600 e precisa aparecer computada no DOM.
+  await page.goto("/");
+  await expect(page.locator("h1")).toHaveCSS("font-weight", "600");
+});
