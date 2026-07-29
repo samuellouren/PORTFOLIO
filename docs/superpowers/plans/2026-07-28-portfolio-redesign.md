@@ -833,7 +833,7 @@ export default function Header({ lang }: { lang: Lang }) {
     <header className="mx-auto flex max-w-[900px] flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-traco px-5 py-5 sm:px-8">
       <Link
         href={lang === "pt" ? "/" : "/en"}
-        className="font-display text-[15px] font-600 uppercase tracking-[0.14em] text-serragem"
+        className="font-display text-[15px] font-semibold uppercase tracking-[0.14em] text-serragem"
       >
         Samuel Lourenço
       </Link>
@@ -875,7 +875,7 @@ export default function Opening({ lang }: { lang: Lang }) {
         </div>
       }
     >
-      <h1 className="max-w-[560px] font-display text-[clamp(1.9rem,5.5vw,2.9rem)] font-600 leading-[1.12]">
+      <h1 className="max-w-[560px] font-display text-[clamp(1.9rem,5.5vw,2.9rem)] font-semibold leading-[1.12]">
         Samuel Lourenço
       </h1>
       <p className="mt-4 max-w-[560px] text-[17px] leading-[1.7] text-serragem">
@@ -1164,7 +1164,7 @@ export default function ProjectFeature({
     >
       <article data-testid={`project-${id}`}>
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <h2 className="font-display text-[22px] font-600 uppercase tracking-[0.06em]">
+          <h2 className="font-display text-[22px] font-semibold uppercase tracking-[0.06em]">
             {p.title}
           </h2>
           {p.tag ? (
