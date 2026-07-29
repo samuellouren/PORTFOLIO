@@ -11,8 +11,8 @@ test("a entrada existe por padrao", async ({ page }) => {
 
 test.describe("com reduced motion", () => {
   test("nenhuma animacao roda", async ({ page }) => {
-    await page.goto("/");
     await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
     const dur = await page
       .locator(".entrada")
       .first()
