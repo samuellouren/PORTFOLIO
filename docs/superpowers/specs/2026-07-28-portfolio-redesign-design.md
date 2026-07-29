@@ -254,7 +254,7 @@ Duas rotas estáticas, sem middleware:
 
 ```
 app/
-  layout.tsx            → <html lang> definido por rota
+  layout.tsx            → root layout, <html lang="pt-BR">
   page.tsx              → "/"    (PT)
   opengraph-image.tsx   → OG PT, gerado com next/og
   en/
@@ -264,11 +264,22 @@ app/
 ```
 
 Ambas as rotas renderizam um único componente `<Home lang="pt" | "en" />`. O idioma
-deixa de ser estado do cliente e passa a ser rota — cada idioma ganha HTML próprio,
-`<html lang>` correto e OG próprio. O `LanguageProvider`, o contexto e o hook
-`useInView` são removidos.
+deixa de ser estado do cliente e passa a ser rota — cada idioma ganha HTML próprio e OG
+próprio. O `LanguageProvider`, o contexto e o hook `useInView` são removidos.
 
 O toggle de idioma vira dois `<Link>`, com `hreflang` recíproco no `<head>`.
+
+**Limitação conhecida (registrada na Task 10):** o App Router permite um único
+`<html>`, no root layout, e o root layout não recebe o segmento de rota — logo
+`<html lang>` não pode variar entre `/` e `/en` sem introduzir um Client Component,
+o que violaria a restrição de zero JS de aplicação. Decisão: `<html lang="pt-BR">`
+fica fixo no root, e a rota EN declara o idioma no `<main>` de `Home` (`<main
+lang="en">`), que é HTML válido, sobrepõe o do ancestral e é o sinal que leitores de
+tela usam para trocar de voz. O custo é que `<html lang>` fica impreciso em `/en`
+para consumidores que só olham a raiz. Alternativa rejeitada: mover as duas rotas
+para `app/[lang]/` com `generateStaticParams` — resolveria o `<html lang>`, mas
+tiraria a rota PT de `/` (para `/pt` ou via rewrite), e a URL raiz em português é a
+que já está publicada e compartilhada.
 
 ### 6.3 Renderização
 

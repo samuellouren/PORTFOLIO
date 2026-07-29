@@ -1,6 +1,11 @@
 import "./globals.css";
 import { bricolage, newsreader } from "./fonts";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://samuellourenco.dev"),
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
