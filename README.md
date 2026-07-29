@@ -1,6 +1,6 @@
-# 🗂️ Samuel Louren — Portfolio
+# 🗂️ Samuel Lourenço — Portfolio
 
-Site pessoal desenvolvido com React + Vite, apresentando meus projetos, habilidades e formas de contato.
+Site pessoal desenvolvido com Next.js (App Router), apresentando meus projetos, habilidades e formas de contato. Duas rotas renderizadas no servidor: `/` (pt) e `/en` (en).
 
 🔗 **[Ver ao vivo](https://portfolio-murex-zeta-35.vercel.app/)**
 
@@ -8,19 +8,18 @@ Site pessoal desenvolvido com React + Vite, apresentando meus projetos, habilida
 
 ## ✨ Seções
 
-- **Hero** — apresentação com status de disponibilidade
+- **Opening** — apresentação com status de disponibilidade
 - **Sobre** — background, metodologia e informações pessoais
-- **Projetos** — cards com stack, descrição e links para o GitHub
-- **Skills** — stack técnico com barras de progresso animadas
+- **Projetos** — três projetos em destaque com estudo de caso, mais um índice compacto dos demais
 - **Contato** — links diretos para GitHub, LinkedIn e email
 
 ---
 
 ## 🛠️ Tecnologias
 
-- [React](https://react.dev) + [Vite](https://vitejs.dev)
-- [Tailwind CSS](https://tailwindcss.com) — estilização utilitária com tokens de design customizados
-- [Framer Motion](https://www.framer.com/motion) — animações de entrada e scroll-triggered
+- [Next.js](https://nextjs.org) (App Router, Server Components — sem `"use client"`)
+- [React](https://react.dev)
+- [Tailwind CSS v4](https://tailwindcss.com) — tokens de design em `@theme`, dentro de `app/globals.css`
 
 ---
 
@@ -37,19 +36,43 @@ npm install
 npm run dev
 ```
 
-Acesse `http://localhost:5173`
+Acesse `http://localhost:3000`
+
+Build de produção:
+
+```bash
+npm run build
+npm start
+```
+
+Verificação:
+
+```bash
+npm run lint
+npx vitest run
+npx playwright test
+```
 
 ---
 
 ## 📁 Estrutura
 
 ```
-src/
-├── components/     # Navbar, Hero, About, Projects, Skills, Contact, Footer
-├── data/           # projects.js — edite aqui para adicionar projetos
-├── hooks/          # useInView — scroll-triggered animations
-└── index.css       # estilos globais e tokens Tailwind
+app/          # rotas (pt em /, en em /en), layout, metadata OG
+components/   # Header, Home, About, Contact, ProjectFeature, ProjectIndex, Ruled, MarginNote, CaseField
+data/         # content.ts, projects.ts, types.ts — edite aqui para adicionar projetos
+e2e/          # testes Playwright
 ```
+
+---
+
+## 📜 Proveniência e spec
+
+Este redesign segue o spec em
+[`docs/superpowers/specs/2026-07-28-portfolio-redesign-design.md`](docs/superpowers/specs/2026-07-28-portfolio-redesign-design.md).
+Todo o conteúdo de projetos obedece à **regra de proveniência (§5.1)**: nenhum campo
+pode conter fato que não esteja escrito no repositório ou dito pelo Samuel em
+conversa registrada — sem fonte, o campo fica vazio e não renderiza.
 
 ---
 
@@ -60,4 +83,4 @@ src/
 
 ---
 
-<p align="center">Feito com React por <strong>Samuel Louren</strong></p>
+<p align="center">Feito com Next.js por <strong>Samuel Lourenço</strong></p>
