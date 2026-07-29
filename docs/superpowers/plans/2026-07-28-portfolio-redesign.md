@@ -33,7 +33,7 @@ Executada antes deste plano. Resultado condiciona a Task 8.
 
 **Consequência de layout:** o painel único do wireframe do spec não funciona — um print 0.45 a 660px de largura teria 1466px de altura. O componente de destaque passa a ter dois modos, selecionados por um campo `shape` no dado:
 
-- `shape: "phone"` → moldura estreita (~250px), lado a lado com o texto do estudo de caso em ≥900px; empilhada abaixo do texto em telas menores.
+- `shape: "phone"` → moldura estreita (~250px), à direita do texto do estudo de caso em ≥900px; empilhada **abaixo** do texto em telas menores. O texto vem antes da imagem no DOM e na tela, nos dois casos — sem `order` no CSS, para que ordem visual e ordem de leitura nunca divirjam (WCAG 1.3.2). 900px é o mesmo breakpoint do `Ruled`, então o layout inteiro muda de uma vez.
 - `shape: "web"` → painel na largura da coluna de leitura, acima do texto.
 
 Resolução é suficiente nos três para os tamanhos de renderização (`mapas` 720px numa caixa de 250px CSS; `videntes` 1600px numa caixa de 660px CSS).
@@ -1181,9 +1181,12 @@ export default function ProjectFeature({
           ) : null}
         </div>
 
-        <div className={phone ? "mt-5 flex flex-col gap-6 min-[700px]:flex-row" : "mt-5"}>
+        {/* Sem `order`: a ordem do DOM e a ordem visual sao a mesma nos dois
+            breakpoints. Em phone o texto vem primeiro e a moldura fica a
+            direita em >=900px, empilhada abaixo em telas menores. */}
+        <div className={phone ? "mt-5 flex flex-col gap-6 min-[900px]:flex-row" : "mt-5"}>
           {!phone && shot}
-          <div className={phone ? "order-2 min-w-0 flex-1" : ""}>
+          <div className={phone ? "min-w-0 flex-1" : ""}>
             <p className="text-[16px] leading-[1.7] text-fumo">
               {pick(p.description, lang)}
             </p>
@@ -1207,7 +1210,7 @@ export default function ProjectFeature({
               </dl>
             ) : null}
           </div>
-          {phone && <div className="order-1">{shot}</div>}
+          {phone && shot}
         </div>
 
         <div className="mt-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
