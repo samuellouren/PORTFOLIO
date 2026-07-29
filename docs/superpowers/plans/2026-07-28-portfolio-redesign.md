@@ -11,7 +11,9 @@
 ## Global Constraints
 
 - Paleta, valores exatos: `torra #14100D`, `bancada #1D1815`, `serragem #E9E1D5`, `fumo #9B8E81`, `brasa #CE6733`, `verdete #7D9384`. Bordas são `serragem` com alpha 8–12%, nunca um token novo.
-- `brasa` só em ação (hover de link, preenchimento de CTA, marca de seção ativa). `verdete` só em estado (ponto de disponibilidade, etiqueta "cliente real"). Máximo ~4 ocorrências de `brasa` por tela.
+- `brasa` só em ação: preenchimento/sublinhado de CTA, toggle de idioma, marca de seção ativa, e hover de link **externo** (repositório, demo, contato). **Navegação interna — âncoras para seções da própria página — usa `hover:text-serragem`, não `brasa`.** Se todo link acende em laranja, o laranja deixa de significar ação e vira a cor de "link".
+- Máximo ~4 ocorrências de `brasa` **visíveis em repouso** por tela. Estados de `:hover` não entram na contagem, porque não coexistem — só um elemento fica sob o cursor por vez.
+- `verdete` só em estado (ponto de disponibilidade, etiqueta "cliente real").
 - Duas fontes: **Bricolage Grotesque** (display) e **Newsreader** (corpo). Nenhuma terceira família. Nenhuma monospace.
 - Nenhuma animação além da entrada única de 250ms acima da dobra e transições de `:hover`/`:focus`. Sem reveal on scroll, sem parallax, sem stagger. `prefers-reduced-motion: reduce` remove tudo.
 - **Regra de proveniência (spec §5.1):** nenhum campo de conteúdo pode conter fato que não esteja no repositório ou dito pelo Samuel. Sem fonte, o campo fica ausente e não renderiza. Vale para marginália, contexto/decisão/resultado, e qualquer número. Nenhuma task deste plano autoriza escrever conteúdo novo.
@@ -838,10 +840,15 @@ export default function Header({ lang }: { lang: Lang }) {
         Samuel Lourenço
       </Link>
       <nav className="flex items-baseline gap-5 text-[14px] text-fumo">
-        <a className="hover:text-brasa" href="#projetos">{t.navWork}</a>
-        <a className="hover:text-brasa" href="#sobre">{t.navAbout}</a>
-        <a className="hover:text-brasa" href="#contato">{t.navContact}</a>
-        <Link className="hover:text-brasa" href={outro} hrefLang={lang === "pt" ? "en" : "pt-BR"}>
+        {/* Ancoras internas: hover em serragem. O brasa fica pra acao. */}
+        <a className="transition-colors hover:text-serragem" href="#projetos">{t.navWork}</a>
+        <a className="transition-colors hover:text-serragem" href="#sobre">{t.navAbout}</a>
+        <a className="transition-colors hover:text-serragem" href="#contato">{t.navContact}</a>
+        <Link
+          className="transition-colors hover:text-brasa"
+          href={outro}
+          hrefLang={lang === "pt" ? "en" : "pt-BR"}
+        >
           {rotulo}
         </Link>
       </nav>
