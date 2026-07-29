@@ -61,9 +61,9 @@ export default function ProjectFeature({
           ) : null}
         </div>
 
-        <div className={phone ? "mt-5 flex flex-col gap-6 min-[700px]:flex-row" : "mt-5"}>
+        <div className={phone ? "mt-5 flex flex-col gap-6 min-[900px]:flex-row" : "mt-5"}>
           {!phone && shot}
-          <div className={phone ? "order-2 min-w-0 flex-1" : ""}>
+          <div className={phone ? "min-w-0 flex-1" : ""}>
             <p className="text-[16px] leading-[1.7] text-fumo">
               {pick(p.description, lang)}
             </p>
@@ -87,7 +87,7 @@ export default function ProjectFeature({
               </dl>
             ) : null}
           </div>
-          {phone && <div className="order-1">{shot}</div>}
+          {phone && shot}
         </div>
 
         <div className="mt-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">

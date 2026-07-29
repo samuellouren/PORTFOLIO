@@ -33,3 +33,21 @@ test("a marginalia sai no HTML servido", async ({ request }) => {
   const html = await (await request.get("/")).text();
   expect(html).toContain("o cliente queria um software gratuito");
 });
+
+test("em >=900px a moldura phone fica a direita do texto", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  const project = page.getByTestId("project-mapa-farma");
+  const texto = await project.locator("p").first().boundingBox();
+  const moldura = await page.getByTestId("shot-mapa-farma").boundingBox();
+  expect(moldura!.x).toBeGreaterThan(texto!.x);
+});
+
+test("abaixo de 900px a moldura phone fica empilhada abaixo do texto", async ({ page }) => {
+  await page.setViewportSize({ width: 500, height: 900 });
+  await page.goto("/");
+  const project = page.getByTestId("project-mapa-farma");
+  const texto = await project.locator("p").first().boundingBox();
+  const moldura = await page.getByTestId("shot-mapa-farma").boundingBox();
+  expect(moldura!.y).toBeGreaterThan(texto!.y);
+});
