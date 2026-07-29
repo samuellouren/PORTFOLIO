@@ -16,11 +16,23 @@ test("todo link recebe foco visivel na ordem do documento", async ({ page }) => 
   expect(links).toBeGreaterThan(8);
   for (let i = 0; i < links; i++) {
     await page.keyboard.press("Tab");
+    // Varios links tem a classe "transition-colors", cuja transition-property
+    // (definida pelo Tailwind v4) inclui outline-color. Isso anima a cor do
+    // outline a partir da cor de texto do proprio link ate a brasa em ~150ms
+    // (--default-transition-duration). Esperamos a transicao assentar antes
+    // de ler o estilo computado — senao capturamos o quadro inicial da
+    // animacao, que ainda nao é a cor final.
+    await page.waitForTimeout(200);
     const estilo = await page.evaluate(() => {
       const el = document.activeElement as HTMLElement;
-      return getComputedStyle(el).outlineStyle;
+      const cs = getComputedStyle(el);
+      return { outlineStyle: cs.outlineStyle, outlineColor: cs.outlineColor };
     });
-    expect(estilo).not.toBe("none");
+    // Confirma o estilo de foco definido em app/globals.css (:focus-visible),
+    // nao so a ausencia de "none" — outline:auto do navegador tambem passaria
+    // nesse teste mais fraco sem nenhum CSS de foco estar de fato aplicado.
+    expect(estilo.outlineStyle).toBe("solid");
+    expect(estilo.outlineColor).toBe("rgb(206, 103, 51)"); // --color-brasa: #CE6733
   }
 });
 
