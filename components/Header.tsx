@@ -16,10 +16,15 @@ export default function Header({ lang }: { lang: Lang }) {
         Samuel Lourenço
       </Link>
       <nav className="flex items-baseline gap-5 text-[14px] text-fumo">
-        <a className="hover:text-brasa" href="#projetos">{t.navWork}</a>
-        <a className="hover:text-brasa" href="#sobre">{t.navAbout}</a>
-        <a className="hover:text-brasa" href="#contato">{t.navContact}</a>
-        <Link className="hover:text-brasa" href={outro} hrefLang={lang === "pt" ? "en" : "pt-BR"}>
+        {/* Ancoras internas: hover em serragem. O brasa fica pra acao. */}
+        <a className="transition-colors hover:text-serragem" href="#projetos">{t.navWork}</a>
+        <a className="transition-colors hover:text-serragem" href="#sobre">{t.navAbout}</a>
+        <a className="transition-colors hover:text-serragem" href="#contato">{t.navContact}</a>
+        <Link
+          className="transition-colors hover:text-brasa"
+          href={outro}
+          hrefLang={lang === "pt" ? "en" : "pt-BR"}
+        >
           {rotulo}
         </Link>
       </nav>
