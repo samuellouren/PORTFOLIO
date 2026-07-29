@@ -1,6 +1,9 @@
 import Header from "./Header";
 import Opening from "./Opening";
 import ProjectFeature from "./ProjectFeature";
+import ProjectIndex from "./ProjectIndex";
+import About from "./About";
+import Contact from "./Contact";
 import { content } from "@/data/content";
 import { projects } from "@/data/projects";
 import type { Lang } from "@/data/types";
@@ -22,6 +25,9 @@ export default function Home({ lang }: { lang: Lang }) {
         {projects.filter((p) => p.featured).map((p) => (
           <ProjectFeature key={p.id} project={p} lang={lang} />
         ))}
+        <ProjectIndex lang={lang} />
+        <About lang={lang} />
+        <Contact lang={lang} />
       </main>
       <footer className="mx-auto max-w-[900px] border-t border-traco px-5 py-8 text-[14px] text-fumo sm:px-8">
         {t.footer}
