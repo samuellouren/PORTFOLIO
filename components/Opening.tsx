@@ -18,10 +18,10 @@ export default function Opening({ lang }: { lang: Lang }) {
         </div>
       }
     >
-      <h1 className="max-w-[560px] font-display text-[clamp(1.9rem,5.5vw,2.9rem)] font-semibold leading-[1.12]">
+      <h1 className="entrada max-w-[560px] font-display text-[clamp(1.9rem,5.5vw,2.9rem)] font-semibold leading-[1.12]">
         Samuel Lourenço
       </h1>
-      <p className="mt-4 max-w-[560px] text-[17px] leading-[1.7] text-serragem">
+      <p className="entrada mt-4 max-w-[560px] text-[17px] leading-[1.7] text-serragem">
         {t.heroSub}
       </p>
       <p className="mt-3 max-w-[560px] text-[16px] text-fumo">{t.workSub}</p>

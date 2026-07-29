@@ -42,7 +42,7 @@ Resolução é suficiente nos três para os tamanhos de renderização (`mapas` 
 
 1. `mapas.jpeg` mostra a tela "Pedidos", mas a marginália e o campo Decisão do Mapa Farma tratam inteiramente da escolha de MapLibre/OpenStreetMap. Um print da tela de mapa alinharia imagem e texto.
 2. `focos.jpeg` mostra estado quase vazio (1 dia seguido, 1min de 2h, uma barra).
-3. `videntes.jpeg` exibe nomes de pessoas reais no ranking (Stefânia, brunin do gás, Mirella). Precisa de confirmação de publicação.
+3. ~~`videntes.jpeg` exibe nomes de pessoas reais no ranking.~~ **Resolvido em 2026-07-29:** o Samuel confirmou que são amigos dele e que autorizaram a publicação. O print vai ao ar como está.
 
 Se os arquivos forem trocados mantendo nome e forma, nenhuma task muda.
 
