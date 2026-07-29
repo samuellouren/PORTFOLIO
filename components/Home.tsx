@@ -1,6 +1,8 @@
 import Header from "./Header";
 import Opening from "./Opening";
+import ProjectFeature from "./ProjectFeature";
 import { content } from "@/data/content";
+import { projects } from "@/data/projects";
 import type { Lang } from "@/data/types";
 
 export default function Home({ lang }: { lang: Lang }) {
@@ -16,6 +18,10 @@ export default function Home({ lang }: { lang: Lang }) {
       <Header lang={lang} />
       <main id="conteudo" lang={lang === "pt" ? "pt-BR" : "en"}>
         <Opening lang={lang} />
+        <h2 id="projetos" className="sr-only">{t.workTitle}</h2>
+        {projects.filter((p) => p.featured).map((p) => (
+          <ProjectFeature key={p.id} project={p} lang={lang} />
+        ))}
       </main>
       <footer className="mx-auto max-w-[900px] border-t border-traco px-5 py-8 text-[14px] text-fumo sm:px-8">
         {t.footer}
