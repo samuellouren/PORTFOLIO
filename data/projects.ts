@@ -113,7 +113,7 @@ export const projects: Project[] = [
     shape: "phone",
     stack: "React Native · Expo",
     nota: {
-      pt: "começou como um timer simples e virou um app focado no desvício do celular.",
+      pt: "começou como um timer simples e virou um app focado no uso consciente do celular.",
       en: "started as a plain timer and became an app about breaking the phone habit.",
     },
     // contexto/decisao/resultado ausentes de propósito: sem fatos confirmados.
@@ -177,7 +177,21 @@ export const projects: Project[] = [
 ];
 
 export const skills: string[] = [
-  "React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS",
-  "React Native", "Expo", "Node.js", "Express", "Python", "FastAPI",
-  "Java", "Spring Boot", "SQL", "SQLite", "Turso (libSQL)", "Git",
+  "React",
+  "Next.js",
+  "TypeScript",
+  "JavaScript",
+  "Tailwind CSS",
+  "React Native",
+  "Expo",
+  "Node.js",
+  "Express",
+  "Python",
+  "FastAPI",
+  "Java",
+  "Spring Boot",
+  "SQL",
+  "SQLite",
+  "Turso (libSQL)",
+  "Git",
 ];
