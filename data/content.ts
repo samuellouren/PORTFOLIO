@@ -5,36 +5,31 @@ import type { Lang } from "./types";
 export interface Copy {
   navAbout: string;
   navWork: string;
-  navSkills: string;
   navContact: string;
-  navCta: string;
 
-  heroB1: string;
-  heroB2: string;
   heroSub: string;
   ctaWork: string;
   ctaCv: string;
 
   aboutLabel: string;
-  aboutTitle: string;
   aboutParagraphs: string[];
 
-  workLabel: string;
   workTitle: string;
   workSub: string;
   linkCode: string;
   linkDemo: string;
+  indexLabel: string;
 
-  skillsLabel: string;
   skillsTitle: string;
 
-  contactLabel: string;
   contactTitle: string;
   contactSub: string;
 
   footer: string;
-  langLabel: string;
-  menuLabel: string;
+  skipLink: string;
+  openToRemote: string;
+  caseDecision: string;
+  caseResult: string;
 }
 
 export interface Contact {
@@ -48,85 +43,75 @@ export const content: Record<Lang, Copy> = {
   pt: {
     navAbout: "Sobre",
     navWork: "Projetos",
-    navSkills: "Skills",
     navContact: "Contato",
-    navCta: "Vamos conversar",
 
-    heroB1: "Produtos web e mobile",
-    heroB2: "feitos com calma e cuidado.",
     heroSub:
       "Dev full-stack. Construo aplicações de ponta a ponta com React, TypeScript e Node.js, e gosto de entender o problema direito antes de escrever a primeira linha.",
     ctaWork: "Ver projetos",
     ctaCv: "Baixar currículo",
 
     aboutLabel: "Sobre mim",
-    aboutTitle: "Curioso por natureza, movido por metas",
     aboutParagraphs: [
       "Sou de Maceió, Alagoas, e estudo Engenharia de Software na UMJ. Antes da faculdade já tinha base prática: formação técnica em desenvolvimento web pelo SENAI.",
       "Aprendo construindo projeto real, não seguindo tutorial. Meu ciclo é simples: aprender, construir, revisar — é fazendo que a coisa gruda.",
       "Hoje procuro uma vaga como dev remoto, no Brasil ou fora, para crescer construindo produto que as pessoas usam de verdade.",
     ],
 
-    workLabel: "Projetos",
     workTitle: "Projetos",
     workSub:
       "Três em destaque — um cliente real, um produto próprio e um app publicado.",
     linkCode: "Ver código",
     linkDemo: "Demo ao vivo",
+    indexLabel: "o resto",
 
-    skillsLabel: "Habilidades",
     skillsTitle: "Ferramentas",
 
-    contactLabel: "Contato",
     contactTitle: "Contato",
     contactSub:
       "Aberto a vagas, freelas ou só um papo sobre tecnologia. Costumo responder no mesmo dia.",
 
     footer: "Feito com café em Maceió.",
-    langLabel: "Idioma",
-    menuLabel: "Menu",
+    skipLink: "Pular para o conteúdo",
+    openToRemote: "aberto a remoto",
+    caseDecision: "Decisão",
+    caseResult: "Resultado",
   },
 
   en: {
     navAbout: "About",
     navWork: "Work",
-    navSkills: "Skills",
     navContact: "Contact",
-    navCta: "Let's talk",
 
-    heroB1: "Web and mobile products",
-    heroB2: "built slowly, on purpose.",
     heroSub:
       "Full-stack developer. I build applications end to end with React, TypeScript and Node.js, and I like to understand the problem properly before writing the first line.",
     ctaWork: "See projects",
     ctaCv: "Download resume",
 
     aboutLabel: "About me",
-    aboutTitle: "Curious by nature, driven by goals",
     aboutParagraphs: [
       "I'm from Maceió, Brazil, studying Software Engineering at UMJ. I had hands-on ground before university: a technical web development degree from SENAI.",
       "I learn by building real projects, not by following tutorials. The loop is simple: learn, build, review — it only sticks when you make something.",
       "I'm looking for a remote developer role, in Brazil or abroad, to grow by building products people actually use.",
     ],
 
-    workLabel: "Work",
     workTitle: "Work",
     workSub:
       "Three highlights — a real client, a product of my own and a published app.",
     linkCode: "View code",
     linkDemo: "Live demo",
+    indexLabel: "the rest",
 
-    skillsLabel: "Skills",
     skillsTitle: "Tools",
 
-    contactLabel: "Contact",
     contactTitle: "Contact",
     contactSub:
       "Open to roles, freelance work or just talking shop. I usually reply the same day.",
 
     footer: "Made with coffee in Maceió, Brazil.",
-    langLabel: "Language",
-    menuLabel: "Menu",
+    skipLink: "Skip to content",
+    openToRemote: "open to remote",
+    caseDecision: "Decision",
+    caseResult: "Result",
   },
 };
 

@@ -19,7 +19,7 @@ export default function Contact({ lang }: { lang: Lang }) {
           <li key={c.id}>
             <a
               href={c.href}
-              className="border-b border-traco-forte pb-[1px] transition-colors hover:border-brasa hover:text-brasa"
+              className="-my-3.5 border-b border-traco-forte py-3.5 transition-colors hover:border-brasa hover:text-brasa"
             >
               <span className="sr-only">{c.label} </span>
               {c.value}

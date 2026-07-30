@@ -6,7 +6,7 @@ import { content } from "@/data/content";
 import { pick, type Lang, type Project } from "@/data/types";
 
 const slug = (t: string) =>
-  t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, "-");
+  t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-");
 
 export default function ProjectFeature({
   project: p,
@@ -51,11 +51,17 @@ export default function ProjectFeature({
     >
       <article data-testid={`project-${id}`}>
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <h2 className="font-display text-[22px] font-semibold uppercase tracking-[0.06em]">
+          <h3 className="font-display text-[22px] font-semibold uppercase tracking-[0.06em]">
             {p.title}
-          </h2>
+          </h3>
           {p.tag ? (
-            <span className="text-[12px] uppercase tracking-[0.14em] text-verdete">
+            <span
+              className={
+                p.tag.pt === "Cliente real"
+                  ? "text-[12px] uppercase tracking-[0.14em] text-verdete"
+                  : "text-[12px] uppercase tracking-[0.14em] text-fumo"
+              }
+            >
               {pick(p.tag, lang)}
             </span>
           ) : null}
@@ -75,12 +81,12 @@ export default function ProjectFeature({
                   </CaseField>
                 ) : null}
                 {p.decisao ? (
-                  <CaseField label={lang === "pt" ? "Decisão" : "Decision"}>
+                  <CaseField label={t.caseDecision}>
                     {pick(p.decisao, lang)}
                   </CaseField>
                 ) : null}
                 {p.resultado ? (
-                  <CaseField label={lang === "pt" ? "Resultado" : "Result"}>
+                  <CaseField label={t.caseResult}>
                     {pick(p.resultado, lang)}
                   </CaseField>
                 ) : null}
@@ -97,14 +103,14 @@ export default function ProjectFeature({
               href={p.github}
               className="border-b border-traco-forte pb-[1px] transition-colors hover:border-brasa hover:text-brasa"
             >
-              {t.linkCode} ↗
+              {t.linkCode} <span aria-hidden="true">↗</span>
             </a>
             {p.demo ? (
               <a
                 href={p.demo}
                 className="border-b border-traco-forte pb-[1px] transition-colors hover:border-brasa hover:text-brasa"
               >
-                {t.linkDemo} ↗
+                {t.linkDemo} <span aria-hidden="true">↗</span>
               </a>
             ) : null}
           </span>

@@ -17,11 +17,11 @@ export default function Header({ lang }: { lang: Lang }) {
       </Link>
       <nav className="flex items-baseline gap-5 text-[14px] text-fumo">
         {/* Ancoras internas: hover em serragem. O brasa fica pra acao. */}
-        <a className="transition-colors hover:text-serragem" href="#projetos">{t.navWork}</a>
-        <a className="transition-colors hover:text-serragem" href="#sobre">{t.navAbout}</a>
-        <a className="transition-colors hover:text-serragem" href="#contato">{t.navContact}</a>
+        <a className="-my-3 py-3 transition-colors hover:text-serragem" href="#projetos">{t.navWork}</a>
+        <a className="-my-3 py-3 transition-colors hover:text-serragem" href="#sobre">{t.navAbout}</a>
+        <a className="-my-3 py-3 transition-colors hover:text-serragem" href="#contato">{t.navContact}</a>
         <Link
-          className="transition-colors hover:text-brasa"
+          className="-my-3 py-3 transition-colors hover:text-brasa"
           href={outro}
           hrefLang={lang === "pt" ? "en" : "pt-BR"}
         >

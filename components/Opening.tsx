@@ -13,7 +13,7 @@ export default function Opening({ lang }: { lang: Lang }) {
           <div>Maceió, AL</div>
           <div className="mt-1 flex items-center gap-2 min-[900px]:justify-end">
             <span aria-hidden className="inline-block h-[6px] w-[6px] rounded-full bg-verdete" />
-            <span>{lang === "pt" ? "aberto a remoto" : "open to remote"}</span>
+            <span>{t.openToRemote}</span>
           </div>
         </div>
       }
@@ -28,16 +28,16 @@ export default function Opening({ lang }: { lang: Lang }) {
       <div className="mt-7 flex flex-wrap items-center gap-5 text-[15px]">
         <a
           href="#projetos"
-          className="border-b border-brasa pb-[2px] font-display text-serragem transition-colors hover:text-brasa"
+          className="-my-2.5 border-b border-brasa py-2.5 font-display text-serragem transition-colors hover:text-brasa"
         >
-          {t.ctaWork} ↓
+          {t.ctaWork} <span aria-hidden="true">↓</span>
         </a>
         <a
           href={cv.url}
           download={cv.name}
-          className="border-b border-traco-forte pb-[2px] font-display text-fumo transition-colors hover:border-brasa hover:text-serragem"
+          className="-my-2.5 border-b border-traco-forte py-2.5 font-display text-fumo transition-colors hover:border-brasa hover:text-serragem"
         >
-          {t.ctaCv} ↓
+          {t.ctaCv} <span aria-hidden="true">↓</span>
         </a>
       </div>
     </Ruled>

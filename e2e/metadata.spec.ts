@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
-const BASE = "https://samuellourenco.dev";
+const BASE =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-murex-zeta-35.vercel.app";
 
 for (const [rota, locale] of [["/", "pt_BR"], ["/en", "en_US"]] as const) {
   test(`${rota} tem OG e twitter completos`, async ({ request }) => {

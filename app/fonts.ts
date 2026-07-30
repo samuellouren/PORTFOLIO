@@ -4,7 +4,6 @@ export const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-bricolage",
   display: "swap",
-  weight: ["500", "600", "700"],
 });
 
 export const newsreader = Newsreader({
@@ -12,5 +11,4 @@ export const newsreader = Newsreader({
   variable: "--font-newsreader",
   display: "swap",
   style: ["normal", "italic"],
-  weight: ["300", "400", "500"],
 });

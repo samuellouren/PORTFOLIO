@@ -16,7 +16,7 @@ export default function Home({ lang }: { lang: Lang }) {
         href="#conteudo"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-10 focus:bg-bancada focus:px-4 focus:py-2"
       >
-        {lang === "pt" ? "Pular para o conteúdo" : "Skip to content"}
+        {t.skipLink}
       </a>
       <Header lang={lang} />
       <main id="conteudo" lang={lang === "pt" ? "pt-BR" : "en"}>
