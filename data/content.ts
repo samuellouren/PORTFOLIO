@@ -62,7 +62,7 @@ export const content: Record<Lang, Copy> = {
       "Três em destaque — um cliente real, um produto próprio e um app publicado.",
     linkCode: "Ver código",
     linkDemo: "Demo ao vivo",
-    indexLabel: "o resto",
+    indexLabel: "Outros Projetos",
 
     skillsTitle: "Ferramentas",
 
@@ -99,7 +99,7 @@ export const content: Record<Lang, Copy> = {
       "Three highlights — a real client, a product of my own and a published app.",
     linkCode: "View code",
     linkDemo: "Live demo",
-    indexLabel: "the rest",
+    indexLabel: "Other projects",
 
     skillsTitle: "Tools",
 
