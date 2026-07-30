@@ -1,12 +1,11 @@
 import "./globals.css";
 import { bricolage, newsreader } from "./fonts";
+import { siteUrl } from "./site";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-murex-zeta-35.vercel.app"
-  ),
+  metadataBase: new URL(siteUrl),
 };
 
 export const viewport: Viewport = {
