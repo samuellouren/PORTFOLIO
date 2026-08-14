@@ -140,11 +140,11 @@ export const contacts: Contact[] = [
 // `name` vira o nome do arquivo salvo pelo navegador (atributo download).
 export const CV_FILES: Record<Lang, { url: string; name: string }> = {
   pt: {
-    url: "/cv-samuel-lourenco-pt.pdf",
+    url: "/curriculoPt.pdf",
     name: "Samuel Lourenco - Curriculo.pdf",
   },
   en: {
-    url: "/cv-samuel-lourenco-en.pdf",
+    url: "/curriculoen.pdf",
     name: "Samuel Lourenco - Resume.pdf",
   },
 };
