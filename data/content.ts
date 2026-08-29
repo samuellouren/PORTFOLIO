@@ -52,7 +52,7 @@ export const content: Record<Lang, Copy> = {
 
     aboutLabel: "Sobre mim",
     aboutParagraphs: [
-      "Sou de Maceió, Alagoas, e estudo Engenharia de Software na UMJ. Antes da faculdade já tinha base prática: formação técnica em desenvolvimento web pelo SENAI.",
+      "Sou de Maceió, Alagoas, e estudo bacharelado em sistemas de informação no CESMAC. Antes da faculdade já tinha base prática: formação técnica em desenvolvimento web pelo SENAI.",
       "Aprendo construindo projeto real, não seguindo tutorial. Meu ciclo é simples: aprender, construir, revisar — é fazendo que a coisa gruda.",
       "Hoje procuro uma vaga como dev remoto, no Brasil ou fora, para crescer construindo produto que as pessoas usam de verdade.",
     ],
@@ -89,7 +89,7 @@ export const content: Record<Lang, Copy> = {
 
     aboutLabel: "About me",
     aboutParagraphs: [
-      "I'm from Maceió, Brazil, studying Software Engineering at UMJ. I had hands-on ground before university: a technical web development degree from SENAI.",
+      "I'm from Maceió, Brazil, studying bachelor in Information Systems at CESMAC. I had hands-on ground before university: a technical web development degree from SENAI.",
       "I learn by building real projects, not by following tutorials. The loop is simple: learn, build, review — it only sticks when you make something.",
       "I'm looking for a remote developer role, in Brazil or abroad, to grow by building products people actually use.",
     ],
