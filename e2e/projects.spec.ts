@@ -28,18 +28,38 @@ test("o card mostra a stack curta abaixo do resultado, em fumo e menor", async (
 });
 
 for (const largura of [1440, 375]) {
-  test(`em ${largura}px o print de celular da home para em 420px; no caso sai inteiro`, async ({ page }) => {
+  test(`em ${largura}px o print de celular da home para em 400px com degrade; no caso sai inteiro`, async ({ page }) => {
     await page.setViewportSize({ width: largura, height: 900 });
     await page.goto("/");
+    const bancada = await page.evaluate(() => {
+      const el = document.createElement("div");
+      el.className = "bg-bancada";
+      document.body.append(el);
+      const cor = getComputedStyle(el).backgroundColor;
+      el.remove();
+      return cor;
+    });
     for (const id of ["mapa-farma", "focusdrop"]) {
-      const caixa = (await page.getByTestId(`shot-${id}`).boundingBox())!;
-      expect(caixa.height, id).toBeLessThanOrEqual(420);
+      const shot = page.getByTestId(`shot-${id}`);
+      const caixa = (await shot.boundingBox())!;
+      expect(caixa.height, id).toBeLessThanOrEqual(400);
       // a imagem preenche a largura e o topo fica visivel
-      const img = (await page.getByTestId(`shot-${id}`).locator("img").boundingBox())!;
+      const img = (await shot.locator("img").boundingBox())!;
       expect(img.y, id).toBeCloseTo(caixa.y + 1, 0);
+      // degrade em pseudo-elemento, colado na base, terminando na cor da moldura
+      const fim = await shot.evaluate((el) => {
+        const s = getComputedStyle(el, "::after");
+        return { pos: s.position, bottom: s.bottom, img: s.backgroundImage };
+      });
+      expect(fim.pos, id).toBe("absolute");
+      expect(fim.bottom, id).toBe("0px");
+      expect(fim.img, id).toContain("linear-gradient");
+      expect(fim.img.replace(/\s/g, ""), id).toContain(bancada.replace(/\s/g, ""));
     }
     await page.goto("/projetos/mapa-farma");
-    expect((await page.getByTestId("case-shot").boundingBox())!.height).toBeGreaterThan(500);
+    const caso = page.getByTestId("case-shot");
+    expect((await caso.boundingBox())!.height).toBeGreaterThan(500);
+    expect(await caso.evaluate((el) => getComputedStyle(el, "::after").backgroundImage)).toBe("none");
   });
 }
 

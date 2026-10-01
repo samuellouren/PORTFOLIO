@@ -4,9 +4,13 @@ import type { Shape, Video } from "@/data/types";
 // Screenshot com moldura: estreita e alta para "phone", larga para "web".
 // width/height so reservam a proporcao (sem CLS); a imagem escala por CSS.
 //
-// Com `recorte`, a moldura phone para em 420px e corta o resto de baixo (como
+// Com `recorte`, a moldura phone para em 400px e corta o resto de baixo (como
 // object-cover + object-top): no card da home o print inteiro deixava um vazio
-// grande ao lado do texto. Na pagina do caso o print sai inteiro.
+// grande ao lado do texto. 400px (72% da tela) deixa o mapa do Mapa Farma
+// inteiro e para acima do botao "+", e no FocusDrop mostra o grafico da
+// semana e para abaixo dos dias ativos. Um degrade em ::after, da transparencia
+// para o fundo da moldura (bancada), apaga a borda do corte. Na pagina do caso
+// o print sai inteiro, sem degrade.
 //
 // Com `video`, a moldura mostra o video no lugar do print. Sem JS para ler
 // prefers-reduced-motion, saem dois <video> e o CSS escolhe um: o que toca
@@ -31,6 +35,8 @@ export default function Shot({
   recorte?: boolean;
 }) {
   const phone = shape === "phone";
+  const degrade =
+    "after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-16 after:bg-linear-to-t after:from-bancada after:to-transparent";
   const width = phone ? 250 : 660;
   const height = phone ? 556 : 345;
   const comum = {
@@ -49,7 +55,7 @@ export default function Shot({
       data-testid={testId}
       className={
         phone
-          ? `w-[250px] shrink-0 self-start overflow-hidden rounded-[14px] border border-traco-forte bg-bancada${recorte ? " max-h-[420px]" : ""}`
+          ? `w-[250px] shrink-0 self-start overflow-hidden rounded-[14px] border border-traco-forte bg-bancada${recorte ? ` relative max-h-[400px] ${degrade}` : ""}`
           : "overflow-hidden rounded-[6px] border border-traco-forte bg-bancada"
       }
     >
