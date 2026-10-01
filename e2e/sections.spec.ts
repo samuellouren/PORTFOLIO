@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { skillsPrincipais, skillsTambem } from "../data/projects";
 
 test("o indice lista os quatro projetos nao-destaque", async ({ page }) => {
   await page.goto("/");
@@ -24,17 +25,18 @@ test("o indice mostra Demo so para quem tem demo, alem do GitHub", async ({ page
   await expect(page.getByTestId("index-demo")).toHaveText(/Demo/);
 });
 
-test("ferramentas aparecem em quatro grupos rotulados", async ({ page }) => {
+test("ferramentas aparecem em dois niveis: principais e tambem ja usei", async ({ page }) => {
   await page.goto("/");
   const s = page.getByTestId("skills");
-  await expect(s.locator("dt")).toHaveText(["Front-end", "Mobile", "Back-end", "Dados / Infra"]);
+  await expect(s.locator("dt")).toHaveText(["Principais", "Também já usei"]);
+  await expect(page.getByTestId("skills-main")).toHaveText(skillsPrincipais.join(", "));
+  await expect(page.getByTestId("skills-also")).toHaveText(skillsTambem.join(", "));
+  // o segundo nivel e menor que o primeiro
+  const tam = async (id: string) =>
+    parseFloat(await page.getByTestId(id).evaluate((el) => getComputedStyle(el).fontSize));
+  expect(await tam("skills-also")).toBeLessThan(await tam("skills-main"));
   await page.goto("/en");
-  await expect(page.getByTestId("skills").locator("dt")).toHaveText([
-    "Front end",
-    "Mobile",
-    "Back end",
-    "Data / Infra",
-  ]);
+  await expect(page.getByTestId("skills").locator("dt")).toHaveText(["Main", "Also used"]);
 });
 
 test("as reguas dos contatos tem a mesma largura e o mesmo espacamento", async ({ page }) => {

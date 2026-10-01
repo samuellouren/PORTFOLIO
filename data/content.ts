@@ -22,6 +22,8 @@ export interface Copy {
   indexLabel: string;
 
   skillsTitle: string;
+  skillsMain: string;
+  skillsAlso: string;
 
   contactTitle: string;
   contactSub: string;
@@ -81,6 +83,8 @@ export const content: Record<Lang, Copy> = {
     indexLabel: "Outros Projetos",
 
     skillsTitle: "Ferramentas",
+    skillsMain: "Principais",
+    skillsAlso: "Também já usei",
 
     contactTitle: "Contato",
     contactSub:
@@ -130,6 +134,8 @@ export const content: Record<Lang, Copy> = {
     indexLabel: "Other projects",
 
     skillsTitle: "Tools",
+    skillsMain: "Main",
+    skillsAlso: "Also used",
 
     contactTitle: "Contact",
     contactSub:

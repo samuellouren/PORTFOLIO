@@ -35,7 +35,7 @@
 // Fontes externas permitidas: README e docs/ públicos de
 // github.com/samuellouren/{Mapa-Farma, Bolao-Copa, FocusDrop}. Cada fato vindo
 // de lá leva, em comentário, o arquivo de origem.
-import { slugOf, type Marco, type Project, type SkillGroup } from "./types";
+import { slugOf, type Marco, type Project } from "./types";
 
 export const projects: Project[] = [
   {
@@ -433,23 +433,30 @@ export const trajetoria: Marco[] = [
   },
 ];
 
-// Ferramentas agrupadas por área. São as mesmas 17 da antiga lista plana:
-// agrupar não acrescenta nem remove tecnologia.
-export const skills: SkillGroup[] = [
-  {
-    label: { pt: "Front-end", en: "Front end" },
-    items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS"],
-  },
-  {
-    label: { pt: "Mobile", en: "Mobile" },
-    items: ["React Native", "Expo"],
-  },
-  {
-    label: { pt: "Back-end", en: "Back end" },
-    items: ["Node.js", "Express", "Python", "FastAPI", "Java", "Spring Boot"],
-  },
-  {
-    label: { pt: "Dados / Infra", en: "Data / Infra" },
-    items: ["SQL", "SQLite", "Turso (libSQL)", "Git"],
-  },
+// As mesmas 17 ferramentas de sempre, numa lista só: separar em níveis não
+// acrescenta nem remove tecnologia.
+export const skills: string[] = [
+  "React",
+  "Next.js",
+  "TypeScript",
+  "JavaScript",
+  "Tailwind CSS",
+  "React Native",
+  "Expo",
+  "Node.js",
+  "Express",
+  "Python",
+  "FastAPI",
+  "Java",
+  "Spring Boot",
+  "SQL",
+  "SQLite",
+  "Turso (libSQL)",
+  "Git",
 ];
+
+// Principais = as que aparecem no `tech` de algum destaque. Calculado, não
+// escrito à mão: mudou o stack de um destaque, muda aqui.
+const usadasNosDestaques = new Set(featured.flatMap((p) => p.tech));
+export const skillsPrincipais = skills.filter((s) => usadasNosDestaques.has(s));
+export const skillsTambem = skills.filter((s) => !usadasNosDestaques.has(s));

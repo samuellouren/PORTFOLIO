@@ -1,7 +1,7 @@
 import Ruled from "./Ruled";
 import { content } from "@/data/content";
-import { skills } from "@/data/projects";
-import { pick, type Lang } from "@/data/types";
+import { skillsPrincipais, skillsTambem } from "@/data/projects";
+import type { Lang } from "@/data/types";
 
 export default function About({ lang }: { lang: Lang }) {
   const t = content[lang];
@@ -23,20 +23,25 @@ export default function About({ lang }: { lang: Lang }) {
         <h3 className="font-display text-[12px] font-normal uppercase tracking-[0.14em] text-fumo">
           {t.skillsTitle}
         </h3>
+        {/* Dois niveis: o que esta nos destaques em primeiro plano; o resto
+            numa linha menor, em fumo. */}
         <dl className="mt-2">
-          {skills.map((g) => (
-            <div
-              key={g.label.pt}
-              className="mt-2 grid grid-cols-1 gap-x-4 sm:grid-cols-[120px_minmax(0,1fr)]"
-            >
-              <dt className="font-display text-[12px] uppercase leading-[1.8] tracking-[0.14em] text-fumo">
-                {pick(g.label, lang)}
-              </dt>
-              <dd className="text-[15px] leading-[1.8] text-serragem">
-                {g.items.join(", ")}
-              </dd>
-            </div>
-          ))}
+          <div className="mt-2 grid grid-cols-1 gap-x-4 sm:grid-cols-[120px_minmax(0,1fr)]">
+            <dt className="font-display text-[12px] uppercase leading-[1.8] tracking-[0.14em] text-fumo">
+              {t.skillsMain}
+            </dt>
+            <dd data-testid="skills-main" className="text-[16px] leading-[1.8] text-serragem">
+              {skillsPrincipais.join(", ")}
+            </dd>
+          </div>
+          <div className="mt-2 grid grid-cols-1 gap-x-4 sm:grid-cols-[120px_minmax(0,1fr)]">
+            <dt className="font-display text-[11px] uppercase leading-[1.9] tracking-[0.14em] text-fumo">
+              {t.skillsAlso}
+            </dt>
+            <dd data-testid="skills-also" className="text-[14px] leading-[1.8] text-fumo">
+              {skillsTambem.join(", ")}
+            </dd>
+          </div>
         </dl>
       </div>
     </Ruled>

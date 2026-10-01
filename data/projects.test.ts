@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { featured, projects, skills, trajetoria } from "./projects";
+import { featured, projects, skills, skillsPrincipais, skillsTambem, trajetoria } from "./projects";
 import { slugOf } from "./types";
 
 describe("invariantes dos projetos", () => {
@@ -110,14 +110,17 @@ describe("invariantes de imagem e ferramentas", () => {
     }
   });
 
-  it("os grupos de ferramentas guardam as mesmas 17 tecnologias, sem repeticao", () => {
-    const todas = skills.flatMap((g) => g.items);
-    expect(todas).toHaveLength(17);
-    expect(new Set(todas).size).toBe(17);
-    for (const g of skills) {
-      expect(g.label.pt.trim()).not.toBe("");
-      expect(g.label.en.trim()).not.toBe("");
-    }
+  it("a lista de ferramentas guarda as mesmas 17 tecnologias, sem repeticao", () => {
+    expect(skills).toHaveLength(17);
+    expect(new Set(skills).size).toBe(17);
+  });
+
+  it("principais + tambem particionam as 17, e principais sao as dos destaques", () => {
+    expect([...skillsPrincipais, ...skillsTambem].sort()).toEqual([...skills].sort());
+    const destaque = new Set(featured.flatMap((p) => p.tech));
+    for (const s of skillsPrincipais) expect(destaque.has(s), s).toBe(true);
+    for (const s of skillsTambem) expect(destaque.has(s), s).toBe(false);
+    for (const s of ["Java", "Spring Boot", "Python", "FastAPI"]) expect(skillsTambem).toContain(s);
   });
 
   it("stack sem grafia quebrada", () => {

@@ -63,11 +63,6 @@ export interface Marco {
   slug?: string;
 }
 
-export interface SkillGroup {
-  label: Texto;
-  items: string[];
-}
-
 export function pick(t: Texto, lang: Lang): string {
   return t[lang];
 }
