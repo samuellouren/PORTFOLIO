@@ -91,22 +91,46 @@ test("os metadados da margem saem no HTML servido", async ({ request }) => {
   expect(pt).toContain("2026 · no ar");
   expect(en).toContain("2026 · in use");
   expect(en).toContain("2026 · live");
-  // o papel sai em trechos que nao quebram por dentro; o texto visivel e
-  // conferido inteiro no teste da segunda linha
-  for (const t of [">full-stack<", ">sozinho, do zero<"]) expect(pt).toContain(t);
-  for (const t of [">full-stack<", ">solo, from scratch<"]) expect(en).toContain(t);
+  // o papel e dito uma vez, no hero; a margem dos cards fica so com ano e status
+  for (const t of [">full-stack<", ">sozinho, do zero<"]) expect(pt).not.toContain(t);
+  for (const t of [">full-stack<", ">solo, from scratch<"]) expect(en).not.toContain(t);
 });
 
-test("o papel fica na segunda linha da margem, abaixo de ano e status", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 900 });
-  await page.goto("/");
-  const margem = page.getByTestId("margin-mapa-farma");
-  await expect(margem.getByTestId("project-meta")).toHaveText("2026 · em uso");
-  await expect(margem.getByTestId("project-role")).toHaveText("full-stack · sozinho, do zero");
-  const meta = (await margem.getByTestId("project-meta").boundingBox())!;
-  const papel = (await margem.getByTestId("project-role").boundingBox())!;
-  expect(papel.y).toBeGreaterThanOrEqual(meta.y + meta.height);
+test("sozinho e do zero aparece uma vez na home: no hero, nao nas margens", async ({ page }) => {
+  for (const [rota, frase] of [["/", /sozinho,? (e )?do zero/gi], ["/en", /solo,? and from scratch/gi]] as const) {
+    await page.goto(rota);
+    const main = await page.locator("main").textContent();
+    const hero = await page.getByTestId("hero-sub").textContent();
+    expect(hero, rota).toMatch(frase);
+    // hero + o item de 2026 da Trajetoria; nenhuma margem de card
+    expect(main.match(frase)?.length, rota).toBe(2);
+    await expect(page.getByTestId("project-role"), rota).toHaveCount(0);
+  }
 });
+
+for (const largura of [1440, 900, 375]) {
+  test(`em ${largura}px o papel no caso fica em linhas proprias, sem separador solto`, async ({ page }) => {
+    await page.setViewportSize({ width: largura, height: 900 });
+    for (const [rota, linhas] of [
+      ["/projetos/mapa-farma", ["full-stack", "sozinho, do zero"]],
+      ["/en/projects/mapa-farma", ["full-stack", "solo, from scratch"]],
+    ] as const) {
+      await page.goto(rota);
+      await expect(page.getByTestId("project-meta")).toHaveText(/^2026 · /);
+      const papel = page.getByTestId("project-role");
+      await expect(papel.locator(":scope > span")).toHaveText([...linhas]);
+      await expect(papel).not.toContainText("·");
+      const meta = (await page.getByTestId("project-meta").boundingBox())!;
+      const caixas = await papel.locator(":scope > span").evaluateAll((els) =>
+        els.map((el) => ({ y: el.getBoundingClientRect().y, h: el.getBoundingClientRect().height })),
+      );
+      // abaixo de ano e status, cada trecho numa linha so (nao quebra por dentro)
+      expect(caixas[0].y).toBeGreaterThanOrEqual(meta.y + meta.height);
+      for (const c of caixas) expect(c.h).toBeLessThan(meta.height * 1.5);
+      expect(caixas[1].y).toBeGreaterThan(caixas[0].y);
+    }
+  });
+}
 
 test("a margem nao repete o que ja esta no card", async ({ page }) => {
   await page.goto("/");

@@ -62,7 +62,7 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
               </Link>
             </p>
             <div className="flex flex-col gap-3 min-[900px]:items-end">
-              <ProjectMeta meta={p.meta} lang={lang} />
+              <ProjectMeta meta={p.meta} lang={lang} papel />
               {p.nota ? <MarginNote>{pick(p.nota, lang)}</MarginNote> : null}
             </div>
           </div>

@@ -21,7 +21,7 @@ export default function Opening({ lang }: { lang: Lang }) {
       <h1 className="entrada max-w-[560px] font-display text-[clamp(1.9rem,5.5vw,2.9rem)] font-semibold leading-[1.12]">
         Samuel Lourenço
       </h1>
-      <p className="entrada mt-4 max-w-[560px] text-[17px] leading-[1.7] text-serragem">
+      <p data-testid="hero-sub" className="entrada mt-4 max-w-[560px] text-[17px] leading-[1.7] text-serragem">
         {t.heroSub}
       </p>
       <div className="mt-7 flex flex-wrap items-center gap-5 text-[15px]">

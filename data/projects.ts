@@ -14,10 +14,11 @@
 //                   Só existe se trouxer fato que NÃO aparece em outro campo do
 //                   mesmo projeto; nota que repete descrição/origem/decisão sai.
 //   meta          — metadados da margem { ano?, papel?, status? }, renderizados
-//                   como coluna de datas: "2026 · no ar" na primeira linha, papel
-//                   na segunda. papel só nos três destaques, feitos sozinho (dito
-//                   pelo Samuel em 2026-10-01); Elemental Depths e TalentMatch
-//                   foram em equipe e não levam papel.
+//                   como coluna de datas: "2026 · no ar" na primeira linha. O
+//                   papel sai só na página do caso, um trecho por linha (na home
+//                   quem diz "sozinho, do zero" é o hero). papel só nos três
+//                   destaques, feitos sozinho (dito pelo Samuel em 2026-10-01);
+//                   Elemental Depths e TalentMatch foram em equipe e não levam papel.
 //   resultado     — o que mudou de fato, em 1 frase { pt, en }. Sai no card e no caso.
 //
 // Só na página de estudo de caso (/projetos/[slug], /en/projects/[slug]):
