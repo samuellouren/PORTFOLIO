@@ -2,19 +2,22 @@ import { content } from "@/data/content";
 import type { Lang, Project } from "@/data/types";
 
 const link =
-  "border-b border-traco-forte pb-[1px] transition-colors hover:border-brasa hover:text-brasa";
+  "-my-2.5 inline-block py-2.5 text-fumo transition-colors hover:text-brasa";
 
-// Links externos do projeto: codigo sempre, demo quando existe.
+// Links externos do projeto, secundários: código sempre, demo quando existe.
+// A ação principal do card é o estudo de caso; estes ficam menores e em fumo.
 export default function ProjectLinks({ project: p, lang }: { project: Project; lang: Lang }) {
   const t = content[lang];
   return (
-    <span className="flex gap-5 text-[14px]">
+    <span className="flex gap-5 text-[13px]">
       <a href={p.github} className={link}>
-        {t.linkCode} <span aria-hidden="true">↗</span>
+        {t.linkCode}
+        <span className="sr-only"> — {p.title}</span> <span aria-hidden="true">↗</span>
       </a>
       {p.demo ? (
         <a href={p.demo} className={link}>
-          {t.linkDemo} <span aria-hidden="true">↗</span>
+          {t.linkDemo}
+          <span className="sr-only"> — {p.title}</span> <span aria-hidden="true">↗</span>
         </a>
       ) : null}
     </span>

@@ -12,16 +12,16 @@ test("o indice mostra Demo so para quem tem demo, alem do GitHub", async ({ page
   await page.goto("/");
   const idx = page.getByTestId("project-index");
   await expect(idx.getByTestId("index-demo")).toHaveCount(1);
-  await expect(idx.getByRole("link", { name: /Demo ao vivo — TalentMatch/ })).toHaveAttribute(
+  await expect(idx.getByRole("link", { name: /^Demo — TalentMatch/ })).toHaveAttribute(
     "href",
     "https://talent-match-two.vercel.app"
   );
-  await expect(idx.getByRole("link", { name: /^TalentMatch\s*— Ver código/ })).toHaveAttribute(
+  await expect(idx.getByRole("link", { name: /^TalentMatch\s*— Código/ })).toHaveAttribute(
     "href",
     "https://github.com/samuellouren/projetointegrador25"
   );
   await page.goto("/en");
-  await expect(page.getByTestId("index-demo")).toHaveText(/Live demo/);
+  await expect(page.getByTestId("index-demo")).toHaveText(/Demo/);
 });
 
 test("ferramentas aparecem em quatro grupos rotulados", async ({ page }) => {

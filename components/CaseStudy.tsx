@@ -34,6 +34,7 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
   const proximo = featured[(i + 1) % featured.length];
   const phone = p.shape === "phone";
 
+  const decisoes = p.decisoes ?? [];
   const galeria = p.galeria ?? [];
   const camadas = p.arquitetura ?? [];
 
@@ -98,18 +99,42 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
         <Secao id="arquitetura" label={t.caseArchitecture}>
           {/* Diagrama em HTML puro: camadas empilhadas, de cima (cliente)
               para baixo (dados). A lista ordenada carrega a semantica; as
-              setas sao so desenho. */}
-          <ol className="max-w-[420px]">
+              setas sao so desenho. O aparte (servico externo) fica ao lado
+              da caixa no desktop e embaixo dela no mobile. */}
+          <ol>
             {camadas.map((c, n) => (
               <li key={c.pt}>
                 {n > 0 ? (
-                  <span aria-hidden="true" className="block py-1 text-center text-fumo">
+                  <span aria-hidden="true" className="block py-1 text-center text-fumo sm:w-[300px]">
                     ↓
                   </span>
                 ) : null}
-                <span className="block rounded-[6px] border border-traco-forte bg-bancada px-4 py-3 text-center font-display text-[14px]">
-                  {pick(c, lang)}
-                </span>
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+                  <span className="block rounded-[6px] border border-traco-forte bg-bancada px-4 py-3 text-center font-display text-[14px] sm:w-[300px] sm:shrink-0">
+                    {pick(c, lang)}
+                  </span>
+                  {c.aparte ? (
+                    <span className="text-[14px] italic leading-[1.5] text-fumo">
+                      <span aria-hidden="true">↔ </span>
+                      {pick(c.aparte, lang)}
+                    </span>
+                  ) : null}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Secao>
+      ) : null}
+
+      {decisoes.length > 0 ? (
+        <Secao id="decisoes" label={t.caseDecisions}>
+          <ol className="max-w-[560px] space-y-6">
+            {decisoes.map((d) => (
+              <li key={d.titulo.pt}>
+                <h3 className="font-display text-[16px] font-semibold leading-[1.4]">
+                  {pick(d.titulo, lang)}
+                </h3>
+                <p className="mt-1 text-[16px] leading-[1.7] text-serragem">{pick(d, lang)}</p>
               </li>
             ))}
           </ol>

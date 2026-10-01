@@ -1,4 +1,7 @@
 import { test, expect } from "@playwright/test";
+import { projects } from "../data/projects";
+
+const featuredResumo = (title: string) => projects.find((p) => p.title === title)!.resumo!.pt;
 
 test("projeto web tem painel largo; projeto mobile tem moldura estreita", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
@@ -10,23 +13,45 @@ test("projeto web tem painel largo; projeto mobile tem moldura estreita", async 
   expect(phone!.height).toBeGreaterThan(phone!.width);
 });
 
-test("o rotulo do primeiro campo difere por projeto", async ({ page }) => {
-  await page.goto("/");
-  const mapa = page.getByTestId("project-mapa-farma");
-  const vidente = page.getByTestId("project-chute-do-vidente");
-  await expect(mapa).toContainText("Problema");
-  await expect(vidente).toContainText("Origem");
-  await expect(vidente).not.toContainText("Problema");
+test("o card da home e curto: sem Problema, Origem nem Decisoes", async ({ page }) => {
+  for (const id of ["mapa-farma", "chute-do-vidente", "focusdrop"]) {
+    for (const [rota, rotulos] of [
+      ["/", ["Problema", "Origem", "Decisão", "Decisões"]],
+      ["/en", ["Problem", "Origin", "Decision"]],
+    ] as const) {
+      await page.goto(rota);
+      const card = page.getByTestId(`project-${id}`);
+      for (const r of rotulos) await expect(card, `${rota} ${id} ${r}`).not.toContainText(r);
+    }
+  }
 });
 
-test("projeto sem estudo de caso nao renderiza rotulos vazios", async ({ page }) => {
+test("o card mostra resumo, resultado quando existe e os links", async ({ page }) => {
   await page.goto("/");
-  const focus = page.getByTestId("project-focusdrop");
-  await expect(focus).not.toContainText("Problema");
-  await expect(focus).not.toContainText("Decisão");
-  await expect(focus).not.toContainText("Resultado");
-  // mas a marginalia dele existe
-  await expect(page.getByTestId("margin-focusdrop").getByText(/timer simples/)).toBeVisible();
+  const mapa = page.getByTestId("project-mapa-farma");
+  await expect(page.getByTestId("resumo-mapa-farma")).toHaveText(featuredResumo("Mapa Farma"));
+  await expect(page.getByTestId("resultado-mapa-farma")).toContainText("equipe comercial");
+  await expect(page.getByTestId("resultado-focusdrop")).toHaveCount(0);
+  await expect(mapa.getByRole("link", { name: /^Código/ })).toHaveAttribute(
+    "href",
+    "https://github.com/samuellouren/Mapa-Farma"
+  );
+  // a descricao expandida fica so na pagina do caso
+  await expect(mapa).not.toContainText("App Android nativo para o trabalho de rua");
+});
+
+test("ler estudo de caso e a acao principal; codigo e demo sao secundarios", async ({ page }) => {
+  await page.goto("/");
+  const card = page.getByTestId("project-chute-do-vidente");
+  const principal = page.getByTestId("case-link-chute-do-vidente");
+  const codigo = card.getByRole("link", { name: /^Código/ });
+  const demo = card.getByRole("link", { name: /^Demo/ });
+  await expect(principal).toHaveCSS("color", "rgb(206, 103, 51)"); // brasa
+  for (const sec of [codigo, demo]) {
+    await expect(sec).toHaveCSS("color", await page.locator("footer").evaluate((el) => getComputedStyle(el).color)); // fumo
+  }
+  const tam = async (l: typeof principal) => parseFloat(await l.evaluate((el) => getComputedStyle(el).fontSize));
+  expect(await tam(codigo)).toBeLessThan(await tam(principal));
 });
 
 test("os metadados da margem saem no HTML servido", async ({ request }) => {

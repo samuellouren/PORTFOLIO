@@ -22,7 +22,7 @@ export default function Shot({
       data-testid={testId}
       className={
         phone
-          ? "w-[250px] shrink-0 overflow-hidden rounded-[14px] border border-traco-forte bg-bancada"
+          ? "w-[250px] shrink-0 self-start overflow-hidden rounded-[14px] border border-traco-forte bg-bancada"
           : "overflow-hidden rounded-[6px] border border-traco-forte bg-bancada"
       }
     >

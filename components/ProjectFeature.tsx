@@ -2,13 +2,14 @@ import Link from "next/link";
 import Ruled from "./Ruled";
 import MarginNote from "./MarginNote";
 import ProjectMeta from "./ProjectMeta";
-import CaseFields from "./CaseFields";
 import ProjectLinks from "./ProjectLinks";
 import ProjectTag from "./ProjectTag";
 import Shot from "./Shot";
 import { content } from "@/data/content";
 import { caseHref, pick, slugOf, type Lang, type Project } from "@/data/types";
 
+// Card curto da home: o que é, o que deu e para onde ir. Origem, decisões e
+// arquitetura moram só na página do caso.
 export default function ProjectFeature({
   project: p,
   lang,
@@ -50,28 +51,28 @@ export default function ProjectFeature({
         <div className={phone ? "mt-5 flex flex-col gap-6 min-[900px]:flex-row" : "mt-5"}>
           {!phone && shot}
           <div className={phone ? "min-w-0 flex-1" : shot ? "mt-5" : ""}>
-            <p className="text-[16px] leading-[1.7] text-fumo">
-              {pick(p.description, lang)}
+            <p data-testid={`resumo-${id}`} className="text-[17px] leading-[1.6] text-serragem">
+              {pick(p.resumo ?? p.description, lang)}
             </p>
-            <CaseFields project={p} lang={lang} />
-            <p className="mt-6 text-[15px]">
+            {p.resultado ? (
+              <p data-testid={`resultado-${id}`} className="mt-3 text-[16px] leading-[1.6] text-fumo">
+                {pick(p.resultado, lang)}
+              </p>
+            ) : null}
+            <div className="mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-2">
               <Link
                 href={caseHref(id, lang)}
                 data-testid={`case-link-${id}`}
-                className="-my-2.5 border-b border-brasa py-2.5 font-display text-serragem transition-colors hover:text-brasa"
+                className="-my-2.5 border-b border-brasa py-2.5 font-display text-[15px] text-brasa transition-colors hover:text-serragem"
               >
                 {t.caseRead}
                 <span className="sr-only"> — {p.title}</span>{" "}
                 <span aria-hidden="true">→</span>
               </Link>
-            </p>
+              <ProjectLinks project={p} lang={lang} />
+            </div>
           </div>
           {phone && shot}
-        </div>
-
-        <div className="mt-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-          <span className="text-[13px] text-fumo">{p.tech.join(" · ")}</span>
-          <ProjectLinks project={p} lang={lang} />
         </div>
       </article>
     </Ruled>

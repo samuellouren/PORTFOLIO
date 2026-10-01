@@ -6,39 +6,50 @@
 //                   está visível na imagem, sem acrescentar fato.
 //   shape         — proporção da screenshot, para o layout do painel: "phone" | "web"
 //   stack         — resumo do stack em uma linha, para o índice compacto
+//   resumo        — 1 frase do que o projeto é { pt, en }. É o que o card da home
+//                   mostra. A `description` fica para a página do caso, como versão
+//                   expandida, e não pode conter o resumo palavra por palavra.
 //   nota          — marginália { pt, en }: frase em 1ª pessoa na margem esquerda.
 //                   Só existe se trouxer fato que NÃO aparece em outro campo do
 //                   mesmo projeto; nota que repete descrição/origem/decisão sai.
 //   meta          — metadados da margem { ano?, papel?, status? }, renderizados
 //                   como coluna de datas ("2026 · no ar"). papel fica vazio em
 //                   todos até o Samuel informar.
-//   contexto      — 1º campo do estudo de caso { label: { pt, en }, pt, en }.
-//                   O rótulo é por projeto: "Problema" em trabalho de cliente,
-//                   "Origem" em projeto que nasceu por conta própria.
-//   decisao       — escolha técnica e o motivo real { pt, en }
-//   resultado     — o que mudou de fato { pt, en }
+//   resultado     — o que mudou de fato, em 1 frase { pt, en }. Sai no card e no caso.
 //
 // Só na página de estudo de caso (/projetos/[slug], /en/projects/[slug]):
+//   contexto      — { label: { pt, en }, pt, en }. O rótulo é por projeto:
+//                   "Problema" em trabalho de cliente, "Origem" em projeto que
+//                   nasceu por conta própria.
+//   decisoes      — escolhas técnicas [{ titulo: { pt, en }, pt, en }]
 //   galeria       — prints extras [{ src, alt: { pt, en }, shape? }]
 //   arquitetura   — camadas do sistema, uma por item, de cima (cliente) para
-//                   baixo (dados) [{ pt, en }]; vira um diagrama empilhado
+//                   baixo (dados) [{ pt, en, aparte? }]; vira um diagrama
+//                   empilhado. `aparte` é o serviço externo ligado à camada.
 //   desafio       — maior desafio técnico { pt, en }
 //   aprendizado   — o que faria diferente { pt, en }
-// Hoje os quatro estão vazios em todos os projetos: nenhum tem fonte ainda.
-// Cada destaque lista abaixo, em comentário, o que falta perguntar.
 //
 // REGRA DE PROVENIÊNCIA (ver docs/superpowers/specs/2026-07-28-portfolio-redesign-design.md §5.1):
 // nenhum destes campos pode conter fato que não esteja no repositório ou que não
 // tenha sido dito pelo Samuel. Sem fonte, o campo fica ausente e não renderiza.
+// Fontes externas permitidas: README e docs/ públicos de
+// github.com/samuellouren/{Mapa-Farma, Bolao-Copa, FocusDrop}. Cada fato vindo
+// de lá leva, em comentário, o arquivo de origem.
 import { slugOf, type Project, type SkillGroup } from "./types";
 
 export const projects: Project[] = [
   {
     id: 1,
     title: "Chute do Vidente",
+    // Fonte do resumo e da descrição: Bolao-Copa/README.md (abertura, "Sobre o
+    // projeto", "Funcionalidades").
+    resumo: {
+      pt: "Bolão da Copa 2026 com identidade mística, para cravar palpites e disputar o ranking com os amigos.",
+      en: "A 2026 World Cup prediction game with a mystic twist, for making picks and fighting over the leaderboard with friends.",
+    },
     description: {
-      pt: "Bolão da Copa 2026 com identidade mística: palpites em tempo real, grupos privados por convite, ranking geral e por grupo, gamificação com cristais e pontuação processada automaticamente via API oficial.",
-      en: "A 2026 World Cup prediction platform with a mystic identity: live picks, invite-only groups, global and group leaderboards, crystal-based gamification and scoring processed automatically from the official API.",
+      pt: "Plataforma full-stack de bolão para a Copa do Mundo 2026. Os palpites travam sozinhos 5 minutos antes de cada jogo, e a pontuação sai dos resultados oficiais: placar exato, resultado certo ou erro. Há ranking geral e ranking por grupo privado, com convite por código. Os pontos aparecem como cristais, com níveis e uma taxa de “premonição”, e a Madame Placar, a vidente de plantão, conduz a experiência.",
+      en: "A full-stack prediction platform for the 2026 World Cup. Picks lock automatically 5 minutes before each match, and scoring comes from the official results: exact score, right outcome or miss. There is a global leaderboard and one per private group, joined by invite code. Points show up as crystals, with levels and a “premonition” rate, and Madame Placar, the resident fortune teller, runs the show.",
     },
     tech: [
       "Next.js",
@@ -46,7 +57,8 @@ export const projects: Project[] = [
       "Node.js",
       "Express",
       "JWT",
-      "Turso",
+      // Era "Turso"; Bolao-Copa/README.md diz "Turso (libSQL distribuído)".
+      "Turso (libSQL)",
       "Tailwind CSS",
     ],
     github: "https://github.com/samuellouren/Bolao-Copa",
@@ -73,31 +85,73 @@ export const projects: Project[] = [
       pt: "Não era demanda de cliente. Eu queria fazer um projeto divertido, e ele nasceu como brincadeira em torno da Copa.",
       en: "Not client work. I wanted to build something fun, and it started as a joke around the World Cup.",
     },
-    decisao: {
-      pt: "Os cristais são moeda fictícia, justamente por ser brincadeira — nada de dinheiro real envolvido.",
-      en: "The crystals are fictional currency, precisely because it's a joke — no real money involved.",
-    },
     resultado: {
-      pt: "Está no ar. Os amigos usaram de verdade: mais de 25 pessoas participaram.",
-      en: "It's live. Friends actually used it: more than 25 people joined.",
+      pt: "Está no ar, e os amigos usaram de verdade: mais de 25 pessoas participaram.",
+      en: "It's live, and friends actually used it: more than 25 people joined.",
     },
-    // PENDENTE (sem fonte): galeria, arquitetura, desafio, aprendizado.
-    galeria: [],
-    arquitetura: [],
+    decisoes: [
+      {
+        // Fonte: dito pelo Samuel (spec do portfólio §5.2; antes era o campo `decisao`).
+        titulo: { pt: "Cristais em vez de dinheiro", en: "Crystals instead of money" },
+        pt: "Os cristais são moeda fictícia, justamente por ser brincadeira. Nada de dinheiro real envolvido.",
+        en: "The crystals are fictional currency, precisely because it's a joke. No real money involved.",
+      },
+      {
+        // Fonte: Bolao-Copa/README.md ("Pontuação automatizada", "Integrações" e a
+        // variável ADMIN_SECRET na tabela de ambiente).
+        titulo: { pt: "Pontuação sem ninguém apertar botão", en: "Scoring with nobody pressing a button" },
+        pt: "Um agendamento externo no cron-job.org dispara o processamento dos jogos encerrados, por uma rota administrativa protegida por segredo. A API busca os resultados oficiais na football-data.org e calcula os pontos de cada palpite.",
+        en: "An external schedule on cron-job.org triggers the processing of finished matches, through an admin route guarded by a secret. The API pulls the official results from football-data.org and scores every pick.",
+      },
+      {
+        // Fonte: Bolao-Copa/README.md ("Palpites em tempo real").
+        titulo: { pt: "Palpite fecha antes do apito", en: "Picks close before kickoff" },
+        pt: "O placar é validado e o palpite fecha automaticamente 5 minutos antes do início de cada jogo.",
+        en: "Scores are validated and picks close automatically 5 minutes before each match starts.",
+      },
+      {
+        // Fonte: Bolao-Copa/README.md ("Backend").
+        titulo: { pt: "Rate limiting nas rotas sensíveis", en: "Rate limiting on sensitive routes" },
+        pt: "Autenticação, palpites, grupos e recuperação de senha têm limite de requisições.",
+        en: "Authentication, picks, groups and password recovery are rate limited.",
+      },
+    ],
+    // Fonte: Bolao-Copa/README.md ("Stack técnica", "Integrações").
+    arquitetura: [
+      { pt: "Front-end Next.js (App Router), na Vercel", en: "Next.js front end (App Router), on Vercel" },
+      {
+        pt: "API REST em Node + Express, no Render · JWT e bcrypt",
+        en: "REST API in Node + Express, on Render · JWT and bcrypt",
+        aparte: {
+          pt: "resultados da football-data.org, disparados pelo cron-job.org · e-mails pelo Resend",
+          en: "results from football-data.org, triggered by cron-job.org · email through Resend",
+        },
+      },
+      { pt: "Turso (libSQL)", en: "Turso (libSQL)" },
+    ],
+    // PENDENTE (sem fonte): galeria (novo print), desafio, aprendizado.
   },
   {
     id: 7,
     title: "Mapa Farma",
+    // Fonte do resumo e da descrição: Mapa-Farma/README.md (abertura, "O que o app faz").
+    resumo: {
+      pt: "CRM mobile para os representantes de uma distribuidora farmacêutica de Maceió.",
+      en: "A mobile CRM for the sales reps of a pharmaceutical distributor in Maceió.",
+    },
     description: {
-      pt: "CRM comercial para uma distribuidora farmacêutica de Maceió. Representantes veem farmácias no mapa, registram relatórios de visita, gerenciam pedidos e acompanham estatísticas de venda em tempo real.",
-      en: "A sales CRM for a pharmaceutical distributor in Maceió. Reps see pharmacies on the map, log visit reports, manage orders and follow sales stats in real time.",
+      pt: "App Android nativo para o trabalho de rua. Os representantes veem todas as farmácias de Maceió num mapa real, filtram por cliente, visita e perfil de pagamento, registram visitas, lançam pedidos e acompanham a carteira num painel de 7, 30 ou 90 dias. A equipe também cadastra as farmácias que não estão no mapa.",
+      en: "A native Android app for field work. Reps see every pharmacy in Maceió on a real map, filter by client, visit and payment profile, log visits, enter orders and follow their accounts on a 7, 30 or 90 day dashboard. The team can also add pharmacies that aren't on the map.",
     },
     tech: [
       "React Native",
       "Expo",
       "Node.js",
+      // Express e MapLibre: Mapa-Farma/README.md ("Stack").
+      "Express",
       "TypeScript",
       "OpenStreetMap",
+      "MapLibre",
       "Turso (libSQL)",
     ],
     github: "https://github.com/samuellouren/Mapa-Farma",
@@ -118,34 +172,88 @@ export const projects: Project[] = [
       // docs/superpowers/specs/2026-07-07-mapa-farma-design.md (Data: 2026-07-07);
       // public/curriculoPt.pdf ("Mapa Farma … Maceió, AL · 2026").
       ano: "2026",
-      // Fonte: resultado abaixo ("Está no ar e sendo usado").
+      // Fonte: resultado abaixo ("em uso").
       status: { pt: "em uso", en: "in use" },
     },
     contexto: {
+      // Fonte: Mapa-Farma/README.md ("O problema").
       label: { pt: "Problema", en: "Problem" },
-      pt: "A distribuidora não tinha um app para isso. Os representantes controlavam visita, pedido e rota em planilhas.",
-      en: "The distributor had no app for this. Reps tracked visits, orders and routes in spreadsheets.",
-    },
-    decisao: {
-      pt: "MapLibre com OpenStreetMap em vez de Google Maps. O cliente queria uma solução gratuita, e essa foi a razão da escolha.",
-      en: "MapLibre with OpenStreetMap instead of Google Maps. The client wanted a free solution, and that was the reason for the choice.",
+      pt: "A distribuidora não tinha um app para o trabalho de rua. Os representantes controlavam visitas, pedidos e rotas em planilhas, sem uma visão única de quais farmácias eram clientes, quem foi visitado e quando, nem de quem paga em dia.",
+      en: "The distributor had no app for field work. Reps tracked visits, orders and routes in spreadsheets, with no single view of which pharmacies were clients, who had been visited and when, or who pays on time.",
     },
     resultado: {
-      pt: "Está no ar e sendo usado.",
-      en: "It's live and in use.",
+      // Fonte: Mapa-Farma/README.md ("Está no ar e em uso pela equipe comercial") e
+      // public/curriculoPt.pdf ("substituindo o controle de visitas e pedidos por planilha").
+      pt: "Está em uso pela equipe comercial e tirou das planilhas o controle de visitas e pedidos.",
+      en: "It's in use by the sales team and took visit and order tracking out of spreadsheets.",
     },
-    // PENDENTE (sem fonte): galeria, arquitetura, desafio, aprendizado.
-    galeria: [],
-    arquitetura: [],
+    // Fonte de todas as decisões: Mapa-Farma/README.md ("Decisões técnicas") e
+    // docs/superpowers/specs/2026-07-07-mapa-farma-design.md (§2, §3 e a revisão de 2026-07-07).
+    decisoes: [
+      {
+        titulo: { pt: "MapLibre + OpenStreetMap em vez de Google Maps", en: "MapLibre + OpenStreetMap instead of Google Maps" },
+        pt: "O cliente queria uma solução gratuita. MapLibre com tiles do OpenStreetMap dispensa chave de API e cobrança por uso. O react-native-maps saiu porque usa o Google Maps SDK como base no Android.",
+        en: "The client wanted a free solution. MapLibre with OpenStreetMap tiles needs no API key and no usage billing. react-native-maps was dropped because it sits on the Google Maps SDK on Android.",
+      },
+      {
+        titulo: { pt: "App nativo em vez de PWA", en: "Native app instead of a PWA" },
+        pt: "A primeira versão foi planejada como PWA (React + Vite). Virou app React Native com Expo e .apk gerado pelo EAS Build, porque a equipe queria um app instalado de verdade, não um atalho do navegador. O backend não mudou com a troca.",
+        en: "The first version was planned as a PWA (React + Vite). It became a React Native app with Expo and an .apk built by EAS Build, because the team wanted a real installed app, not a browser shortcut. The backend didn't change.",
+      },
+      {
+        titulo: { pt: "Base de farmácias a partir de dados abertos", en: "Pharmacy data from open sources" },
+        pt: "A carga inicial vem da Overpass API (OpenStreetMap), com seed complementar do CNES/DataSUS que descarta unidades públicas. Se a mesma farmácia aparece nas duas fontes a até 150 m e com nome compatível, os campos vazios são enriquecidos em vez de duplicar o registro. Um teste point-in-polygon contra o polígono real de Maceió descarta coordenadas erradas, como pontos caídos na lagoa.",
+        en: "The initial load comes from the Overpass API (OpenStreetMap), with a complementary CNES/DataSUS seed that drops public units. When the same pharmacy shows up in both sources within 150 m and with a matching name, empty fields are filled in instead of duplicating the record. A point-in-polygon test against Maceió's real boundary drops bad coordinates, such as points that land in the lagoon.",
+      },
+      {
+        titulo: { pt: "Perfil de pagamento efetivo", en: "Effective payment profile" },
+        pt: "O ajuste manual vence. Sem ajuste, o perfil vem do status do pedido mais recente. Uma única função SQL alimenta a Ficha, o filtro do Mapa e o Painel, para o app não dar respostas diferentes em telas diferentes.",
+        en: "A manual override wins. Without one, the profile follows the status of the latest order. A single SQL function feeds the pharmacy page, the map filter and the dashboard, so the app never gives different answers on different screens.",
+      },
+      {
+        titulo: { pt: "Datas no fuso de Maceió", en: "Dates in Maceió's time zone" },
+        pt: "Gravada em UTC, uma venda feita às 22h cairia no dia seguinte. O fallback de data usa o dia local de Maceió (UTC−3), independente do fuso do servidor, e isso é coberto por teste.",
+        en: "Stored in UTC, a sale made at 10 p.m. would land on the next day. The date fallback uses Maceió's local day (UTC−3), whatever the server's time zone, and a test covers it.",
+      },
+      {
+        titulo: { pt: "Banco compartilhado, sem papéis", en: "One shared database, no roles" },
+        pt: "A equipe usa um banco único. usuario_id registra quem fez algo, mas nunca restringe o que cada um vê, e não existe sistema de papéis. As estatísticas são sempre calculadas por query, sem tabelas pré-agregadas.",
+        en: "The team shares a single database. usuario_id records who did something but never limits what anyone sees, and there is no role system. Stats are always computed by query, with no pre-aggregated tables.",
+      },
+    ],
+    // Fonte: Mapa-Farma/README.md ("Arquitetura", diagrama mermaid).
+    arquitetura: [
+      {
+        pt: "App Android · React Native + Expo",
+        en: "Android app · React Native + Expo",
+        aparte: { pt: "mapa com tiles do OpenStreetMap via MapLibre", en: "map with OpenStreetMap tiles via MapLibre" },
+      },
+      {
+        pt: "API REST/JSON · Node + Express, com JWT",
+        en: "REST/JSON API · Node + Express, with JWT",
+        aparte: { pt: "busca e geocoding reverso no Nominatim", en: "search and reverse geocoding on Nominatim" },
+      },
+      {
+        pt: "Turso (libSQL)",
+        en: "Turso (libSQL)",
+        aparte: { pt: "farmácias carregadas pelos seeds Overpass + CNES", en: "pharmacies loaded by the Overpass + CNES seeds" },
+      },
+    ],
+    // PENDENTE (sem fonte): galeria, desafio, aprendizado.
   },
   {
     id: 2,
     title: "FocusDrop",
+    // Fonte do resumo e da descrição: FocusDrop/README.MD (abertura, "About", "Features").
+    // O README deixa "Google Play release" desmarcado: o app NÃO foi publicado.
+    resumo: {
+      pt: "App Android de produtividade: timer de foco, rotina e histórico de sessões.",
+      en: "An Android productivity app: focus timer, routine and session history.",
+    },
     description: {
-      // "Começou como um timer simples…" saiu daqui: já está na nota, que fica
-      // porque traz o fato novo (o foco no uso consciente do celular).
-      pt: "App de produtividade e bem-estar: ciclos Pomodoro, registro de humor e estatísticas semanais.",
-      en: "A productivity and wellbeing app: Pomodoro cycles, mood tracking and weekly stats.",
+      // "Começou como um timer simples…" não entra aqui: já está na nota.
+      pt: "Junta um timer de foco sem distrações (Pomodoro de 25 minutos com pausa automática, ou modo livre) com uma rotina semanal executada etapa por etapa, cada uma com o seu descanso proporcional. Tem histórico agrupado por dia com sequência de dias ativos, estatísticas da semana com meta diária e registro de humor. Sem conta e sem internet: tudo fica no aparelho.",
+      en: "It pairs a distraction-free focus timer (25-minute Pomodoro with an automatic break, or free mode) with a weekly routine run step by step, each step with its own proportional rest. There's a history grouped by day with an active-day streak, weekly stats with a daily goal, and mood tracking. No account and no internet: everything stays on the device.",
     },
     tech: ["React Native", "TypeScript", "Expo", "AsyncStorage"],
     github: "https://github.com/samuellouren/FocusDrop",
@@ -167,10 +275,51 @@ export const projects: Project[] = [
       pt: "começou como um timer simples e virou um app focado no uso consciente do celular.",
       en: "started as a plain timer and became an app about breaking the phone habit.",
     },
-    // contexto/decisao/resultado ausentes de propósito: sem fatos confirmados.
-    // PENDENTE (sem fonte): galeria, arquitetura, desafio, aprendizado.
-    galeria: [],
-    arquitetura: [],
+    contexto: {
+      // Fonte: FocusDrop/README.MD ("About": "deliberate practice project applying
+      // React Native fundamentals in a real, feature-complete app"; "What I learned":
+      // "learn → build → review").
+      label: { pt: "Origem", en: "Origin" },
+      pt: "Nasceu como prática deliberada: aplicar os fundamentos de React Native num app completo de verdade, no ciclo aprender, construir, revisar.",
+      en: "It started as deliberate practice: applying React Native fundamentals in a real, feature-complete app, in a learn, build, review loop.",
+    },
+    // resultado ausente: o README não registra publicação nem uso.
+    // Fonte de todas as decisões: FocusDrop/README.MD ("Architecture decisions").
+    decisoes: [
+      {
+        titulo: { pt: "Stack raiz com abas aninhadas", en: "Root stack with nested tabs" },
+        pt: "Atividade, etapa e descanso são telas de Stack empilhadas sobre as abas. A versão anterior, só com abas e telas escondidas, deixava o botão de voltar imprevisível, porque não havia pilha de verdade para desempilhar.",
+        en: "Activity, step and rest are Stack screens pushed on top of the tabs. The earlier version, tabs only with hidden screens, made the back button unpredictable because there was no real stack to pop.",
+      },
+      {
+        titulo: { pt: "Identificador fixo por notificação", en: "A fixed id per notification" },
+        pt: "O lembrete diário usa um id fixo e cada atividade usa atividade_<id>. Cancelar é direto, sem listar tudo o que está agendado para achar o alvo.",
+        en: "The daily reminder uses a fixed id and each activity uses atividade_<id>. Cancelling is direct, without listing everything scheduled to find the target.",
+      },
+      {
+        titulo: { pt: "Hooks próprios em vez de biblioteca", en: "Custom hooks instead of a library" },
+        pt: "useTimer e useCycle cuidam de todo o timer em React puro, em cerca de 80 linhas, sem dependência extra e testáveis isoladamente.",
+        en: "useTimer and useCycle handle all the timer logic in plain React, in about 80 lines, with no extra dependency and testable in isolation.",
+      },
+      {
+        titulo: { pt: "Um serviço por domínio", en: "One service per domain" },
+        pt: "Sessões, atividades, notificações e humor têm cada um o seu arquivo de serviço, e a lista de atividades já sai dessa camada ordenada por horário. Trocar o AsyncStorage por outro armazenamento mexe em um arquivo por domínio, não em todas as telas.",
+        en: "Sessions, activities, notifications and mood each have their own service file, and the activity list comes out of that layer already sorted by time. Swapping AsyncStorage for another store touches one file per domain, not every screen.",
+      },
+    ],
+    // Fonte: FocusDrop/README.MD ("Project structure", "Tech stack").
+    arquitetura: [
+      { pt: "Telas · Expo Router, Stack raiz com abas", en: "Screens · Expo Router, root Stack with tabs" },
+      { pt: "Hooks · useTimer e useCycle", en: "Hooks · useTimer and useCycle" },
+      {
+        pt: "Serviços · sessões, rotina, notificações, humor",
+        en: "Services · sessions, routine, notifications, mood",
+        aparte: { pt: "lembretes locais pelo expo-notifications", en: "local reminders through expo-notifications" },
+      },
+      { pt: "AsyncStorage, no próprio aparelho", en: "AsyncStorage, on the device" },
+    ],
+    // PENDENTE (sem fonte): galeria, desafio, aprendizado. O README tem "What I
+    // learned", mas o bloco é "O que faria diferente", que é outra pergunta.
   },
   {
     id: 3,

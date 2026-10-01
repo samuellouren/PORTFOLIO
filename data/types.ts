@@ -11,6 +11,7 @@ export interface Project {
   demo: string | null;
   featured: boolean;
   stack: string;
+  resumo?: Texto;
   tag?: Texto;
   image?: string;
   imageAlt?: Texto;
@@ -18,11 +19,11 @@ export interface Project {
   nota?: Texto;
   meta?: Meta;
   contexto?: Texto & { label: Texto };
-  decisao?: Texto;
   resultado?: Texto;
   // Só na página de estudo de caso. Ausente = não renderiza.
+  decisoes?: Decisao[];
   galeria?: Imagem[];
-  arquitetura?: Texto[];
+  arquitetura?: Camada[];
   desafio?: Texto;
   aprendizado?: Texto;
 }
@@ -33,6 +34,12 @@ export interface Meta {
   papel?: Texto;
   status?: Texto;
 }
+
+export type Decisao = Texto & { titulo: Texto };
+
+// Uma caixa do diagrama de arquitetura. `aparte` é o serviço externo ligado
+// àquela camada, escrito ao lado da caixa.
+export type Camada = Texto & { aparte?: Texto };
 
 export interface Imagem {
   src: string;

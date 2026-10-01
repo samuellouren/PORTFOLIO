@@ -13,7 +13,7 @@ describe("invariantes dos projetos", () => {
   it("nenhum campo opcional existe com string vazia", () => {
     // Proveniencia (spec 5.1): campo sem fonte fica AUSENTE, nao vazio.
     for (const p of projects) {
-      for (const k of ["nota", "contexto", "decisao", "resultado"] as const) {
+      for (const k of ["resumo", "nota", "contexto", "resultado"] as const) {
         const v = p[k];
         if (v === undefined) continue;
         expect(v.pt.trim(), `${p.title}.${k}.pt vazio`).not.toBe("");
@@ -40,6 +40,42 @@ describe("invariantes dos projetos", () => {
     expect(byTitle("Mapa Farma")!.shape).toBe("phone");
     expect(byTitle("FocusDrop")!.shape).toBe("phone");
     expect(byTitle("Chute do Vidente")!.shape).toBe("web");
+  });
+});
+
+describe("card curto na home, detalhe no caso", () => {
+  it("todo destaque tem resumo", () => {
+    for (const p of featured) expect(p.resumo, `${p.title} sem resumo`).toBeDefined();
+  });
+
+  it("resumo e resultado cabem em uma frase", () => {
+    // Uma frase = no maximo um ponto final, e so no fim.
+    for (const p of featured) {
+      for (const k of ["resumo", "resultado"] as const) {
+        const v = p[k];
+        if (!v) continue;
+        for (const lang of ["pt", "en"] as const) {
+          expect(v[lang].trim().slice(0, -1), `${p.title}.${k}.${lang}`).not.toMatch(/[.!?]\s/);
+        }
+      }
+    }
+  });
+
+  it("a descricao do caso nao repete o resumo da home palavra por palavra", () => {
+    for (const p of featured) {
+      for (const lang of ["pt", "en"] as const) {
+        expect(p.description[lang], `${p.title} ${lang}`).not.toContain(p.resumo![lang]);
+      }
+    }
+  });
+
+  it("cada decisao tem titulo e texto nos dois idiomas", () => {
+    for (const p of projects) {
+      for (const d of p.decisoes ?? []) {
+        expect(d.titulo.pt.trim() && d.titulo.en.trim(), `${p.title}: titulo vazio`).toBeTruthy();
+        expect(d.pt.trim() && d.en.trim(), `${p.title}: decisao vazia`).toBeTruthy();
+      }
+    }
   });
 });
 
@@ -108,6 +144,7 @@ describe("campos do estudo de caso (proveniencia)", () => {
     for (const p of projects) {
       for (const c of p.arquitetura ?? []) {
         expect(c.pt.trim() && c.en.trim(), `${p.title}: camada vazia`).toBeTruthy();
+        if (c.aparte) expect(c.aparte.pt.trim() && c.aparte.en.trim(), `${p.title}: aparte vazio`).toBeTruthy();
       }
       for (const g of p.galeria ?? []) {
         expect(g.src.startsWith("/projects/"), `${p.title}: src fora de public/projects`).toBe(true);

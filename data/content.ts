@@ -27,7 +27,7 @@ export interface Copy {
   footer: string;
   skipLink: string;
   openToRemote: string;
-  caseDecision: string;
+  caseDecisions: string;
   caseResult: string;
 
   notFoundTitle: string;
@@ -72,8 +72,8 @@ export const content: Record<Lang, Copy> = {
     ],
 
     workTitle: "Projetos",
-    linkCode: "Ver código",
-    linkDemo: "Demo ao vivo",
+    linkCode: "Código",
+    linkDemo: "Demo",
     indexLabel: "Outros Projetos",
 
     skillsTitle: "Ferramentas",
@@ -85,7 +85,7 @@ export const content: Record<Lang, Copy> = {
     footer: "Feito com café em Maceió.",
     skipLink: "Pular para o conteúdo",
     openToRemote: "aberto a remoto",
-    caseDecision: "Decisão",
+    caseDecisions: "Decisões",
     caseResult: "Resultado",
 
     notFoundTitle: "Página não encontrada.",
@@ -120,8 +120,8 @@ export const content: Record<Lang, Copy> = {
     ],
 
     workTitle: "Work",
-    linkCode: "View code",
-    linkDemo: "Live demo",
+    linkCode: "Code",
+    linkDemo: "Demo",
     indexLabel: "Other projects",
 
     skillsTitle: "Tools",
@@ -133,7 +133,7 @@ export const content: Record<Lang, Copy> = {
     footer: "Made with coffee in Maceió, Brazil.",
     skipLink: "Skip to content",
     openToRemote: "open to remote",
-    caseDecision: "Decision",
+    caseDecisions: "Decisions",
     caseResult: "Result",
 
     notFoundTitle: "Page not found.",

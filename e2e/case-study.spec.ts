@@ -40,24 +40,47 @@ for (const r of rotas) {
   });
 }
 
-test("campos sem fonte nao aparecem na pagina", async ({ page }) => {
-  // Hoje nenhum projeto tem galeria, arquitetura, desafio ou aprendizado.
+test("blocos com fonte aparecem; blocos sem fonte nao", async ({ page }) => {
+  // Hoje nenhum projeto tem galeria, desafio ou aprendizado. Arquitetura e
+  // decisoes vieram dos READMEs e docs dos repositorios.
   for (const r of rotas) {
     await page.goto(r.url);
-    for (const id of ["galeria", "arquitetura", "desafio", "aprendizado"]) {
+    for (const id of ["galeria", "desafio", "aprendizado"]) {
       await expect(page.getByTestId(`case-${id}`), `${r.url} ${id}`).toHaveCount(0);
     }
+    for (const id of ["arquitetura", "decisoes"]) {
+      await expect(page.getByTestId(`case-${id}`), `${r.url} ${id}`).toHaveCount(1);
+    }
     const texto = await page.locator("main").innerText();
-    for (const rotulo of ["Galeria", "Arquitetura", "Maior desafio", "O que faria diferente",
-      "Gallery", "Architecture", "Hardest problem", "What I'd do differently"]) {
+    for (const rotulo of ["Galeria", "Maior desafio", "O que faria diferente",
+      "Gallery", "Hardest problem", "What I'd do differently"]) {
       expect(texto, `${r.url} mostra "${rotulo}"`).not.toContain(rotulo);
     }
   }
-  // FocusDrop nao tem estudo de caso: nenhum rotulo vazio.
+  // FocusDrop nao tem resultado: o rotulo nao aparece vazio.
   await page.goto("/projetos/focusdrop");
-  const caso = page.getByTestId("case-study");
-  for (const rotulo of ["Problema", "Origem", "Decisão", "Resultado"]) {
-    await expect(caso).not.toContainText(rotulo);
+  await expect(page.getByTestId("case-study")).toContainText("Origem");
+  await expect(page.getByTestId("case-study")).not.toContainText("Resultado");
+});
+
+test("o contexto e as decisoes moram na pagina do caso", async ({ page }) => {
+  await page.goto("/projetos/mapa-farma");
+  await expect(page.getByTestId("case-study")).toContainText("Problema");
+  const dec = page.getByTestId("case-decisoes");
+  for (const t of ["Google Maps", "PWA", "150 m", "point-in-polygon", "UTC−3", "papéis"]) {
+    await expect(dec).toContainText(t);
+  }
+  await expect(page.getByTestId("case-arquitetura")).toContainText("Nominatim");
+  await page.goto("/projetos/chute-do-vidente");
+  await expect(page.getByTestId("case-study")).toContainText("Origem");
+  await expect(page.getByTestId("case-study")).not.toContainText("Problema");
+});
+
+test("a pagina do caso expande a descricao em vez de repetir o resumo da home", async ({ page }) => {
+  for (const r of rotas) {
+    await page.goto(r.url);
+    const resumo = r.lang === "en" ? r.p.resumo!.en : r.p.resumo!.pt;
+    await expect(page.locator("main"), r.url).not.toContainText(resumo);
   }
 });
 
@@ -108,11 +131,11 @@ test("links externos do estudo de caso vem do projeto", async ({ page }) => {
   for (const p of featured) {
     await page.goto(`/projetos/${slugOf(p.title)}`);
     const stack = page.getByTestId("case-stack");
-    await expect(stack.getByRole("link", { name: /Ver código/ })).toHaveAttribute("href", p.github);
+    await expect(stack.getByRole("link", { name: /^Código/ })).toHaveAttribute("href", p.github);
     if (p.demo) {
-      await expect(stack.getByRole("link", { name: /Demo ao vivo/ })).toHaveAttribute("href", p.demo);
+      await expect(stack.getByRole("link", { name: /^Demo/ })).toHaveAttribute("href", p.demo);
     } else {
-      await expect(stack.getByRole("link", { name: /Demo ao vivo/ })).toHaveCount(0);
+      await expect(stack.getByRole("link", { name: /^Demo/ })).toHaveCount(0);
     }
     for (const t of p.tech) await expect(stack).toContainText(t);
   }
