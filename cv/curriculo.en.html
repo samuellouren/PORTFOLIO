@@ -1,0 +1,139 @@
+<!doctype html>
+<!--
+  Resume in EN. Builds public/curriculoen.pdf with `npm run cv`.
+  Mirror of curriculo.pt.html: same facts, same sources (see the comments
+  there). Parity is checked in cv/cv.test.ts.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Samuel Lourenço — Resume</title>
+    <link rel="stylesheet" href="print.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Samuel Lourenço</h1>
+      <p class="titulo">Full-Stack Developer | Internship or junior developer role</p>
+      <p class="contato">
+        Maceió, AL, Brazil | +55 82 99946-2500 |
+        <a href="mailto:samuel.lourenco.sls@gmail.com">samuel.lourenco.sls@gmail.com</a>
+      </p>
+      <p>
+        <a href="https://www.linkedin.com/in/samuel-lourenco-50b780306/">linkedin.com/in/samuel-lourenco-50b780306</a> |
+        <a href="https://github.com/samuellouren">github.com/samuellouren</a> |
+        <a href="https://portfolio-murex-zeta-35.vercel.app">portfolio-murex-zeta-35.vercel.app</a>
+      </p>
+    </header>
+
+    <section>
+      <h2>Summary</h2>
+      <p>
+        Full-stack developer looking for an internship or a junior developer role, as a full-time
+        employee, intern or freelancer, remote or in Maceió, available to start right away. I built,
+        solo and from scratch, a mobile CRM in use by a pharmaceutical distributor's sales team and a
+        World Cup prediction game with more than 25 players. I work with React, React Native,
+        TypeScript and Node.js, from database to deployment.
+      </p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <article>
+        <h3>
+          Freelance Full-Stack Developer, Mapa Farma
+          <span class="det">| client project | Maceió, Brazil | 2026</span>
+        </h3>
+        <ul>
+          <li>
+            Built, solo and from scratch, a mobile CRM for a pharmaceutical distributor's sales reps,
+            with a map of Maceió's pharmacies, visit logging, orders and a sales dashboard, taking
+            visit and order tracking out of spreadsheets.
+          </li>
+          <li>
+            Chose MapLibre and OpenStreetMap over Google Maps to meet the client's requirement for a
+            free solution, with no API key and no usage billing.
+          </li>
+          <li>
+            Deployed the API on Render and shipped the Android app as an APK through EAS Build, with
+            automated tests (node:test) on routes and business rules; the app is live and in use by
+            the sales team.
+          </li>
+        </ul>
+        <p class="stack">Stack: React Native (Expo), Node.js/Express, Turso/libSQL, MapLibre, JWT</p>
+      </article>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <article>
+        <h3>
+          Chute do Vidente
+          <span class="det">| 2026 World Cup prediction game, personal project | 2026</span>
+        </h3>
+        <ul>
+          <li>
+            Created, solo and from scratch, a full-stack prediction game with JWT authentication,
+            private groups joined by invite code and gamification with an in-app currency (crystals);
+            more than 25 people played.
+          </li>
+          <li>
+            Automated scoring with official results from the football-data.org API and built password
+            recovery through transactional email (Resend); front end on Vercel, API on Render.
+          </li>
+        </ul>
+        <p class="stack">Stack: Next.js, TypeScript, Tailwind CSS, Node.js/Express, Turso/libSQL</p>
+        <p class="stack">Live: <a href="https://bolao-copa-samuel-lourencos-projects.vercel.app/">bolao-copa-samuel-lourencos-projects.vercel.app</a></p>
+      </article>
+      <article>
+        <h3>
+          FocusDrop
+          <span class="det">| Android productivity app, personal project, open source on GitHub | 2026</span>
+        </h3>
+        <ul>
+          <li>
+            Built, solo and from scratch, an app with a Pomodoro timer, an SVG progress ring, a weekly
+            routine run step by step and local notification reminders.
+          </li>
+          <li>
+            Implemented mood tracking, a day-by-day history with an active-day streak and weekly stats
+            with a daily goal, all stored on the device, with no account and no internet.
+          </li>
+        </ul>
+        <p class="stack">Stack: React Native, TypeScript, Expo SDK 56, AsyncStorage</p>
+      </article>
+      <p class="linha">
+        <strong>JobTracker API</strong> | personal project | 2026: created a REST API for tracking job
+        applications with Python, FastAPI, SQLite, JWT authentication, full CRUD and Swagger docs.
+      </p>
+      <p class="linha">
+        <strong>TalentMatch</strong> | team project, SENAI | 2025: mediated scope and design disagreements
+        on a jobs platform (React, Node.js, JWT) and delivered on time despite a stack change in the final
+        week.
+      </p>
+      <p class="linha">
+        <strong>Elemental Depths</strong> | Global Game Jam Alagoas, team | 2024: built with my team a
+        game in C# and Unity during the jam.
+      </p>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <p><strong>Information Systems</strong>, Centro Universitário Cesmac | 2026 – expected 2029</p>
+      <p><strong>Technical Degree in Web Development (Informática para Internet)</strong>, SENAI | 2024 – 2025</p>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <p><strong>Core:</strong> React, React Native (Expo), TypeScript, Node.js/Express, REST APIs, SQL, Git</p>
+      <p>
+        <strong>Complementary:</strong> Next.js, Tailwind CSS, Python/FastAPI, Java/Spring Boot, Angular,
+        JWT, Turso/libSQL, SQLite, automated testing (Vitest, Playwright)
+      </p>
+    </section>
+
+    <section>
+      <h2>Languages</h2>
+      <p>Portuguese: native | English: intermediate</p>
+    </section>
+  </body>
+</html>

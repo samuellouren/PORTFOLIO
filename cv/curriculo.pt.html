@@ -1,0 +1,151 @@
+<!doctype html>
+<!--
+  Currículo em PT. Gera public/curriculoPt.pdf com `npm run cv`.
+  Regra de proveniência (spec §5.1): todo fato aqui vem do currículo anterior,
+  dos repositórios públicos em github.com/samuellouren ou do que o Samuel disse.
+  A fonte de cada item está no comentário ao lado. Paridade com curriculo.en.html
+  é checada em cv/cv.test.ts.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Samuel Lourenço — Currículo</title>
+    <link rel="stylesheet" href="print.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Samuel Lourenço</h1>
+      <p class="titulo">Desenvolvedor Full-Stack | Estágio ou vaga júnior em desenvolvimento</p>
+      <p class="contato">
+        Maceió, AL, Brasil | +55 82 99946-2500 |
+        <a href="mailto:samuel.lourenco.sls@gmail.com">samuel.lourenco.sls@gmail.com</a>
+      </p>
+      <p>
+        <a href="https://www.linkedin.com/in/samuel-lourenco-50b780306/">linkedin.com/in/samuel-lourenco-50b780306</a> |
+        <a href="https://github.com/samuellouren">github.com/samuellouren</a> |
+        <a href="https://portfolio-murex-zeta-35.vercel.app">portfolio-murex-zeta-35.vercel.app</a>
+      </p>
+    </header>
+
+    <section>
+      <h2>Resumo</h2>
+      <!-- Disponibilidade: dita pelo Samuel em 2026-10-01. Papel nos destaques
+           (full-stack, sozinho, do zero): idem. -->
+      <p>
+        Desenvolvedor full-stack em busca de estágio ou vaga júnior em desenvolvimento, como CLT,
+        estágio ou freela, remoto ou em Maceió, com início imediato. Construí sozinho e do zero um
+        CRM mobile em uso pela equipe comercial de uma distribuidora farmacêutica e um bolão da Copa
+        com mais de 25 participantes. Trabalho com React, React Native, TypeScript e Node.js, do banco
+        de dados ao deploy.
+      </p>
+    </section>
+
+    <section>
+      <h2>Experiência</h2>
+      <article>
+        <!-- Fonte: Mapa-Farma/README.md e client/eas.json (API em mapa-farma.onrender.com). -->
+        <h3>
+          Desenvolvedor Full-Stack Freelance, Mapa Farma
+          <span class="det">| projeto para cliente | Maceió, AL | 2026</span>
+        </h3>
+        <ul>
+          <li>
+            Desenvolvi sozinho e do zero um CRM mobile para os representantes de uma distribuidora
+            farmacêutica, com mapa das farmácias de Maceió, registro de visitas, pedidos e painel de
+            vendas, tirando das planilhas o controle de visitas e pedidos.
+          </li>
+          <li>
+            Escolhi MapLibre e OpenStreetMap em vez de Google Maps para atender à exigência do cliente
+            de uma solução gratuita, sem chave de API nem cobrança por uso.
+          </li>
+          <li>
+            Fiz o deploy da API no Render e gerei o APK do app Android pelo EAS Build, com testes automatizados
+            (node:test) nas rotas e regras de negócio; o app está no ar e em uso pela equipe comercial.
+          </li>
+        </ul>
+        <p class="stack">Stack: React Native (Expo), Node.js/Express, Turso/libSQL, MapLibre, JWT</p>
+      </article>
+    </section>
+
+    <section>
+      <h2>Projetos</h2>
+      <article>
+        <!-- Fonte: Bolao-Copa/README.md. Mais de 25 participantes: currículo anterior. -->
+        <h3>
+          Chute do Vidente
+          <span class="det">| bolão da Copa do Mundo 2026, projeto pessoal | 2026</span>
+        </h3>
+        <ul>
+          <li>
+            Criei sozinho e do zero um bolão full-stack com autenticação JWT, grupos privados por
+            código de convite e gamificação com moeda fictícia (cristais); mais de 25 pessoas
+            participaram.
+          </li>
+          <li>
+            Automatizei a pontuação com os resultados oficiais da API football-data.org e implementei
+            recuperação de senha por e-mail transacional (Resend); front-end na Vercel, API no Render.
+          </li>
+        </ul>
+        <p class="stack">Stack: Next.js, TypeScript, Tailwind CSS, Node.js/Express, Turso/libSQL</p>
+        <p class="stack">No ar: <a href="https://bolao-copa-samuel-lourencos-projects.vercel.app/">bolao-copa-samuel-lourencos-projects.vercel.app</a></p>
+      </article>
+      <article>
+        <!-- Fonte: FocusDrop/README.MD, package.json (expo ~56) e components/ui/TimerRing.tsx.
+             Sem testes no repositório: a frase sobre Jest saiu. -->
+        <h3>
+          FocusDrop
+          <span class="det">| app Android de produtividade, projeto pessoal, código aberto no GitHub | 2026</span>
+        </h3>
+        <ul>
+          <li>
+            Construí sozinho e do zero um app com timer Pomodoro, anel de progresso em SVG, rotina
+            semanal executada etapa por etapa e lembretes por notificação local.
+          </li>
+          <li>
+            Implementei registro de humor, histórico por dia com sequência de dias ativos e estatísticas
+            semanais com meta diária, tudo salvo no aparelho, sem conta nem internet.
+          </li>
+        </ul>
+        <p class="stack">Stack: React Native, TypeScript, Expo SDK 56, AsyncStorage</p>
+      </article>
+      <!-- Fonte: JobTracker-API/README.md e main.py (não há endpoint de ranking). -->
+      <p class="linha">
+        <strong>JobTracker API</strong> | projeto pessoal | 2026: criei uma API REST de candidaturas a
+        vagas com Python, FastAPI, SQLite, autenticação JWT, CRUD completo e documentação Swagger.
+      </p>
+      <!-- Fonte: currículo anterior (equipe, mediação, troca de stack) e projetointegrador25/README.md. -->
+      <p class="linha">
+        <strong>TalentMatch</strong> | projeto em equipe, SENAI | 2025: mediei divergências de escopo e
+        visual numa plataforma de vagas (React, Node.js, JWT) e entregamos no prazo mesmo com a troca de
+        stack na última semana.
+      </p>
+      <!-- Fonte: Elemental-Depths_Global-game-jam/README.md; ano e equipe ditos pelo Samuel. -->
+      <p class="linha">
+        <strong>Elemental Depths</strong> | Global Game Jam Alagoas, em equipe | 2024: desenvolvi com a
+        equipe um jogo em C# e Unity durante a jam.
+      </p>
+    </section>
+
+    <section>
+      <h2>Formação</h2>
+      <!-- Início em 2026 e previsão (julho ou dezembro de 2029) ditos pelo Samuel. -->
+      <p><strong>Sistemas de Informação</strong>, Centro Universitário Cesmac | 2026 – previsão 2029</p>
+      <p><strong>Técnico em Informática para Internet</strong>, SENAI | 2024 – 2025</p>
+    </section>
+
+    <section>
+      <h2>Habilidades</h2>
+      <!-- Testes: Vitest e Playwright neste repositório (PORTFOLIO), node:test no Mapa Farma. -->
+      <p><strong>Principais:</strong> React, React Native (Expo), TypeScript, Node.js/Express, APIs REST, SQL, Git</p>
+      <p>
+        <strong>Complementares:</strong> Next.js, Tailwind CSS, Python/FastAPI, Java/Spring Boot, Angular,
+        JWT, Turso/libSQL, SQLite, testes automatizados (Vitest, Playwright)
+      </p>
+    </section>
+
+    <section>
+      <h2>Idiomas</h2>
+      <p>Português: nativo | Inglês: intermediário</p>
+    </section>
+  </body>
+</html>
