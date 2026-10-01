@@ -38,12 +38,20 @@ test("existe skip link como primeiro foco", async ({ page }) => {
   await expect(page.locator(":focus")).toHaveAttribute("href", "#conteudo");
 });
 
-test("o hero entrega prova com fatos dos projetos, sem a linha de destaques", async ({ request }) => {
+// O hero ficou direto: quem e, o que faz e com que. A prova (CRM em uso, mais
+// de 25 participantes) saiu do hero e fica nos cards dos destaques.
+test("o hero diz quem e, o que faz e com que, sem a linha de destaques", async ({ page, request }) => {
+  await page.goto("/");
+  await expect(page.getByTestId("hero-sub")).toHaveText(
+    "Dev full-stack em Maceió. Construo apps web e mobile de ponta a ponta. React, React Native e Node.js."
+  );
+  await expect(page.getByTestId("resultado-chute-do-vidente")).toContainText("mais de 25 pessoas");
+  await page.goto("/en");
+  await expect(page.getByTestId("hero-sub")).toHaveText(
+    "Full-stack developer in Maceió, Brazil. I build web and mobile apps end to end. React, React Native and Node.js."
+  );
   const pt = await (await request.get("/")).text();
   const en = await (await request.get("/en")).text();
-  expect(pt).toContain("mais de 25 pessoas jogaram");
-  expect(pt).toContain("distribuidora farmacêutica");
-  expect(en).toContain("more than 25 people played");
   expect(pt).not.toContain("Três em destaque");
   expect(en).not.toContain("Three highlights");
 });

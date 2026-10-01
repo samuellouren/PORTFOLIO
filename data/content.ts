@@ -62,12 +62,10 @@ export const content: Record<Lang, Copy> = {
     navWork: "Projetos",
     navContact: "Contato",
 
-    // Só fatos que já estão em projects.ts: o CRM do Mapa Farma (representantes,
-    // trabalho de rua) e os mais de 25 participantes do Chute do Vidente.
-    // "Sozinho, do zero" é o papel dos destaques (meta.papel), dito só aqui na
-    // home; os cards mostram ano e status.
-    heroSub:
-      "Dev full-stack em Maceió. Fiz sozinho, do zero, o CRM que os representantes de uma distribuidora farmacêutica usam na rua e um bolão da Copa que mais de 25 pessoas jogaram. React, React Native e Node.js.",
+    // Texto do Samuel (2026-10-01): quem é, o que faz e com quê. A prova (CRM
+    // em uso, mais de 25 participantes) fica nos cards; "sozinho, do zero",
+    // na Trajetória e nas páginas de caso.
+    heroSub: "Dev full-stack em Maceió. Construo apps web e mobile de ponta a ponta. React, React Native e Node.js.",
     ctaWork: "Ver projetos",
     ctaCv: "Baixar currículo",
 
@@ -130,8 +128,7 @@ export const content: Record<Lang, Copy> = {
     navWork: "Work",
     navContact: "Contact",
 
-    heroSub:
-      "Full-stack developer in Maceió, Brazil. I built, solo and from scratch, the CRM a pharmaceutical distributor's sales reps use out in the field, and a World Cup prediction game more than 25 people played. React, React Native and Node.js.",
+    heroSub: "Full-stack developer in Maceió, Brazil. I build web and mobile apps end to end. React, React Native and Node.js.",
     ctaWork: "See projects",
     ctaCv: "Download resume",
 

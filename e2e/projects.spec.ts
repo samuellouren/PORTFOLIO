@@ -111,19 +111,21 @@ test("os metadados da margem saem no HTML servido", async ({ request }) => {
   expect(pt).toContain("2026 · no ar");
   expect(en).toContain("2026 · in use");
   expect(en).toContain("2026 · live");
-  // o papel e dito uma vez, no hero; a margem dos cards fica so com ano e status
+  // o papel nao sai na margem dos cards, que fica so com ano e status
   for (const t of [">full-stack<", ">sozinho, do zero<"]) expect(pt).not.toContain(t);
   for (const t of [">full-stack<", ">solo, from scratch<"]) expect(en).not.toContain(t);
 });
 
-test("sozinho e do zero aparece uma vez na home: no hero, nao nas margens", async ({ page }) => {
+// Com o hero mais direto, "sozinho, do zero" fica so no item de 2026 da
+// Trajetoria (e nas paginas de caso); nem hero nem margem de card repetem.
+test("sozinho e do zero aparece uma vez na home: na Trajetoria, nao no hero nem nas margens", async ({ page }) => {
   for (const [rota, frase] of [["/", /sozinho,? (e )?do zero/gi], ["/en", /solo,? and from scratch/gi]] as const) {
     await page.goto(rota);
     const main = await page.locator("main").textContent();
     const hero = await page.getByTestId("hero-sub").textContent();
-    expect(hero, rota).toMatch(frase);
-    // hero + o item de 2026 da Trajetoria; nenhuma margem de card
-    expect(main.match(frase)?.length, rota).toBe(2);
+    expect(hero, rota).not.toMatch(frase);
+    expect(main.match(frase)?.length, rota).toBe(1);
+    await expect(page.getByTestId("path"), rota).toContainText(frase);
     await expect(page.getByTestId("project-role"), rota).toHaveCount(0);
   }
 });
