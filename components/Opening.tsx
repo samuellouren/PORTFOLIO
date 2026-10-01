@@ -24,7 +24,6 @@ export default function Opening({ lang }: { lang: Lang }) {
       <p className="entrada mt-4 max-w-[560px] text-[17px] leading-[1.7] text-serragem">
         {t.heroSub}
       </p>
-      <p className="mt-3 max-w-[560px] text-[16px] text-fumo">{t.workSub}</p>
       <div className="mt-7 flex flex-wrap items-center gap-5 text-[15px]">
         <a
           href="#projetos"

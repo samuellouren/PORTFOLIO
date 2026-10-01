@@ -37,3 +37,13 @@ test("existe skip link como primeiro foco", async ({ page }) => {
   await page.keyboard.press("Tab");
   await expect(page.locator(":focus")).toHaveAttribute("href", "#conteudo");
 });
+
+test("o hero entrega prova com fatos dos projetos, sem a linha de destaques", async ({ request }) => {
+  const pt = await (await request.get("/")).text();
+  const en = await (await request.get("/en")).text();
+  expect(pt).toContain("mais de 25 pessoas jogaram");
+  expect(pt).toContain("distribuidora farmacêutica");
+  expect(en).toContain("more than 25 people played");
+  expect(pt).not.toContain("Três em destaque");
+  expect(en).not.toContain("Three highlights");
+});

@@ -15,7 +15,6 @@ export interface Copy {
   aboutParagraphs: string[];
 
   workTitle: string;
-  workSub: string;
   linkCode: string;
   linkDemo: string;
   indexLabel: string;
@@ -58,8 +57,10 @@ export const content: Record<Lang, Copy> = {
     navWork: "Projetos",
     navContact: "Contato",
 
+    // Só fatos que já estão em projects.ts: o CRM do Mapa Farma (representantes,
+    // trabalho de rua) e os mais de 25 participantes do Chute do Vidente.
     heroSub:
-      "Dev full-stack. Construo aplicações de ponta a ponta com React, TypeScript e Node.js, e gosto de entender o problema direito antes de escrever a primeira linha.",
+      "Dev full-stack em Maceió. Fiz o CRM que os representantes de uma distribuidora farmacêutica usam na rua e um bolão da Copa que mais de 25 pessoas jogaram. React, React Native e Node.js.",
     ctaWork: "Ver projetos",
     ctaCv: "Baixar currículo",
 
@@ -71,8 +72,6 @@ export const content: Record<Lang, Copy> = {
     ],
 
     workTitle: "Projetos",
-    workSub:
-      "Três em destaque — um cliente real, um produto próprio e um app mobile.",
     linkCode: "Ver código",
     linkDemo: "Demo ao vivo",
     indexLabel: "Outros Projetos",
@@ -109,7 +108,7 @@ export const content: Record<Lang, Copy> = {
     navContact: "Contact",
 
     heroSub:
-      "Full-stack developer. I build applications end to end with React, TypeScript and Node.js, and I like to understand the problem properly before writing the first line.",
+      "Full-stack developer in Maceió, Brazil. I built the CRM a pharmaceutical distributor's sales reps use out in the field, and a World Cup prediction game more than 25 people played. React, React Native and Node.js.",
     ctaWork: "See projects",
     ctaCv: "Download resume",
 
@@ -121,8 +120,6 @@ export const content: Record<Lang, Copy> = {
     ],
 
     workTitle: "Work",
-    workSub:
-      "Three highlights — a real client, a product of my own and a mobile app.",
     linkCode: "View code",
     linkDemo: "Live demo",
     indexLabel: "Other projects",
