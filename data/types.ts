@@ -16,6 +16,7 @@ export interface Project {
   imageAlt?: Texto;
   shape?: Shape;
   nota?: Texto;
+  meta?: Meta;
   contexto?: Texto & { label: Texto };
   decisao?: Texto;
   resultado?: Texto;
@@ -24,6 +25,13 @@ export interface Project {
   arquitetura?: Texto[];
   desafio?: Texto;
   aprendizado?: Texto;
+}
+
+// Metadados da margem, no estilo coluna de datas: "2026 · no ar".
+export interface Meta {
+  ano?: string;
+  papel?: Texto;
+  status?: Texto;
 }
 
 export interface Imagem {

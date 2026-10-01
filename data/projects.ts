@@ -6,7 +6,12 @@
 //                   está visível na imagem, sem acrescentar fato.
 //   shape         — proporção da screenshot, para o layout do painel: "phone" | "web"
 //   stack         — resumo do stack em uma linha, para o índice compacto
-//   nota          — marginália { pt, en }: frase em 1ª pessoa na margem esquerda
+//   nota          — marginália { pt, en }: frase em 1ª pessoa na margem esquerda.
+//                   Só existe se trouxer fato que NÃO aparece em outro campo do
+//                   mesmo projeto; nota que repete descrição/origem/decisão sai.
+//   meta          — metadados da margem { ano?, papel?, status? }, renderizados
+//                   como coluna de datas ("2026 · no ar"). papel fica vazio em
+//                   todos até o Samuel informar.
 //   contexto      — 1º campo do estudo de caso { label: { pt, en }, pt, en }.
 //                   O rótulo é por projeto: "Problema" em trabalho de cliente,
 //                   "Origem" em projeto que nasceu por conta própria.
@@ -55,9 +60,13 @@ export const projects: Project[] = [
     },
     shape: "web",
     stack: "Next.js · Node",
-    nota: {
-      pt: "nasceu de brincadeira por causa da Copa.",
-      en: "born as a joke, because of the World Cup.",
+    // nota removida: "nasceu de brincadeira por causa da Copa" repetia o contexto (Origem).
+    meta: {
+      // Fonte: github.com/samuellouren/Bolao-Copa — primeiro commit em 2026-06-19
+      // e README.md ("Bolão da Copa do Mundo 2026").
+      ano: "2026",
+      // Fonte: resultado abaixo ("Está no ar").
+      status: { pt: "no ar", en: "live" },
     },
     contexto: {
       label: { pt: "Origem", en: "Origin" },
@@ -102,9 +111,15 @@ export const projects: Project[] = [
     },
     shape: "phone",
     stack: "React Native · Node",
-    nota: {
-      pt: "o cliente queria um software gratuito. usei OpenStreetMap em vez de Google Maps por causa disso.",
-      en: "the client wanted free software. that's why I used OpenStreetMap instead of Google Maps.",
+    // nota removida: "o cliente queria um software gratuito. usei OpenStreetMap…"
+    // repetia a decisão palavra por palavra.
+    meta: {
+      // Fonte: github.com/samuellouren/Mapa-Farma —
+      // docs/superpowers/specs/2026-07-07-mapa-farma-design.md (Data: 2026-07-07);
+      // public/curriculoPt.pdf ("Mapa Farma … Maceió, AL · 2026").
+      ano: "2026",
+      // Fonte: resultado abaixo ("Está no ar e sendo usado").
+      status: { pt: "em uso", en: "in use" },
     },
     contexto: {
       label: { pt: "Problema", en: "Problem" },
@@ -127,8 +142,10 @@ export const projects: Project[] = [
     id: 2,
     title: "FocusDrop",
     description: {
-      pt: "App de produtividade e bem-estar: ciclos Pomodoro, registro de humor e estatísticas semanais. Começou como um timer simples e virou uma ferramenta completa de rotina.",
-      en: "A productivity and wellbeing app: Pomodoro cycles, mood tracking and weekly stats. It started as a plain timer and grew into a full routine tool.",
+      // "Começou como um timer simples…" saiu daqui: já está na nota, que fica
+      // porque traz o fato novo (o foco no uso consciente do celular).
+      pt: "App de produtividade e bem-estar: ciclos Pomodoro, registro de humor e estatísticas semanais.",
+      en: "A productivity and wellbeing app: Pomodoro cycles, mood tracking and weekly stats.",
     },
     tech: ["React Native", "TypeScript", "Expo", "AsyncStorage"],
     github: "https://github.com/samuellouren/FocusDrop",
@@ -142,6 +159,10 @@ export const projects: Project[] = [
     },
     shape: "phone",
     stack: "React Native · Expo",
+    meta: {
+      // Fonte: github.com/samuellouren/FocusDrop — primeiro commit em 2026-05-30.
+      ano: "2026",
+    },
     nota: {
       pt: "começou como um timer simples e virou um app focado no uso consciente do celular.",
       en: "started as a plain timer and became an app about breaking the phone habit.",
@@ -202,6 +223,7 @@ export const projects: Project[] = [
     demo: null,
     featured: false,
     stack: "Java · Angular",
+    // A nota fica: o índice não mostra a descrição, então aqui ela não repete nada na tela.
     nota: {
       pt: "projeto de estudo. primeiro contato meu com Java e Spring Boot.",
       en: "study project. my first contact with Java and Spring Boot.",

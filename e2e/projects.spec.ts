@@ -26,12 +26,25 @@ test("projeto sem estudo de caso nao renderiza rotulos vazios", async ({ page })
   await expect(focus).not.toContainText("Decisão");
   await expect(focus).not.toContainText("Resultado");
   // mas a marginalia dele existe
-  await expect(focus.getByText(/timer simples/)).toBeVisible();
+  await expect(page.getByTestId("margin-focusdrop").getByText(/timer simples/)).toBeVisible();
 });
 
-test("a marginalia sai no HTML servido", async ({ request }) => {
-  const html = await (await request.get("/")).text();
-  expect(html).toContain("o cliente queria um software gratuito");
+test("os metadados da margem saem no HTML servido", async ({ request }) => {
+  const pt = await (await request.get("/")).text();
+  const en = await (await request.get("/en")).text();
+  expect(pt).toContain("2026 · em uso");
+  expect(pt).toContain("2026 · no ar");
+  expect(en).toContain("2026 · in use");
+  expect(en).toContain("2026 · live");
+});
+
+test("a margem nao repete o que ja esta no card", async ({ page }) => {
+  await page.goto("/");
+  // notas que repetiam Origem e Decisao sairam; a do FocusDrop traz fato novo
+  await expect(page.getByTestId("margin-mapa-farma")).not.toContainText("software gratuito");
+  await expect(page.getByTestId("margin-chute-do-vidente")).not.toContainText("brincadeira");
+  await expect(page.getByTestId("margin-focusdrop")).toContainText("uso consciente do celular");
+  await expect(page.getByTestId("project-focusdrop")).not.toContainText("timer simples");
 });
 
 test("em >=900px a moldura phone fica a direita do texto", async ({ page }) => {

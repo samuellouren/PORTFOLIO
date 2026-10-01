@@ -6,7 +6,7 @@ test("a pagina funciona com JS desabilitado", async ({ browser }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Mapa Farma" })).toBeVisible();
-  await expect(page.getByText("o cliente queria um software gratuito")).toBeVisible();
+  await expect(page.getByTestId("margin-mapa-farma")).toContainText("2026 · em uso");
   await ctx.close();
 });
 

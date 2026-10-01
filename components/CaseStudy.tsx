@@ -2,6 +2,7 @@ import Link from "next/link";
 import Shell from "./Shell";
 import Ruled from "./Ruled";
 import MarginNote from "./MarginNote";
+import ProjectMeta from "./ProjectMeta";
 import CaseFields from "./CaseFields";
 import ProjectLinks from "./ProjectLinks";
 import ProjectTag from "./ProjectTag";
@@ -56,7 +57,10 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
                 <span aria-hidden="true">←</span> {t.caseBack}
               </Link>
             </p>
-            {p.nota ? <MarginNote>{pick(p.nota, lang)}</MarginNote> : null}
+            <div className="flex flex-col gap-3 min-[900px]:items-end">
+              <ProjectMeta meta={p.meta} lang={lang} />
+              {p.nota ? <MarginNote>{pick(p.nota, lang)}</MarginNote> : null}
+            </div>
           </div>
         }
       >

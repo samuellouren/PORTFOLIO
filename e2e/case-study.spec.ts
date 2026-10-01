@@ -143,7 +143,7 @@ test("estudo de caso funciona com JS desabilitado", async ({ browser }) => {
   const page = await ctx.newPage();
   await page.goto("/projetos/chute-do-vidente");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Chute do Vidente");
-  await expect(page.getByText("nasceu de brincadeira por causa da Copa.")).toBeVisible();
+  await expect(page.getByTestId("project-meta")).toHaveText("2026 · no ar");
   await ctx.close();
 });
 

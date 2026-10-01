@@ -43,6 +43,29 @@ describe("invariantes dos projetos", () => {
   });
 });
 
+describe("metadados da margem", () => {
+  it("ano tem quatro digitos e status existe nos dois idiomas", () => {
+    for (const p of projects) {
+      if (!p.meta) continue;
+      if (p.meta.ano !== undefined) expect(p.meta.ano, p.title).toMatch(/^\d{4}$/);
+      if (p.meta.status) {
+        expect(p.meta.status.pt.trim(), `${p.title} status pt`).not.toBe("");
+        expect(p.meta.status.en.trim(), `${p.title} status en`).not.toBe("");
+      }
+    }
+  });
+
+  it("papel fica vazio em todos ate o Samuel informar", () => {
+    for (const p of projects) expect(p.meta?.papel, p.title).toBeUndefined();
+  });
+
+  it("status so existe onde o resultado ja afirma que esta no ar ou em uso", () => {
+    for (const p of projects.filter((x) => x.meta?.status)) {
+      expect(p.resultado?.pt, p.title).toMatch(/no ar|em uso|sendo usado/i);
+    }
+  });
+});
+
 describe("invariantes de imagem e ferramentas", () => {
   it("todo destaque com imagem tem alt nos dois idiomas", () => {
     for (const p of projects.filter((x) => x.featured && x.image)) {
