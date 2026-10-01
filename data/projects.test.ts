@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { featured, projects, skills } from "./projects";
+import { featured, projects, skills, trajetoria } from "./projects";
 import { slugOf } from "./types";
 
 describe("invariantes dos projetos", () => {
@@ -164,5 +164,28 @@ describe("campos do estudo de caso (proveniencia)", () => {
   it("slugs dos destaques sao unicos", () => {
     const slugs = featured.map((p) => slugOf(p.title));
     expect(new Set(slugs).size).toBe(slugs.length);
+  });
+});
+
+describe("trajetoria", () => {
+  it("todo item tem texto nos dois idiomas e ano so no formato aaaa ou aaaa–aaaa", () => {
+    for (const m of trajetoria) {
+      expect(m.texto.pt.trim() && m.texto.en.trim(), m.texto.pt).toBeTruthy();
+      if (m.ano !== undefined) expect(m.ano, m.texto.pt).toMatch(/^\d{4}(–\d{4})?$/);
+    }
+  });
+
+  it("item que liga a um caso aponta para um destaque existente e usa o ano dele", () => {
+    for (const m of trajetoria.filter((x) => x.slug)) {
+      const p = featured.find((f) => slugOf(f.title) === m.slug);
+      expect(p, m.slug).toBeDefined();
+      expect(m.ano, m.slug).toBe(p!.meta?.ano);
+    }
+  });
+
+  it("faculdade e Game Jam ficam sem ano: nenhuma fonte o confirma", () => {
+    for (const termo of ["CESMAC", "Game Jam"]) {
+      expect(trajetoria.find((m) => m.texto.pt.includes(termo))!.ano, termo).toBeUndefined();
+    }
   });
 });

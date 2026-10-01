@@ -85,3 +85,35 @@ test("os tres contatos sao links reais", async ({ page }) => {
   await expect(c.getByRole("link", { name: /linkedin/i })).toBeVisible();
   await expect(c.getByRole("link", { name: /@samuellouren/ })).toBeVisible();
 });
+
+test("a trajetoria fica entre os projetos e o sobre", async ({ page }) => {
+  await page.goto("/");
+  const y = async (sel: string) => (await page.locator(sel).boundingBox())!.y;
+  const indice = await y('[data-testid="project-index"]');
+  const trajetoria = await y("#trajetoria");
+  const sobre = await y("#sobre");
+  expect(indice).toBeLessThan(trajetoria);
+  expect(trajetoria).toBeLessThan(sobre);
+  await expect(page.locator("#trajetoria h2")).toHaveText("Trajetória");
+  await page.goto("/en");
+  await expect(page.locator("#trajetoria h2")).toHaveText("Path");
+});
+
+test("a trajetoria lista os cinco marcos e liga os projetos ao estudo de caso", async ({ page }) => {
+  await page.goto("/");
+  const path = page.getByTestId("path");
+  await expect(path.locator("li")).toHaveCount(5);
+  for (const t of ["CESMAC", "Mapa Farma", "Chute do Vidente", "SENAI", "Global Game Jam Alagoas"]) {
+    await expect(path).toContainText(t);
+  }
+  await expect(path).toContainText("2024–2025");
+  await expect(path.getByRole("link", { name: /Mapa Farma/ })).toHaveAttribute("href", "/projetos/mapa-farma");
+});
+
+test("o sobre nao repete o que esta na trajetoria", async ({ page }) => {
+  for (const rota of ["/", "/en"]) {
+    await page.goto(rota);
+    const sobre = page.locator("#sobre");
+    for (const t of ["CESMAC", "SENAI"]) await expect(sobre, `${rota} ${t}`).not.toContainText(t);
+  }
+});

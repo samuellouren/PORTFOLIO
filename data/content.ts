@@ -11,6 +11,8 @@ export interface Copy {
   ctaWork: string;
   ctaCv: string;
 
+  pathTitle: string;
+
   aboutLabel: string;
   aboutParagraphs: string[];
 
@@ -64,10 +66,12 @@ export const content: Record<Lang, Copy> = {
     ctaWork: "Ver projetos",
     ctaCv: "Baixar currículo",
 
+    pathTitle: "Trajetória",
+
     aboutLabel: "Sobre mim",
+    // Faculdade e curso técnico saíram daqui: agora estão na Trajetória.
     aboutParagraphs: [
-      "Sou de Maceió, Alagoas, e estudo bacharelado em sistemas de informação no CESMAC. Antes da faculdade já tinha base prática: formação técnica em desenvolvimento web pelo SENAI.",
-      "Aprendo construindo projeto real, não seguindo tutorial. Meu ciclo é simples: aprender, construir, revisar — é fazendo que a coisa gruda.",
+      "Sou de Maceió, Alagoas, e aprendo construindo projeto real, não seguindo tutorial. Meu ciclo é simples: aprender, construir, revisar — é fazendo que a coisa gruda.",
       "Hoje procuro uma vaga como dev remoto, no Brasil ou fora, para crescer construindo produto que as pessoas usam de verdade.",
     ],
 
@@ -112,10 +116,11 @@ export const content: Record<Lang, Copy> = {
     ctaWork: "See projects",
     ctaCv: "Download resume",
 
+    pathTitle: "Path",
+
     aboutLabel: "About me",
     aboutParagraphs: [
-      "I'm from Maceió, Brazil, studying bachelor in Information Systems at CESMAC. I had hands-on ground before university: a technical web development degree from SENAI.",
-      "I learn by building real projects, not by following tutorials. The loop is simple: learn, build, review — it only sticks when you make something.",
+      "I'm from Maceió, Brazil, and I learn by building real projects, not by following tutorials. The loop is simple: learn, build, review — it only sticks when you make something.",
       "I'm looking for a remote developer role, in Brazil or abroad, to grow by building products people actually use.",
     ],
 

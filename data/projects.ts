@@ -35,7 +35,7 @@
 // Fontes externas permitidas: README e docs/ públicos de
 // github.com/samuellouren/{Mapa-Farma, Bolao-Copa, FocusDrop}. Cada fato vindo
 // de lá leva, em comentário, o arquivo de origem.
-import { slugOf, type Project, type SkillGroup } from "./types";
+import { slugOf, type Marco, type Project, type SkillGroup } from "./types";
 
 export const projects: Project[] = [
   {
@@ -385,6 +385,53 @@ export const featured: Project[] = projects.filter((p) => p.featured);
 export function featuredBySlug(slug: string): Project | undefined {
   return featured.find((p) => slugOf(p.title) === slug);
 }
+
+// Trajetória, do mais recente para o mais antigo; itens sem ano confirmado
+// vão sem ano. Nada aqui pode repetir o texto do Sobre.
+export const trajetoria: Marco[] = [
+  {
+    // Fonte: public/curriculoPt.pdf, "Formação" ("1º período · Em andamento").
+    // Sem ano de início escrito em nenhuma fonte.
+    texto: {
+      pt: "Bacharelado em Sistemas de Informação no CESMAC, em andamento.",
+      en: "Bachelor's in Information Systems at CESMAC, in progress.",
+    },
+  },
+  {
+    // Fonte: meta.ano do Mapa Farma (acima).
+    ano: "2026",
+    texto: {
+      pt: "Mapa Farma, CRM mobile para uma distribuidora farmacêutica. Cliente real.",
+      en: "Mapa Farma, a mobile CRM for a pharmaceutical distributor. Client work.",
+    },
+    slug: "mapa-farma",
+  },
+  {
+    // Fonte: meta.ano do Chute do Vidente (acima).
+    ano: "2026",
+    texto: {
+      pt: "Chute do Vidente, bolão da Copa 2026. Produto próprio.",
+      en: "Chute do Vidente, a 2026 World Cup prediction game. Own product.",
+    },
+    slug: "chute-do-vidente",
+  },
+  {
+    // Fonte: public/curriculoPt.pdf, "Formação" ("Técnico em Informática para
+    // Internet · SENAI · 2024 - 2025").
+    ano: "2024–2025",
+    texto: {
+      pt: "Técnico em Informática para Internet, SENAI.",
+      en: "Technical degree in Web Development (Informática para Internet), SENAI.",
+    },
+  },
+  {
+    // Fonte: descrição do Elemental Depths (abaixo do índice). Sem ano em nenhuma fonte.
+    texto: {
+      pt: "Global Game Jam Alagoas: Elemental Depths, jogo feito em equipe com C# e Unity.",
+      en: "Global Game Jam Alagoas: Elemental Depths, a team game built in C# and Unity.",
+    },
+  },
+];
 
 // Ferramentas agrupadas por área. São as mesmas 17 da antiga lista plana:
 // agrupar não acrescenta nem remove tecnologia.

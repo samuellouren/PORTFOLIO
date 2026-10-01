@@ -2,6 +2,7 @@ import Shell from "./Shell";
 import Opening from "./Opening";
 import ProjectFeature from "./ProjectFeature";
 import ProjectIndex from "./ProjectIndex";
+import Path from "./Path";
 import About from "./About";
 import Contact from "./Contact";
 import { content } from "@/data/content";
@@ -18,6 +19,7 @@ export default function Home({ lang }: { lang: Lang }) {
         <ProjectFeature key={p.id} project={p} lang={lang} />
       ))}
       <ProjectIndex lang={lang} />
+      <Path lang={lang} />
       <About lang={lang} />
       <Contact lang={lang} />
     </Shell>

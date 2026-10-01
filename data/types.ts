@@ -55,6 +55,14 @@ export interface Imagem {
   shape?: Shape;
 }
 
+// Item da linha do tempo. Sem ano confirmado, `ano` fica ausente.
+// `slug` liga o item ao estudo de caso, quando há um.
+export interface Marco {
+  ano?: string;
+  texto: Texto;
+  slug?: string;
+}
+
 export interface SkillGroup {
   label: Texto;
   items: string[];
