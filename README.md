@@ -58,7 +58,7 @@ npx playwright test
 ## 📁 Estrutura
 
 ```
-app/          # rotas (pt em /, en em /en), layout, metadata OG
+app/          # (pt)/ e (en)/en/: um root layout por idioma; metadata OG, sitemap, robots, 404
 components/   # Header, Home, About, Contact, ProjectFeature, ProjectIndex, Ruled, MarginNote, CaseField
 data/         # content.ts, projects.ts, types.ts — edite aqui para adicionar projetos
 e2e/          # testes Playwright
@@ -79,7 +79,7 @@ conversa registrada — sem fonte, o campo fica vazio e não renderiza.
 ## 📬 Contato
 
 - GitHub: [@samuellouren](https://github.com/samuellouren)
-- LinkedIn: [linkedin.com/in/samuellouren](https://linkedin.com/in/samuellouren)
+- LinkedIn: [linkedin.com/in/samuel-lourenco-50b780306](https://www.linkedin.com/in/samuel-lourenco-50b780306/)
 
 ---
 

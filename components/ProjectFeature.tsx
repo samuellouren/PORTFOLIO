@@ -31,7 +31,7 @@ export default function ProjectFeature({
     >
       <Image
         src={p.image}
-        alt=""
+        alt={p.imageAlt ? pick(p.imageAlt, lang) : ""}
         width={phone ? 250 : 660}
         height={phone ? 556 : 345}
         sizes={phone ? "250px" : "(max-width: 900px) 100vw, 660px"}
@@ -69,7 +69,7 @@ export default function ProjectFeature({
 
         <div className={phone ? "mt-5 flex flex-col gap-6 min-[900px]:flex-row" : "mt-5"}>
           {!phone && shot}
-          <div className={phone ? "min-w-0 flex-1" : ""}>
+          <div className={phone ? "min-w-0 flex-1" : shot ? "mt-5" : ""}>
             <p className="text-[16px] leading-[1.7] text-fumo">
               {pick(p.description, lang)}
             </p>

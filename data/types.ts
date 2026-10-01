@@ -13,11 +13,17 @@ export interface Project {
   stack: string;
   tag?: Texto;
   image?: string;
+  imageAlt?: Texto;
   shape?: Shape;
   nota?: Texto;
   contexto?: Texto & { label: Texto };
   decisao?: Texto;
   resultado?: Texto;
+}
+
+export interface SkillGroup {
+  label: Texto;
+  items: string[];
 }
 
 export function pick(t: Texto, lang: Lang): string {

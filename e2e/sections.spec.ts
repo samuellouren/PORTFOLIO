@@ -3,8 +3,65 @@ import { test, expect } from "@playwright/test";
 test("o indice lista os quatro projetos nao-destaque", async ({ page }) => {
   await page.goto("/");
   const idx = page.getByTestId("project-index");
-  for (const t of ["TalentMatch", "jobtracker", "Elemental Depths", "shim de pagamento Java"]) {
-    await expect(idx.getByText(t, { exact: false })).toBeVisible();
+  for (const t of ["TalentMatch", "JobTracker", "Elemental Depths", "Pagamento Pix (Java)"]) {
+    await expect(idx.getByText(t, { exact: false }).first()).toBeVisible();
+  }
+});
+
+test("o indice mostra Demo so para quem tem demo, alem do GitHub", async ({ page }) => {
+  await page.goto("/");
+  const idx = page.getByTestId("project-index");
+  await expect(idx.getByTestId("index-demo")).toHaveCount(1);
+  await expect(idx.getByRole("link", { name: /Demo ao vivo — TalentMatch/ })).toHaveAttribute(
+    "href",
+    "https://talent-match-two.vercel.app"
+  );
+  await expect(idx.getByRole("link", { name: /^TalentMatch\s*— Ver código/ })).toHaveAttribute(
+    "href",
+    "https://github.com/samuellouren/projetointegrador25"
+  );
+  await page.goto("/en");
+  await expect(page.getByTestId("index-demo")).toHaveText(/Live demo/);
+});
+
+test("ferramentas aparecem em quatro grupos rotulados", async ({ page }) => {
+  await page.goto("/");
+  const s = page.getByTestId("skills");
+  await expect(s.locator("dt")).toHaveText(["Front-end", "Mobile", "Back-end", "Dados / Infra"]);
+  await page.goto("/en");
+  await expect(page.getByTestId("skills").locator("dt")).toHaveText([
+    "Front end",
+    "Mobile",
+    "Back end",
+    "Data / Infra",
+  ]);
+});
+
+test("as reguas dos contatos tem a mesma largura e o mesmo espacamento", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  const caixas = await page.getByTestId("contact").getByRole("link").evaluateAll((els) =>
+    els.map((e) => {
+      const r = e.getBoundingClientRect();
+      return { x: r.x, w: r.width, h: r.height };
+    })
+  );
+  expect(caixas).toHaveLength(3);
+  for (const c of caixas) {
+    expect(c.x).toBeCloseTo(caixas[0].x, 0);
+    expect(c.w).toBeCloseTo(caixas[0].w, 0);
+    expect(c.h).toBeCloseTo(caixas[0].h, 0);
+    expect(c.h).toBeGreaterThanOrEqual(44);
+  }
+});
+
+test("as screenshots dos destaques tem alt descritivo nos dois idiomas", async ({ page }) => {
+  for (const rota of ["/", "/en"]) {
+    await page.goto(rota);
+    for (const id of ["chute-do-vidente", "mapa-farma", "focusdrop"]) {
+      const alt = await page.getByTestId(`shot-${id}`).locator("img").getAttribute("alt");
+      expect(alt?.trim().length, `${rota} ${id}`).toBeGreaterThan(10);
+    }
   }
 });
 

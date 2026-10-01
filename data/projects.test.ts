@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { projects } from "./projects";
+import { projects, skills } from "./projects";
 
 describe("invariantes dos projetos", () => {
   it("todo destaque tem imagem e forma declarada", () => {
@@ -39,5 +39,31 @@ describe("invariantes dos projetos", () => {
     expect(byTitle("Mapa Farma")!.shape).toBe("phone");
     expect(byTitle("FocusDrop")!.shape).toBe("phone");
     expect(byTitle("Chute do Vidente")!.shape).toBe("web");
+  });
+});
+
+describe("invariantes de imagem e ferramentas", () => {
+  it("todo destaque com imagem tem alt nos dois idiomas", () => {
+    for (const p of projects.filter((x) => x.featured && x.image)) {
+      expect(p.imageAlt?.pt.trim(), `${p.title} sem alt pt`).toBeTruthy();
+      expect(p.imageAlt?.en.trim(), `${p.title} sem alt en`).toBeTruthy();
+    }
+  });
+
+  it("os grupos de ferramentas guardam as mesmas 17 tecnologias, sem repeticao", () => {
+    const todas = skills.flatMap((g) => g.items);
+    expect(todas).toHaveLength(17);
+    expect(new Set(todas).size).toBe(17);
+    for (const g of skills) {
+      expect(g.label.pt.trim()).not.toBe("");
+      expect(g.label.en.trim()).not.toBe("");
+    }
+  });
+
+  it("stack sem grafia quebrada", () => {
+    const tech = projects.flatMap((p) => p.tech);
+    expect(tech).not.toContain("OpenStreetmap");
+    expect(tech).not.toContain("Turso(libSQL)");
+    expect(tech.some((t) => t.includes("/"))).toBe(false);
   });
 });

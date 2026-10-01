@@ -30,6 +30,9 @@ export interface Copy {
   openToRemote: string;
   caseDecision: string;
   caseResult: string;
+
+  notFoundTitle: string;
+  notFoundBack: string;
 }
 
 export interface Contact {
@@ -59,7 +62,7 @@ export const content: Record<Lang, Copy> = {
 
     workTitle: "Projetos",
     workSub:
-      "Três em destaque — um cliente real, um produto próprio e um app publicado.",
+      "Três em destaque — um cliente real, um produto próprio e um app mobile.",
     linkCode: "Ver código",
     linkDemo: "Demo ao vivo",
     indexLabel: "Outros Projetos",
@@ -75,6 +78,9 @@ export const content: Record<Lang, Copy> = {
     openToRemote: "aberto a remoto",
     caseDecision: "Decisão",
     caseResult: "Resultado",
+
+    notFoundTitle: "Página não encontrada.",
+    notFoundBack: "Voltar ao início",
   },
 
   en: {
@@ -96,7 +102,7 @@ export const content: Record<Lang, Copy> = {
 
     workTitle: "Work",
     workSub:
-      "Three highlights — a real client, a product of my own and a published app.",
+      "Three highlights — a real client, a product of my own and a mobile app.",
     linkCode: "View code",
     linkDemo: "Live demo",
     indexLabel: "Other projects",
@@ -112,6 +118,9 @@ export const content: Record<Lang, Copy> = {
     openToRemote: "open to remote",
     caseDecision: "Decision",
     caseResult: "Result",
+
+    notFoundTitle: "Page not found.",
+    notFoundBack: "Back to home",
   },
 };
 

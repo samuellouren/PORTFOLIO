@@ -51,3 +51,11 @@ test("abaixo de 900px a moldura phone fica empilhada abaixo do texto", async ({ 
   const moldura = await page.getByTestId("shot-mapa-farma").boundingBox();
   expect(moldura!.y).toBeGreaterThan(texto!.y);
 });
+
+test("no layout web a descricao nao encosta no print", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  const shot = await page.getByTestId("shot-chute-do-vidente").boundingBox();
+  const texto = await page.getByTestId("project-chute-do-vidente").locator("p").first().boundingBox();
+  expect(texto!.y - (shot!.y + shot!.height)).toBeGreaterThanOrEqual(16);
+});

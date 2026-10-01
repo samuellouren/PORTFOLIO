@@ -2,6 +2,8 @@
 // Campos adicionados no redesign (todos opcionais):
 //   tag           — rótulo da categoria no card em destaque { pt, en }
 //   image         — src da screenshot; null usa o painel listrado como placeholder
+//   imageAlt      — texto alternativo da screenshot { pt, en }. Descreve só o que
+//                   está visível na imagem, sem acrescentar fato.
 //   shape         — proporção da screenshot, para o layout do painel: "phone" | "web"
 //   stack         — resumo do stack em uma linha, para o índice compacto
 //   nota          — marginália { pt, en }: frase em 1ª pessoa na margem esquerda
@@ -14,7 +16,7 @@
 // REGRA DE PROVENIÊNCIA (ver docs/superpowers/specs/2026-07-28-portfolio-redesign-design.md §5.1):
 // nenhum destes campos pode conter fato que não esteja no repositório ou que não
 // tenha sido dito pelo Samuel. Sem fonte, o campo fica ausente e não renderiza.
-import type { Project } from "./types";
+import type { Project, SkillGroup } from "./types";
 
 export const projects: Project[] = [
   {
@@ -38,6 +40,10 @@ export const projects: Project[] = [
     featured: true,
     tag: { pt: "Produto próprio", en: "Own product" },
     image: "/projects/videntes.jpeg",
+    imageAlt: {
+      pt: "Página de ranking do Chute do Vidente: participantes listados por cristais acumulados, com medalhas nos três primeiros.",
+      en: "Chute do Vidente leaderboard page: participants listed by crystals earned, with medals for the top three.",
+    },
     shape: "web",
     stack: "Next.js · Node",
     nota: {
@@ -66,17 +72,22 @@ export const projects: Project[] = [
       en: "A sales CRM for a pharmaceutical distributor in Maceió. Reps see pharmacies on the map, log visit reports, manage orders and follow sales stats in real time.",
     },
     tech: [
-      "React Native/Expo",
+      "React Native",
+      "Expo",
       "Node.js",
       "TypeScript",
-      "OpenStreetmap",
-      "Turso(libSQL)",
+      "OpenStreetMap",
+      "Turso (libSQL)",
     ],
     github: "https://github.com/samuellouren/Mapa-Farma",
     demo: null,
     featured: true,
     tag: { pt: "Cliente real", en: "Client work" },
     image: "/projects/mapas.jpeg",
+    imageAlt: {
+      pt: "Tela do app com mapa de Maceió e farmácias marcadas, busca por nome ou bairro no topo e legenda de cliente e não cliente.",
+      en: "App screen with a map of Maceió and pharmacies marked, a search by name or neighborhood at the top and a client / non-client legend.",
+    },
     shape: "phone",
     stack: "React Native · Node",
     nota: {
@@ -110,6 +121,10 @@ export const projects: Project[] = [
     featured: true,
     tag: { pt: "Mobile", en: "Mobile" },
     image: "/projects/focos.jpeg",
+    imageAlt: {
+      pt: "Tela de estatísticas do app: dias seguidos, minutos de foco no dia, gráfico de barras da semana, dias ativos e humor da semana.",
+      en: "The app's stats screen: day streak, focus minutes today, a weekly bar chart, active days and the week's mood.",
+    },
     shape: "phone",
     stack: "React Native · Expo",
     nota: {
@@ -133,7 +148,7 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    title: "jobtracker",
+    title: "JobTracker",
     description: {
       pt: "API REST desenvolvida em Python com FastAPI para rastrear candidaturas a vagas de emprego. Conta com autenticação JWT, banco de dados SQLite, operações CRUD completas e validação de status com Enum. Documentação automática via Swagger UI.",
       en: "REST API built in Python with FastAPI to track job applications. JWT auth, SQLite database, full CRUD and Enum-validated status. Auto-generated docs via Swagger UI.",
@@ -159,7 +174,7 @@ export const projects: Project[] = [
   },
   {
     id: 6,
-    title: "shim de pagamento Java",
+    title: "Pagamento Pix (Java)",
     description: {
       pt: "Projeto de estudo criado para o primeiro contato com Java e Spring Boot, integrando um backend Java a um frontend Angular.",
       en: "A study project for my first contact with Java and Spring Boot, wiring a Java backend to an Angular front end.",
@@ -176,22 +191,23 @@ export const projects: Project[] = [
   },
 ];
 
-export const skills: string[] = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "JavaScript",
-  "Tailwind CSS",
-  "React Native",
-  "Expo",
-  "Node.js",
-  "Express",
-  "Python",
-  "FastAPI",
-  "Java",
-  "Spring Boot",
-  "SQL",
-  "SQLite",
-  "Turso (libSQL)",
-  "Git",
+// Ferramentas agrupadas por área. São as mesmas 17 da antiga lista plana:
+// agrupar não acrescenta nem remove tecnologia.
+export const skills: SkillGroup[] = [
+  {
+    label: { pt: "Front-end", en: "Front end" },
+    items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS"],
+  },
+  {
+    label: { pt: "Mobile", en: "Mobile" },
+    items: ["React Native", "Expo"],
+  },
+  {
+    label: { pt: "Back-end", en: "Back end" },
+    items: ["Node.js", "Express", "Python", "FastAPI", "Java", "Spring Boot"],
+  },
+  {
+    label: { pt: "Dados / Infra", en: "Data / Infra" },
+    items: ["SQL", "SQLite", "Turso (libSQL)", "Git"],
+  },
 ];

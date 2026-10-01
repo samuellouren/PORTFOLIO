@@ -250,6 +250,9 @@ Sai: `framer-motion`, `react-router-dom`, `@heroicons/react`, `vite`.
 
 ### 6.2 Rotas e idioma
 
+> **Revisado em 2026-10-01** — a limitação do `<html lang>` descrita abaixo foi
+> resolvida com um root layout por idioma. Ver §11.
+
 Duas rotas estáticas, sem middleware:
 
 ```
@@ -378,3 +381,20 @@ diferencia é exclusivamente o conteúdo da marginália ser real e específico. 
 frases saírem genéricas, o redesign falha pelo mesmo motivo que o design atual
 falha — com fonte diferente. Por isso a regra de proveniência na seção 5.1 é
 vinculante e não uma recomendação.
+
+## 11. Revisões — 2026-10-01
+
+Mudanças pedidas pelo Samuel depois de uma auditoria. A regra de proveniência
+(§5.1) continua vinculante.
+
+- **`<html lang>` por rota (substitui a decisão da §6.2).** As rotas foram para
+  route groups com um root layout cada: `app/(pt)/layout.tsx` (`pt-BR`) e
+  `app/(en)/en/layout.tsx` (`en`). Continua sem Client Component e a URL raiz segue
+  em português. Efeitos: o Next acrescenta um hash ao caminho das imagens OG
+  dentro de route groups (o `og:image` anuncia a URL certa), e o 404 de URL
+  desconhecida passa a ser `app/global-not-found.tsx` (flag
+  `experimental.globalNotFound`), porque não há mais um layout único.
+- **`workSub`.** "um app publicado" → "um app mobile": o FocusDrop não está
+  publicado em loja. A frase anterior era fato falso.
+- **Ferramentas agrupadas.** A lista plana da §5.3 vira quatro grupos rotulados
+  (Front-end, Mobile, Back-end, Dados / Infra), com as mesmas 17 tecnologias.

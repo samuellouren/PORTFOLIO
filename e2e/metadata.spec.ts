@@ -30,8 +30,16 @@ for (const [rota, locale] of [["/", "pt_BR"], ["/en", "en_US"]] as const) {
     expect(alternates).toContainEqual(["en", `${BASE}/en`]);
   });
 
-  test(`${rota} serve a imagem OG`, async ({ request }) => {
-    const r = await request.get(rota === "/" ? "/opengraph-image" : "/en/opengraph-image");
+  // Dentro de route groups o Next acrescenta um hash ao caminho da imagem OG
+  // (/opengraph-image-xxxx). O que importa e a URL que a pagina anuncia no
+  // og:image: e ela que o crawler busca, entao e ela que o teste busca.
+  test(`${rota} serve a imagem OG anunciada no og:image`, async ({ request }) => {
+    const html = await (await request.get(rota)).text();
+    const og = html.match(/property="og:image"\s+content="([^"]+)"/)?.[1];
+    expect(og, "og:image ausente").toBeTruthy();
+    const caminho = new URL(og!.replace(/&amp;/g, "&")).pathname;
+    expect(caminho.startsWith(rota === "/" ? "/opengraph-image" : "/en/opengraph-image")).toBe(true);
+    const r = await request.get(caminho);
     expect(r.status()).toBe(200);
     expect(r.headers()["content-type"]).toContain("image");
   });

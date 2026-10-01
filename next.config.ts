@@ -20,6 +20,10 @@ const cvHeaders = Object.values(CV_FILES).map(({ url, name }) => ({
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   headers: async () => cvHeaders,
+  // Com um root layout por idioma (app/(pt) e app/(en)/en) nao existe layout
+  // unico para compor o 404 de URL desconhecida. app/global-not-found.tsx
+  // devolve o documento inteiro, com tema e fontes do site.
+  experimental: { globalNotFound: true },
 };
 
 export default nextConfig;

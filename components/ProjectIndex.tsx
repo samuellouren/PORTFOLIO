@@ -21,10 +21,23 @@ export default function ProjectIndex({ lang }: { lang: Lang }) {
                 href={p.github}
                 className="-my-2.5 py-2.5 font-display text-[16px] transition-colors hover:text-brasa"
               >
-                {p.title} <span aria-hidden="true">↗</span>
+                {p.title}
+                <span className="sr-only"> — {t.linkCode}</span>{" "}
+                <span aria-hidden="true">↗</span>
               </a>
               <span className="text-[13px] text-fumo">{p.stack}</span>
             </div>
+            {p.demo ? (
+              <a
+                href={p.demo}
+                data-testid="index-demo"
+                className="-my-2.5 inline-block py-2.5 text-[14px] text-fumo transition-colors hover:text-brasa"
+              >
+                {t.linkDemo}
+                <span className="sr-only"> — {p.title}</span>{" "}
+                <span aria-hidden="true">↗</span>
+              </a>
+            ) : null}
             {p.nota ? (
               <p data-testid="index-note" className="mt-1 text-[14px] italic text-fumo">
                 {pick(p.nota, lang)}

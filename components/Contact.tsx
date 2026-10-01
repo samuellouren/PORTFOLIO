@@ -14,15 +14,22 @@ export default function Contact({ lang }: { lang: Lang }) {
       }
     >
       <p className="mb-5 max-w-[560px] text-[16px]">{t.contactSub}</p>
-      <ul data-testid="contact" className="space-y-2 text-[16px]">
+      {/* Cada contato e uma linha pautada de largura fixa: a regua embaixo
+          tem sempre o mesmo comprimento e a mesma distancia do texto,
+          independente do tamanho do valor. */}
+      <ul data-testid="contact" className="max-w-[560px] text-[16px]">
         {contacts.map((c) => (
           <li key={c.id}>
             <a
               href={c.href}
-              className="-my-3.5 border-b border-traco-forte py-3.5 transition-colors hover:border-brasa hover:text-brasa"
+              className="group grid min-h-11 grid-cols-[92px_minmax(0,1fr)] items-baseline gap-x-4 border-b border-traco-forte py-2.5 transition-colors hover:border-brasa"
             >
-              <span className="sr-only">{c.label} </span>
-              {c.value}
+              <span className="font-display text-[12px] uppercase tracking-[0.14em] text-fumo">
+                {c.label}
+              </span>
+              <span className="transition-colors [overflow-wrap:anywhere] group-hover:text-brasa">
+                {c.value}
+              </span>
             </a>
           </li>
         ))}
