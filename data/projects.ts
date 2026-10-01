@@ -5,7 +5,8 @@
 //   imageAlt      — texto alternativo da screenshot { pt, en }. Descreve só o que
 //                   está visível na imagem, sem acrescentar fato.
 //   shape         — proporção da screenshot, para o layout do painel: "phone" | "web"
-//   stack         — resumo do stack em uma linha, para o índice compacto
+//   stack         — resumo do stack em uma linha. No índice compacto e, nos
+//                   destaques, no card da home abaixo do resultado (no máximo 3).
 //   resumo        — 1 frase do que o projeto é { pt, en }. É o que o card da home
 //                   mostra. A `description` fica para a página do caso, como versão
 //                   expandida, e não pode conter o resumo palavra por palavra.
@@ -77,7 +78,7 @@ export const projects: Project[] = [
       en: "Chute do Vidente leaderboard page: participants listed by crystals earned, with medals for the top three.",
     },
     shape: "web",
-    stack: "Next.js · Node",
+    stack: "Next.js · Node.js · Turso",
     // nota removida: "nasceu de brincadeira por causa da Copa" repetia o contexto (Origem).
     meta: {
       // Fonte: github.com/samuellouren/Bolao-Copa — primeiro commit em 2026-06-19
@@ -185,7 +186,7 @@ export const projects: Project[] = [
       en: "App screen with a map of Maceió and pharmacies marked, a search by name or neighborhood at the top and a client / non-client legend.",
     },
     shape: "phone",
-    stack: "React Native · Node",
+    stack: "React Native · Node.js · Turso",
     // nota removida: "o cliente queria um software gratuito. usei OpenStreetMap…"
     // repetia a decisão palavra por palavra.
     meta: {
@@ -306,7 +307,7 @@ export const projects: Project[] = [
       en: "The app's stats screen: day streak, focus minutes today, a weekly bar chart, active days and the week's mood.",
     },
     shape: "phone",
-    stack: "React Native · Expo",
+    stack: "React Native · Expo · TypeScript",
     meta: {
       // Fonte: github.com/samuellouren/FocusDrop — primeiro commit em 2026-05-30.
       ano: "2026",

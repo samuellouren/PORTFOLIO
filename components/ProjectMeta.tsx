@@ -19,7 +19,13 @@ export default function ProjectMeta({ meta, lang }: { meta?: Meta; lang: Lang })
       ) : null}
       {papel ? (
         <p data-testid="project-role" className={`${estilo} mt-1`}>
-          {papel}
+          {/* Na margem de 200px a linha quebra no "·", nunca no meio de um trecho. */}
+          {papel.split(" · ").map((trecho, n) => (
+            <span key={trecho}>
+              {n > 0 ? " · " : null}
+              <span className="whitespace-nowrap">{trecho}</span>
+            </span>
+          ))}
         </p>
       ) : null}
     </div>

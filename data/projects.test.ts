@@ -61,6 +61,21 @@ describe("card curto na home, detalhe no caso", () => {
     }
   });
 
+  it("stack do card: no maximo 3 tecnologias, todas do tech do projeto", () => {
+    const esperado: Record<string, string> = {
+      "Chute do Vidente": "Next.js · Node.js · Turso",
+      "Mapa Farma": "React Native · Node.js · Turso",
+      FocusDrop: "React Native · Expo · TypeScript",
+    };
+    for (const p of featured) {
+      expect(p.stack, p.title).toBe(esperado[p.title]);
+      const itens = p.stack.split(" · ");
+      expect(itens.length, p.title).toBeLessThanOrEqual(3);
+      // "Turso" abrevia "Turso (libSQL)"
+      for (const i of itens) expect(p.tech.some((t) => t.startsWith(i)), `${p.title}: ${i}`).toBe(true);
+    }
+  });
+
   it("a descricao do caso nao repete o resumo da home palavra por palavra", () => {
     for (const p of featured) {
       for (const lang of ["pt", "en"] as const) {

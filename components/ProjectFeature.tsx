@@ -28,6 +28,7 @@ export default function ProjectFeature({
       shape={p.shape}
       video={p.video}
       testId={`shot-${id}`}
+      recorte
     />
   ) : null;
 
@@ -60,6 +61,9 @@ export default function ProjectFeature({
                 {pick(p.resultado, lang)}
               </p>
             ) : null}
+            <p data-testid={`stack-${id}`} className="mt-3 text-[13px] text-fumo">
+              {p.stack}
+            </p>
             <div className="mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-2">
               <Link
                 href={caseHref(id, lang)}

@@ -13,6 +13,36 @@ test("projeto web tem painel largo; projeto mobile tem moldura estreita", async 
   expect(phone!.height).toBeGreaterThan(phone!.width);
 });
 
+test("o card mostra a stack curta abaixo do resultado, em fumo e menor", async ({ page }) => {
+  await page.goto("/");
+  for (const p of projects.filter((x) => x.featured)) {
+    const id = p.title.toLowerCase().replace(/ /g, "-");
+    await expect(page.getByTestId(`stack-${id}`)).toHaveText(p.stack);
+  }
+  const resultado = (await page.getByTestId("resultado-mapa-farma").boundingBox())!;
+  const stack = page.getByTestId("stack-mapa-farma");
+  expect((await stack.boundingBox())!.y).toBeGreaterThan(resultado.y);
+  await expect(stack).toHaveCSS("color", await page.locator("footer").evaluate((el) => getComputedStyle(el).color));
+  const tam = async (id: string) => parseFloat(await page.getByTestId(id).evaluate((el) => getComputedStyle(el).fontSize));
+  expect(await tam("stack-mapa-farma")).toBeLessThan(await tam("resultado-mapa-farma"));
+});
+
+for (const largura of [1440, 375]) {
+  test(`em ${largura}px o print de celular da home para em 420px; no caso sai inteiro`, async ({ page }) => {
+    await page.setViewportSize({ width: largura, height: 900 });
+    await page.goto("/");
+    for (const id of ["mapa-farma", "focusdrop"]) {
+      const caixa = (await page.getByTestId(`shot-${id}`).boundingBox())!;
+      expect(caixa.height, id).toBeLessThanOrEqual(420);
+      // a imagem preenche a largura e o topo fica visivel
+      const img = (await page.getByTestId(`shot-${id}`).locator("img").boundingBox())!;
+      expect(img.y, id).toBeCloseTo(caixa.y + 1, 0);
+    }
+    await page.goto("/projetos/mapa-farma");
+    expect((await page.getByTestId("case-shot").boundingBox())!.height).toBeGreaterThan(500);
+  });
+}
+
 test("o card da home e curto: sem Problema, Origem nem Decisoes", async ({ page }) => {
   for (const id of ["mapa-farma", "chute-do-vidente", "focusdrop"]) {
     for (const [rota, rotulos] of [
@@ -61,8 +91,10 @@ test("os metadados da margem saem no HTML servido", async ({ request }) => {
   expect(pt).toContain("2026 · no ar");
   expect(en).toContain("2026 · in use");
   expect(en).toContain("2026 · live");
-  expect(pt).toContain("full-stack · sozinho, do zero");
-  expect(en).toContain("full-stack · solo, from scratch");
+  // o papel sai em trechos que nao quebram por dentro; o texto visivel e
+  // conferido inteiro no teste da segunda linha
+  for (const t of [">full-stack<", ">sozinho, do zero<"]) expect(pt).toContain(t);
+  for (const t of [">full-stack<", ">solo, from scratch<"]) expect(en).toContain(t);
 });
 
 test("o papel fica na segunda linha da margem, abaixo de ano e status", async ({ page }) => {

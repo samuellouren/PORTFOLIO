@@ -4,6 +4,10 @@ import type { Shape, Video } from "@/data/types";
 // Screenshot com moldura: estreita e alta para "phone", larga para "web".
 // width/height so reservam a proporcao (sem CLS); a imagem escala por CSS.
 //
+// Com `recorte`, a moldura phone para em 420px e corta o resto de baixo (como
+// object-cover + object-top): no card da home o print inteiro deixava um vazio
+// grande ao lado do texto. Na pagina do caso o print sai inteiro.
+//
 // Com `video`, a moldura mostra o video no lugar do print. Sem JS para ler
 // prefers-reduced-motion, saem dois <video> e o CSS escolhe um: o que toca
 // sozinho (mudo, em loop) so sem reduced motion; o outro, com controles e sem
@@ -16,6 +20,7 @@ export default function Shot({
   video,
   testId,
   preload = false,
+  recorte = false,
 }: {
   src: string;
   alt: string;
@@ -23,6 +28,7 @@ export default function Shot({
   video?: Video;
   testId?: string;
   preload?: boolean;
+  recorte?: boolean;
 }) {
   const phone = shape === "phone";
   const width = phone ? 250 : 660;
@@ -43,7 +49,7 @@ export default function Shot({
       data-testid={testId}
       className={
         phone
-          ? "w-[250px] shrink-0 self-start overflow-hidden rounded-[14px] border border-traco-forte bg-bancada"
+          ? `w-[250px] shrink-0 self-start overflow-hidden rounded-[14px] border border-traco-forte bg-bancada${recorte ? " max-h-[420px]" : ""}`
           : "overflow-hidden rounded-[6px] border border-traco-forte bg-bancada"
       }
     >
