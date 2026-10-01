@@ -26,6 +26,7 @@ export default function ProjectFeature({
       src={p.image}
       alt={p.imageAlt ? pick(p.imageAlt, lang) : ""}
       shape={p.shape}
+      video={p.video}
       testId={`shot-${id}`}
     />
   ) : null;

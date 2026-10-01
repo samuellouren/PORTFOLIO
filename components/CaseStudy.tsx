@@ -43,6 +43,7 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
       src={p.image}
       alt={p.imageAlt ? pick(p.imageAlt, lang) : ""}
       shape={p.shape}
+      video={p.video}
       testId="case-shot"
       preload
     />

@@ -16,6 +16,9 @@ export interface Project {
   image?: string;
   imageAlt?: Texto;
   shape?: Shape;
+  // Vídeo curto de demonstração. Quando existe, substitui o print no card e no
+  // caso; o imageAlt continua descrevendo o que se vê.
+  video?: Video;
   nota?: Texto;
   meta?: Meta;
   contexto?: Texto & { label: Texto };
@@ -33,6 +36,11 @@ export interface Meta {
   ano?: string;
   papel?: Texto;
   status?: Texto;
+}
+
+export interface Video {
+  src: string;
+  poster: string;
 }
 
 export type Decisao = Texto & { titulo: Texto };

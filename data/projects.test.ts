@@ -153,6 +153,14 @@ describe("campos do estudo de caso (proveniencia)", () => {
     }
   });
 
+  it("video, quando existe, aponta para public/projects", () => {
+    for (const p of projects) {
+      if (!p.video) continue;
+      expect(p.video.src.startsWith("/projects/"), `${p.title}: src`).toBe(true);
+      expect(p.video.poster.startsWith("/projects/"), `${p.title}: poster`).toBe(true);
+    }
+  });
+
   it("slugs dos destaques sao unicos", () => {
     const slugs = featured.map((p) => slugOf(p.title));
     expect(new Set(slugs).size).toBe(slugs.length);
