@@ -79,9 +79,13 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
             {!phone && shot}
             <div className={phone ? "min-w-0 flex-1" : shot ? "mt-5" : ""}>
               <p className="text-[17px] leading-[1.7] text-fumo">{pick(p.description, lang)}</p>
-              <CaseFields project={p} lang={lang} />
             </div>
             {phone && shot}
+          </div>
+          {/* Problema/Origem e Resultado abaixo da linha do print, na largura
+              toda da coluna: ao lado de um print de celular sobravam ~180px. */}
+          <div className="mt-4">
+            <CaseFields project={p} lang={lang} />
           </div>
         </article>
       </Ruled>

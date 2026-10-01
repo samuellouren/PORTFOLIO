@@ -141,6 +141,20 @@ test("links externos do estudo de caso vem do projeto", async ({ page }) => {
   }
 });
 
+for (const largura of [1440, 375]) {
+  test(`em ${largura}px, Problema/Origem e Resultado ficam abaixo do print, na largura da coluna`, async ({ page }) => {
+    await page.setViewportSize({ width: largura, height: 900 });
+    for (const p of featured) {
+      await page.goto(`/projetos/${slugOf(p.title)}`);
+      const coluna = (await page.getByTestId("case-study").boundingBox())!;
+      const shot = (await page.getByTestId("case-shot").boundingBox())!;
+      const campos = (await page.getByTestId("case-fields").boundingBox())!;
+      expect(campos.y, p.title).toBeGreaterThanOrEqual(shot.y + shot.height);
+      expect(campos.width, p.title).toBeCloseTo(coluna.width, 0);
+    }
+  });
+}
+
 test("print principal tem alt descritivo", async ({ page }) => {
   await page.goto("/projetos/mapa-farma");
   const alt = await page.getByTestId("case-shot").locator("img").getAttribute("alt");

@@ -8,7 +8,7 @@ export default function CaseFields({ project: p, lang }: { project: Project; lan
   if (!p.contexto && !p.resultado) return null;
   const t = content[lang];
   return (
-    <dl>
+    <dl data-testid="case-fields">
       {p.contexto ? (
         <CaseField label={pick(p.contexto.label, lang)}>{pick(p.contexto, lang)}</CaseField>
       ) : null}
