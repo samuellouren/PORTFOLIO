@@ -52,6 +52,8 @@ export const projects: Project[] = [
       en: "A full-stack prediction platform for the 2026 World Cup. Picks lock automatically 5 minutes before each match, and scoring comes from the official results: exact score, right outcome or miss. There is a global leaderboard and one per private group, joined by invite code. Points show up as crystals, with levels and a “premonition” rate, and Madame Placar, the resident fortune teller, runs the show.",
     },
     tech: [
+      // React: pedido do Samuel em 2026-10-01 (Next.js é framework React).
+      "React",
       "Next.js",
       "TypeScript",
       "Node.js",
