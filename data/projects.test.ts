@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { featured, projects, skills, skillsPrincipais, skillsTambem, trajetoria } from "./projects";
+import { featured, projects, skills, trajetoria } from "./projects";
 import { slugOf } from "./types";
 
 describe("invariantes dos projetos", () => {
@@ -166,17 +166,17 @@ describe("invariantes de imagem e ferramentas", () => {
     }
   });
 
-  it("a lista de ferramentas guarda as mesmas 17 tecnologias, sem repeticao", () => {
-    expect(skills).toHaveLength(17);
-    expect(new Set(skills).size).toBe(17);
-  });
-
-  it("principais + tambem particionam as 17, e principais sao as dos destaques", () => {
-    expect([...skillsPrincipais, ...skillsTambem].sort()).toEqual([...skills].sort());
-    const destaque = new Set(featured.flatMap((p) => p.tech));
-    for (const s of skillsPrincipais) expect(destaque.has(s), s).toBe(true);
-    for (const s of skillsTambem) expect(destaque.has(s), s).toBe(false);
-    for (const s of ["Java", "Spring Boot", "Python", "FastAPI"]) expect(skillsTambem).toContain(s);
+  // Antes as principais eram calculadas a partir do tech dos destaques (17
+  // ferramentas). Agora as duas listas são as mesmas da seção Habilidades do
+  // currículo, nos dois idiomas; cv/cv.test.ts confere a igualdade com o PDF.
+  it("ferramentas: dois niveis, sem repeticao, mesma quantidade nos dois idiomas", () => {
+    for (const lang of ["pt", "en"] as const) {
+      const todas = [...skills[lang].principais, ...skills[lang].complementares];
+      expect(new Set(todas).size, lang).toBe(todas.length);
+    }
+    expect(skills.en.principais).toHaveLength(skills.pt.principais.length);
+    expect(skills.en.complementares).toHaveLength(skills.pt.complementares.length);
+    for (const s of ["Java/Spring Boot", "Python/FastAPI", "Angular"]) expect(skills.pt.complementares).toContain(s);
   });
 
   it("stack sem grafia quebrada", () => {
@@ -251,9 +251,9 @@ describe("trajetoria", () => {
     }
   });
 
-  it("CESMAC em 2026 e Game Jam em 2024 (dito pelo Samuel em 2026-10-01)", () => {
+  it("Cesmac em 2026 e Game Jam em 2024 (dito pelo Samuel em 2026-10-01)", () => {
     const ano = (termo: string) => trajetoria.find((m) => m.texto.pt.includes(termo))!.ano;
-    expect(ano("CESMAC")).toBe("2026");
+    expect(ano("Cesmac")).toBe("2026");
     expect(ano("Game Jam")).toBe("2024");
   });
 

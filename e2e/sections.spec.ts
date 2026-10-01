@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { skillsPrincipais, skillsTambem } from "../data/projects";
+import { skills } from "../data/projects";
 
 test("o indice lista os quatro projetos nao-destaque", async ({ page }) => {
   await page.goto("/");
@@ -25,18 +25,18 @@ test("o indice mostra Demo so para quem tem demo, alem do GitHub", async ({ page
   await expect(page.getByTestId("index-demo")).toHaveText(/Demo/);
 });
 
-test("ferramentas aparecem em dois niveis: principais e tambem ja usei", async ({ page }) => {
+test("ferramentas aparecem em dois niveis, com os rotulos do curriculo", async ({ page }) => {
   await page.goto("/");
   const s = page.getByTestId("skills");
-  await expect(s.locator("dt")).toHaveText(["Principais", "Também já usei"]);
-  await expect(page.getByTestId("skills-main")).toHaveText(skillsPrincipais.join(", "));
-  await expect(page.getByTestId("skills-also")).toHaveText(skillsTambem.join(", "));
+  await expect(s.locator("dt")).toHaveText(["Principais", "Complementares"]);
+  await expect(page.getByTestId("skills-main")).toHaveText(skills.pt.principais.join(", "));
+  await expect(page.getByTestId("skills-also")).toHaveText(skills.pt.complementares.join(", "));
   // o segundo nivel e menor que o primeiro
   const tam = async (id: string) =>
     parseFloat(await page.getByTestId(id).evaluate((el) => getComputedStyle(el).fontSize));
   expect(await tam("skills-also")).toBeLessThan(await tam("skills-main"));
   await page.goto("/en");
-  await expect(page.getByTestId("skills").locator("dt")).toHaveText(["Main", "Also used"]);
+  await expect(page.getByTestId("skills").locator("dt")).toHaveText(["Core", "Complementary"]);
 });
 
 test("as reguas dos contatos tem a mesma largura e o mesmo espacamento", async ({ page }) => {
@@ -105,7 +105,7 @@ test("a trajetoria lista os quatro marcos com ano e liga os projetos ao estudo d
   await page.goto("/");
   const path = page.getByTestId("path");
   await expect(path.locator("li")).toHaveCount(4);
-  for (const t of ["Dev full-stack independente", "CESMAC", "SENAI", "Global Game Jam Alagoas"]) {
+  for (const t of ["Dev full-stack independente", "Cesmac", "previsão de formatura em 2029", "SENAI", "Global Game Jam Alagoas"]) {
     await expect(path).toContainText(t);
   }
   for (const ano of ["2026", "2024–2025", "2024"]) await expect(path).toContainText(ano);
@@ -131,11 +131,23 @@ test("o contato diz o tipo de vaga e a disponibilidade, sem PJ", async ({ page }
   await expect(page.locator("#contato")).toContainText("full-time roles, internships and freelance");
 });
 
-test("o sobre diz a mesma modalidade do contato: remoto ou em Maceio", async ({ page }) => {
+// "No Brasil ou fora" saiu: o curriculo nao fala mais em remoto internacional.
+test("o sobre diz o mesmo alvo do curriculo: estagio ou junior, remoto ou em Maceio", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("#sobre")).toContainText("remota (no Brasil ou fora) ou em Maceió");
+  await expect(page.locator("#sobre")).toContainText("estágio ou vaga júnior como dev, remoto ou em Maceió");
+  await expect(page.locator("#sobre")).not.toContainText("fora");
   await page.goto("/en");
-  await expect(page.locator("#sobre")).toContainText("remote (in Brazil or abroad) or in Maceió");
+  await expect(page.locator("#sobre")).toContainText("internship or a junior developer role, remote or in Maceió");
+  await expect(page.locator("#sobre")).not.toContainText("abroad");
+});
+
+test("o sobre mostra trabalho em equipe: TalentMatch e game jam", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#sobre")).toContainText("mediei divergências de escopo e visual no TalentMatch");
+  await expect(page.locator("#sobre")).toContainText("game jam");
+  await page.goto("/en");
+  await expect(page.locator("#sobre")).toContainText("mediated scope and design disagreements on TalentMatch");
+  await expect(page.locator("#sobre")).toContainText("game jam");
 });
 
 test("a margem da abertura e um status: disponivel, remoto ou Maceio, com o ponto verde", async ({ page }) => {
@@ -152,6 +164,6 @@ test("o sobre nao repete o que esta na trajetoria", async ({ page }) => {
   for (const rota of ["/", "/en"]) {
     await page.goto(rota);
     const sobre = page.locator("#sobre");
-    for (const t of ["CESMAC", "SENAI"]) await expect(sobre, `${rota} ${t}`).not.toContainText(t);
+    for (const t of ["Cesmac", "SENAI", "Elemental Depths", "Unity"]) await expect(sobre, `${rota} ${t}`).not.toContainText(t);
   }
 });

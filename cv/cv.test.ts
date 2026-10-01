@@ -1,6 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { contacts } from "../data/content";
+import { projects, skills, trajetoria } from "../data/projects";
+import { siteUrl } from "../app/site";
 
 // O currículo vive em HTML (cv/) e vira PDF com `npm run cv`. Aqui ficam as
 // regras de formato ATS e a paridade PT/EN que dá para checar sem navegador;
@@ -57,5 +60,56 @@ describe("currículo: paridade PT/EN e fatos", () => {
     expect(texto(html.en)).not.toMatch(proibido);
     expect(texto(html.pt)).not.toMatch(/remoto internacional/i);
     expect(texto(html.en)).not.toMatch(/international remote/i);
+  });
+});
+
+describe("currículo e site dizem a mesma coisa", () => {
+  const linha = (s: string, rotulo: string) =>
+    texto(s).match(new RegExp(`${rotulo}: (.+?)(?= Complementar| Complementary| Idiomas| Languages|$)`))?.[1].trim();
+
+  it("Habilidades do currículo = Ferramentas do site", () => {
+    expect(linha(html.pt, "Principais")).toBe(skills.pt.principais.join(", "));
+    expect(linha(html.pt, "Complementares")).toBe(skills.pt.complementares.join(", "));
+    expect(linha(html.en, "Core")).toBe(skills.en.principais.join(", "));
+    expect(linha(html.en, "Complementary")).toBe(skills.en.complementares.join(", "));
+  });
+
+  it("links de contato, portfólio e demo são os mesmos do site", () => {
+    const linksCv = new Set(hrefs(html.pt).map((h) => h.replace(/\/$/, "")));
+    for (const c of contacts) expect(linksCv, c.id).toContain(c.href.replace(/\/$/, ""));
+    expect(linksCv).toContain(siteUrl);
+    const chute = projects.find((p) => p.title === "Chute do Vidente")!;
+    expect(linksCv).toContain(chute.demo!.replace(/\/$/, ""));
+  });
+
+  it("formação e game jam com os mesmos anos da Trajetória", () => {
+    const anos = trajetoria.map((m) => m.ano.replace("–", " – "));
+    for (const a of ["2024 – 2025", "2026"]) expect(anos.some((x) => x.includes(a)), a).toBe(true);
+    expect(texto(html.pt)).toContain("2024 – 2025");
+    expect(texto(html.pt)).toContain("2026 – previsão 2029");
+    expect(trajetoria.some((m) => m.texto.pt.includes("previsão de formatura em 2029"))).toBe(true);
+    expect(texto(html.pt)).toMatch(/Global Game Jam Alagoas, em equipe \| 2024/);
+    expect(trajetoria.some((m) => m.ano === "2024" && m.texto.pt.includes("Global Game Jam Alagoas"))).toBe(true);
+  });
+
+  it("o status de cada destaque no site aparece no currículo", () => {
+    // "no ar" (Chute do Vidente) e "em uso" (Mapa Farma) são os status da margem.
+    for (const p of projects.filter((x) => x.meta?.status)) {
+      expect(texto(html.pt).toLowerCase(), p.title).toContain(p.meta!.status!.pt);
+      expect(texto(html.en).toLowerCase(), p.title).toContain(p.meta!.status!.en);
+    }
+  });
+
+  it("o stack de cada destaque no currículo existe no tech do site", () => {
+    const stacks = (s: string) => [...s.matchAll(/<p class="stack">Stack: ([^<]+)<\/p>/g)].map((m) => m[1].split(", "));
+    const destaques = ["Mapa Farma", "Chute do Vidente", "FocusDrop"].map((t) => projects.find((p) => p.title === t)!);
+    stacks(html.pt).forEach((itens, i) => {
+      const tech = destaques[i].tech;
+      for (const item of itens) {
+        // "Node.js/Express" junta duas tags; "Expo SDK 56" e "React Native (Expo)" citam a tag Expo.
+        const partes = item.replace(/ \(Expo\)| SDK \d+/, "").split("/");
+        for (const parte of partes) expect(tech, `${destaques[i].title}: ${item}`).toContain(parte);
+      }
+    });
   });
 });

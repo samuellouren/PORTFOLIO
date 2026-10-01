@@ -77,8 +77,14 @@ export const content: Record<Lang, Copy> = {
     // Faculdade e curso técnico saíram daqui: agora estão na Trajetória.
     aboutParagraphs: [
       "Sou de Maceió, Alagoas, e aprendo construindo projeto real, não seguindo tutorial. Meu ciclo é simples: aprender, construir, revisar — é fazendo que a coisa gruda.",
-      // Remoto ou em Maceió: dito pelo Samuel em 2026-10-01 (mesmo texto do contato).
-      "Hoje procuro uma vaga como dev, remota (no Brasil ou fora) ou em Maceió, para crescer construindo produto que as pessoas usam de verdade.",
+      // Equipe: TalentMatch (currículo: mediação e troca de stack na reta final)
+      // e Global Game Jam Alagoas, dita pelo Samuel. Nome, ano e stack do jogo já
+      // estão na Trajetória e não se repetem aqui.
+      "Em equipe, mediei divergências de escopo e visual no TalentMatch, que entregamos no prazo mesmo com a troca de stack exigida na última semana, e encarei com o time a pressão de tempo real de uma game jam.",
+      // Mesmo alvo do currículo: estágio ou júnior, remoto ou em Maceió (dito
+      // pelo Samuel em 2026-10-01). "No Brasil ou fora" saiu junto com o
+      // "remoto internacional" do currículo.
+      "Hoje procuro estágio ou vaga júnior como dev, remoto ou em Maceió, para crescer construindo produto que as pessoas usam de verdade.",
     ],
 
     workTitle: "Projetos",
@@ -87,8 +93,9 @@ export const content: Record<Lang, Copy> = {
     indexLabel: "Outros Projetos",
 
     skillsTitle: "Ferramentas",
+    // Mesmos rótulos da seção Habilidades do currículo.
     skillsMain: "Principais",
-    skillsAlso: "Também já usei",
+    skillsAlso: "Complementares",
 
     contactTitle: "Contato",
     // Fonte: dito pelo Samuel em 2026-10-01 (CLT, estágio e freelas; começa já).
@@ -133,8 +140,8 @@ export const content: Record<Lang, Copy> = {
     aboutLabel: "About me",
     aboutParagraphs: [
       "I'm from Maceió, Brazil, and I learn by building real projects, not by following tutorials. The loop is simple: learn, build, review — it only sticks when you make something.",
-      // Remoto ou em Maceió: dito pelo Samuel em 2026-10-01 (mesmo texto do contato).
-      "I'm looking for a developer role, remote (in Brazil or abroad) or in Maceió, to grow by building products people actually use.",
+      "On teams, I mediated scope and design disagreements on TalentMatch, which we delivered on time despite a stack change required in the final week, and took on the real time pressure of a game jam with my team.",
+      "I'm looking for an internship or a junior developer role, remote or in Maceió, to grow by building products people actually use.",
     ],
 
     workTitle: "Work",
@@ -143,8 +150,8 @@ export const content: Record<Lang, Copy> = {
     indexLabel: "Other projects",
 
     skillsTitle: "Tools",
-    skillsMain: "Main",
-    skillsAlso: "Also used",
+    skillsMain: "Core",
+    skillsAlso: "Complementary",
 
     contactTitle: "Contact",
     // Fonte: dito pelo Samuel em 2026-10-01 (CLT, estágio e freelas; começa já).

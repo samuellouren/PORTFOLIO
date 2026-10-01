@@ -41,7 +41,7 @@
 // Fontes externas permitidas: README e docs/ públicos de
 // github.com/samuellouren/{Mapa-Farma, Bolao-Copa, FocusDrop}. Cada fato vindo
 // de lá leva, em comentário, o arquivo de origem.
-import { slugOf, type Marco, type Project } from "./types";
+import { slugOf, type Lang, type Marco, type Project } from "./types";
 
 export const projects: Project[] = [
   {
@@ -170,9 +170,10 @@ export const projects: Project[] = [
       "React Native",
       "Expo",
       "Node.js",
-      // Express e MapLibre: Mapa-Farma/README.md ("Stack").
+      // Express, MapLibre e JWT: Mapa-Farma/README.md ("Stack"). Sem TypeScript:
+      // client/src e server/src são JavaScript.
       "Express",
-      "TypeScript",
+      "JWT",
       "OpenStreetMap",
       "MapLibre",
       "Turso (libSQL)",
@@ -457,17 +458,17 @@ export const trajetoria: Marco[] = [
     slugs: ["mapa-farma", "chute-do-vidente"],
   },
   {
-    // Fonte: public/curriculoPt.pdf, "Formação" ("1º período · Em andamento");
-    // ano de início dito pelo Samuel em 2026-10-01.
+    // Fonte: cv/curriculo.pt.html, "Formação"; início em 2026 e previsão de
+    // formatura em 2029 ditos pelo Samuel.
     ano: "2026",
     texto: {
-      pt: "Bacharelado em Sistemas de Informação no CESMAC, em andamento.",
-      en: "Bachelor's in Information Systems at CESMAC, in progress.",
+      pt: "Sistemas de Informação no Centro Universitário Cesmac, em andamento, com previsão de formatura em 2029.",
+      en: "Information Systems at Centro Universitário Cesmac, in progress, expected to graduate in 2029.",
     },
   },
   {
-    // Fonte: public/curriculoPt.pdf, "Formação" ("Técnico em Informática para
-    // Internet · SENAI · 2024 - 2025").
+    // Fonte: cv/curriculo.pt.html, "Formação" ("Técnico em Informática para
+    // Internet, SENAI | 2024 – 2025").
     ano: "2024–2025",
     texto: {
       pt: "Técnico em Informática para Internet, SENAI.",
@@ -484,30 +485,36 @@ export const trajetoria: Marco[] = [
   },
 ];
 
-// As mesmas 17 ferramentas de sempre, numa lista só: separar em níveis não
-// acrescenta nem remove tecnologia.
-export const skills: string[] = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "JavaScript",
-  "Tailwind CSS",
-  "React Native",
-  "Expo",
-  "Node.js",
-  "Express",
-  "Python",
-  "FastAPI",
-  "Java",
-  "Spring Boot",
-  "SQL",
-  "SQLite",
-  "Turso (libSQL)",
-  "Git",
-];
-
-// Principais = as que aparecem no `tech` de algum destaque. Calculado, não
-// escrito à mão: mudou o stack de um destaque, muda aqui.
-const usadasNosDestaques = new Set(featured.flatMap((p) => p.tech));
-export const skillsPrincipais = skills.filter((s) => usadasNosDestaques.has(s));
-export const skillsTambem = skills.filter((s) => !usadasNosDestaques.has(s));
+// Ferramentas, em dois níveis, iguais às da seção Habilidades do currículo
+// (cv/curriculo.*.html). cv/cv.test.ts garante que site e currículo digam o
+// mesmo. Testes: Vitest e Playwright neste repositório.
+export const skills: Record<Lang, { principais: string[]; complementares: string[] }> = {
+  pt: {
+    principais: ["React", "React Native (Expo)", "TypeScript", "Node.js/Express", "APIs REST", "SQL", "Git"],
+    complementares: [
+      "Next.js",
+      "Tailwind CSS",
+      "Python/FastAPI",
+      "Java/Spring Boot",
+      "Angular",
+      "JWT",
+      "Turso (libSQL)",
+      "SQLite",
+      "testes automatizados (Vitest, Playwright)",
+    ],
+  },
+  en: {
+    principais: ["React", "React Native (Expo)", "TypeScript", "Node.js/Express", "REST APIs", "SQL", "Git"],
+    complementares: [
+      "Next.js",
+      "Tailwind CSS",
+      "Python/FastAPI",
+      "Java/Spring Boot",
+      "Angular",
+      "JWT",
+      "Turso (libSQL)",
+      "SQLite",
+      "automated testing (Vitest, Playwright)",
+    ],
+  },
+};
