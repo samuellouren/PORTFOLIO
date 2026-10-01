@@ -32,6 +32,7 @@ export interface Copy {
   skipLink: string;
   openToRemote: string;
   caseDecisions: string;
+  caseOtherDecisions: string;
   caseResult: string;
 
   notFoundTitle: string;
@@ -95,6 +96,7 @@ export const content: Record<Lang, Copy> = {
     skipLink: "Pular para o conteúdo",
     openToRemote: "aberto a remoto",
     caseDecisions: "Decisões",
+    caseOtherDecisions: "Outras decisões",
     caseResult: "Resultado",
 
     notFoundTitle: "Página não encontrada.",
@@ -147,6 +149,7 @@ export const content: Record<Lang, Copy> = {
     skipLink: "Skip to content",
     openToRemote: "open to remote",
     caseDecisions: "Decisions",
+    caseOtherDecisions: "Other decisions",
     caseResult: "Result",
 
     notFoundTitle: "Page not found.",

@@ -23,7 +23,9 @@
 //   contexto      — { label: { pt, en }, pt, en }. O rótulo é por projeto:
 //                   "Problema" em trabalho de cliente, "Origem" em projeto que
 //                   nasceu por conta própria.
-//   decisoes      — escolhas técnicas [{ titulo: { pt, en }, pt, en }]
+//   decisoes      — escolhas técnicas [{ titulo: { pt, en }, pt, en, destaque?, curta? }].
+//                   As com `destaque` saem primeiro, inteiras; as outras viram
+//                   "Outras decisões", com título e `curta` (uma linha).
 //   galeria       — prints extras [{ src, alt: { pt, en }, shape? }]
 //   arquitetura   — camadas do sistema, uma por item, de cima (cliente) para
 //                   baixo (dados) [{ pt, en, aparte? }]; vira um diagrama
@@ -95,31 +97,44 @@ export const projects: Project[] = [
       pt: "Está no ar, e os amigos usaram de verdade: mais de 25 pessoas participaram.",
       en: "It's live, and friends actually used it: more than 25 people joined.",
     },
+    // Em destaque: a pontuação automática (agendamento externo, rota protegida e
+    // API de resultados) e o fechamento do palpite antes do jogo, que é o que
+    // mantém a disputa justa. Cristais é escolha de produto; rate limiting é padrão.
     decisoes: [
-      {
-        // Fonte: dito pelo Samuel (spec do portfólio §5.2; antes era o campo `decisao`).
-        titulo: { pt: "Cristais em vez de dinheiro", en: "Crystals instead of money" },
-        pt: "Os cristais são moeda fictícia, justamente por ser brincadeira. Nada de dinheiro real envolvido.",
-        en: "The crystals are fictional currency, precisely because it's a joke. No real money involved.",
-      },
       {
         // Fonte: Bolao-Copa/README.md ("Pontuação automatizada", "Integrações" e a
         // variável ADMIN_SECRET na tabela de ambiente).
+        destaque: true,
         titulo: { pt: "Pontuação sem ninguém apertar botão", en: "Scoring with nobody pressing a button" },
         pt: "Um agendamento externo no cron-job.org dispara o processamento dos jogos encerrados, por uma rota administrativa protegida por segredo. A API busca os resultados oficiais na football-data.org e calcula os pontos de cada palpite.",
         en: "An external schedule on cron-job.org triggers the processing of finished matches, through an admin route guarded by a secret. The API pulls the official results from football-data.org and scores every pick.",
       },
       {
         // Fonte: Bolao-Copa/README.md ("Palpites em tempo real").
+        destaque: true,
         titulo: { pt: "Palpite fecha antes do apito", en: "Picks close before kickoff" },
         pt: "O placar é validado e o palpite fecha automaticamente 5 minutos antes do início de cada jogo.",
         en: "Scores are validated and picks close automatically 5 minutes before each match starts.",
+      },
+      {
+        // Fonte: dito pelo Samuel (spec do portfólio §5.2; antes era o campo `decisao`).
+        titulo: { pt: "Cristais em vez de dinheiro", en: "Crystals instead of money" },
+        pt: "Os cristais são moeda fictícia, justamente por ser brincadeira. Nada de dinheiro real envolvido.",
+        en: "The crystals are fictional currency, precisely because it's a joke. No real money involved.",
+        curta: {
+          pt: "Moeda fictícia, sem dinheiro real.",
+          en: "Fictional currency, no real money.",
+        },
       },
       {
         // Fonte: Bolao-Copa/README.md ("Backend").
         titulo: { pt: "Rate limiting nas rotas sensíveis", en: "Rate limiting on sensitive routes" },
         pt: "Autenticação, palpites, grupos e recuperação de senha têm limite de requisições.",
         en: "Authentication, picks, groups and password recovery are rate limited.",
+        curta: {
+          pt: "Limite no login, palpites, grupos e senha.",
+          en: "Limits on login, picks, groups and passwords.",
+        },
       },
     ],
     // Fonte: Bolao-Copa/README.md ("Stack técnica", "Integrações").
@@ -197,36 +212,53 @@ export const projects: Project[] = [
     },
     // Fonte de todas as decisões: Mapa-Farma/README.md ("Decisões técnicas") e
     // docs/superpowers/specs/2026-07-07-mapa-farma-design.md (§2, §3 e a revisão de 2026-07-07).
+    // Em destaque, na ordem pedida pelo Samuel em 2026-10-01: dados abertos, app
+    // nativo, fuso de Maceió.
     decisoes: [
       {
-        titulo: { pt: "MapLibre + OpenStreetMap em vez de Google Maps", en: "MapLibre + OpenStreetMap instead of Google Maps" },
-        pt: "O cliente queria uma solução gratuita. MapLibre com tiles do OpenStreetMap dispensa chave de API e cobrança por uso. O react-native-maps saiu porque usa o Google Maps SDK como base no Android.",
-        en: "The client wanted a free solution. MapLibre with OpenStreetMap tiles needs no API key and no usage billing. react-native-maps was dropped because it sits on the Google Maps SDK on Android.",
-      },
-      {
-        titulo: { pt: "App nativo em vez de PWA", en: "Native app instead of a PWA" },
-        pt: "A primeira versão foi planejada como PWA (React + Vite). Virou app React Native com Expo e .apk gerado pelo EAS Build, porque a equipe queria um app instalado de verdade, não um atalho do navegador. O backend não mudou com a troca.",
-        en: "The first version was planned as a PWA (React + Vite). It became a React Native app with Expo and an .apk built by EAS Build, because the team wanted a real installed app, not a browser shortcut. The backend didn't change.",
-      },
-      {
+        destaque: true,
         titulo: { pt: "Base de farmácias a partir de dados abertos", en: "Pharmacy data from open sources" },
         pt: "A carga inicial vem da Overpass API (OpenStreetMap), com seed complementar do CNES/DataSUS que descarta unidades públicas. Se a mesma farmácia aparece nas duas fontes a até 150 m e com nome compatível, os campos vazios são enriquecidos em vez de duplicar o registro. Um teste point-in-polygon contra o polígono real de Maceió descarta coordenadas erradas, como pontos caídos na lagoa.",
         en: "The initial load comes from the Overpass API (OpenStreetMap), with a complementary CNES/DataSUS seed that drops public units. When the same pharmacy shows up in both sources within 150 m and with a matching name, empty fields are filled in instead of duplicating the record. A point-in-polygon test against Maceió's real boundary drops bad coordinates, such as points that land in the lagoon.",
       },
       {
-        titulo: { pt: "Perfil de pagamento efetivo", en: "Effective payment profile" },
-        pt: "O ajuste manual vence. Sem ajuste, o perfil vem do status do pedido mais recente. Uma única função SQL alimenta a Ficha, o filtro do Mapa e o Painel, para o app não dar respostas diferentes em telas diferentes.",
-        en: "A manual override wins. Without one, the profile follows the status of the latest order. A single SQL function feeds the pharmacy page, the map filter and the dashboard, so the app never gives different answers on different screens.",
+        destaque: true,
+        titulo: { pt: "App nativo em vez de PWA", en: "Native app instead of a PWA" },
+        pt: "A primeira versão foi planejada como PWA (React + Vite). Virou app React Native com Expo e .apk gerado pelo EAS Build, porque a equipe queria um app instalado de verdade, não um atalho do navegador. O backend não mudou com a troca.",
+        en: "The first version was planned as a PWA (React + Vite). It became a React Native app with Expo and an .apk built by EAS Build, because the team wanted a real installed app, not a browser shortcut. The backend didn't change.",
       },
       {
+        destaque: true,
         titulo: { pt: "Datas no fuso de Maceió", en: "Dates in Maceió's time zone" },
         pt: "Gravada em UTC, uma venda feita às 22h cairia no dia seguinte. O fallback de data usa o dia local de Maceió (UTC−3), independente do fuso do servidor, e isso é coberto por teste.",
         en: "Stored in UTC, a sale made at 10 p.m. would land on the next day. The date fallback uses Maceió's local day (UTC−3), whatever the server's time zone, and a test covers it.",
       },
       {
+        titulo: { pt: "MapLibre + OpenStreetMap em vez de Google Maps", en: "MapLibre + OpenStreetMap instead of Google Maps" },
+        pt: "O cliente queria uma solução gratuita. MapLibre com tiles do OpenStreetMap dispensa chave de API e cobrança por uso. O react-native-maps saiu porque usa o Google Maps SDK como base no Android.",
+        en: "The client wanted a free solution. MapLibre with OpenStreetMap tiles needs no API key and no usage billing. react-native-maps was dropped because it sits on the Google Maps SDK on Android.",
+        curta: {
+          pt: "Gratuito, sem chave de API nem cobrança.",
+          en: "Free: no API key, no usage billing.",
+        },
+      },
+      {
+        titulo: { pt: "Perfil de pagamento efetivo", en: "Effective payment profile" },
+        pt: "O ajuste manual vence. Sem ajuste, o perfil vem do status do pedido mais recente. Uma única função SQL alimenta a Ficha, o filtro do Mapa e o Painel, para o app não dar respostas diferentes em telas diferentes.",
+        en: "A manual override wins. Without one, the profile follows the status of the latest order. A single SQL function feeds the pharmacy page, the map filter and the dashboard, so the app never gives different answers on different screens.",
+        curta: {
+          pt: "Uma só função SQL para todas as telas.",
+          en: "One SQL function for every screen.",
+        },
+      },
+      {
         titulo: { pt: "Banco compartilhado, sem papéis", en: "One shared database, no roles" },
         pt: "A equipe usa um banco único. usuario_id registra quem fez algo, mas nunca restringe o que cada um vê, e não existe sistema de papéis. As estatísticas são sempre calculadas por query, sem tabelas pré-agregadas.",
         en: "The team shares a single database. usuario_id records who did something but never limits what anyone sees, and there is no role system. Stats are always computed by query, with no pre-aggregated tables.",
+        curta: {
+          pt: "usuario_id registra autoria, não restringe.",
+          en: "usuario_id records authorship, never access.",
+        },
       },
     ],
     // Fonte: Mapa-Farma/README.md ("Arquitetura", diagrama mermaid).
@@ -295,26 +327,39 @@ export const projects: Project[] = [
     },
     // resultado ausente: o README não registra publicação nem uso.
     // Fonte de todas as decisões: FocusDrop/README.MD ("Architecture decisions").
+    // Em destaque: a navegação (corrigiu um bug real do botão de voltar) e o
+    // timer em hooks próprios, que é o coração do app. As outras duas são
+    // organização de código.
     decisoes: [
       {
+        destaque: true,
         titulo: { pt: "Stack raiz com abas aninhadas", en: "Root stack with nested tabs" },
         pt: "Atividade, etapa e descanso são telas de Stack empilhadas sobre as abas. A versão anterior, só com abas e telas escondidas, deixava o botão de voltar imprevisível, porque não havia pilha de verdade para desempilhar.",
         en: "Activity, step and rest are Stack screens pushed on top of the tabs. The earlier version, tabs only with hidden screens, made the back button unpredictable because there was no real stack to pop.",
       },
       {
-        titulo: { pt: "Identificador fixo por notificação", en: "A fixed id per notification" },
-        pt: "O lembrete diário usa um id fixo e cada atividade usa atividade_<id>. Cancelar é direto, sem listar tudo o que está agendado para achar o alvo.",
-        en: "The daily reminder uses a fixed id and each activity uses atividade_<id>. Cancelling is direct, without listing everything scheduled to find the target.",
-      },
-      {
+        destaque: true,
         titulo: { pt: "Hooks próprios em vez de biblioteca", en: "Custom hooks instead of a library" },
         pt: "useTimer e useCycle cuidam de todo o timer em React puro, em cerca de 80 linhas, sem dependência extra e testáveis isoladamente.",
         en: "useTimer and useCycle handle all the timer logic in plain React, in about 80 lines, with no extra dependency and testable in isolation.",
       },
       {
+        titulo: { pt: "Identificador fixo por notificação", en: "A fixed id per notification" },
+        pt: "O lembrete diário usa um id fixo e cada atividade usa atividade_<id>. Cancelar é direto, sem listar tudo o que está agendado para achar o alvo.",
+        en: "The daily reminder uses a fixed id and each activity uses atividade_<id>. Cancelling is direct, without listing everything scheduled to find the target.",
+        curta: {
+          pt: "Cancela o lembrete direto, sem listar tudo.",
+          en: "Cancels a reminder directly, no listing.",
+        },
+      },
+      {
         titulo: { pt: "Um serviço por domínio", en: "One service per domain" },
         pt: "Sessões, atividades, notificações e humor têm cada um o seu arquivo de serviço, e a lista de atividades já sai dessa camada ordenada por horário. Trocar o AsyncStorage por outro armazenamento mexe em um arquivo por domínio, não em todas as telas.",
         en: "Sessions, activities, notifications and mood each have their own service file, and the activity list comes out of that layer already sorted by time. Swapping AsyncStorage for another store touches one file per domain, not every screen.",
+        curta: {
+          pt: "Trocar o storage mexe num arquivo por domínio.",
+          en: "Swapping storage touches one file per domain.",
+        },
       },
     ],
     // Fonte: FocusDrop/README.MD ("Project structure", "Tech stack").

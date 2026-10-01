@@ -35,6 +35,8 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
   const phone = p.shape === "phone";
 
   const decisoes = p.decisoes ?? [];
+  const principais = decisoes.filter((d) => d.destaque);
+  const outras = decisoes.filter((d) => !d.destaque);
   const galeria = p.galeria ?? [];
   const camadas = p.arquitetura ?? [];
 
@@ -133,16 +135,35 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
 
       {decisoes.length > 0 ? (
         <Secao id="decisoes" label={t.caseDecisions}>
-          <ol className="max-w-[560px] space-y-6">
-            {decisoes.map((d) => (
-              <li key={d.titulo.pt}>
-                <h3 className="font-display text-[16px] font-semibold leading-[1.4]">
-                  {pick(d.titulo, lang)}
-                </h3>
-                <p className="mt-1 text-[16px] leading-[1.7] text-serragem">{pick(d, lang)}</p>
-              </li>
-            ))}
-          </ol>
+          {/* As marcadas como destaque saem inteiras; as outras viram uma
+              lista compacta, com o título e uma linha. */}
+          {principais.length > 0 ? (
+            <ol data-testid="decisoes-destaque" className="max-w-[560px] space-y-6">
+              {principais.map((d) => (
+                <li key={d.titulo.pt}>
+                  <h3 className="font-display text-[16px] font-semibold leading-[1.4]">
+                    {pick(d.titulo, lang)}
+                  </h3>
+                  <p className="mt-1 text-[16px] leading-[1.7] text-serragem">{pick(d, lang)}</p>
+                </li>
+              ))}
+            </ol>
+          ) : null}
+          {outras.length > 0 ? (
+            <div className={principais.length > 0 ? "mt-10" : ""}>
+              <h3 className={rotulo}>{t.caseOtherDecisions}</h3>
+              <ul data-testid="decisoes-outras" className="mt-3 max-w-[560px] divide-y divide-traco">
+                {outras.map((d) => (
+                  <li key={d.titulo.pt} className="py-2.5">
+                    <p className="font-display text-[15px] leading-[1.5]">{pick(d.titulo, lang)}</p>
+                    {d.curta ? (
+                      <p className="truncate text-[14px] leading-[1.6] text-fumo">{pick(d.curta, lang)}</p>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </Secao>
       ) : null}
 

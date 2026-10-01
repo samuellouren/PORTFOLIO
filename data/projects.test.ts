@@ -79,6 +79,37 @@ describe("card curto na home, detalhe no caso", () => {
   });
 });
 
+describe("decisoes escaneaveis", () => {
+  it("cada destaque tem de 2 a 3 decisoes em destaque", () => {
+    for (const p of featured) {
+      const n = (p.decisoes ?? []).filter((d) => d.destaque).length;
+      expect(n, p.title).toBeGreaterThanOrEqual(2);
+      expect(n, p.title).toBeLessThanOrEqual(3);
+    }
+  });
+
+  it("Mapa Farma destaca dados abertos, app nativo e fuso, nesta ordem", () => {
+    const mf = projects.find((p) => p.title === "Mapa Farma")!;
+    expect(mf.decisoes!.filter((d) => d.destaque).map((d) => d.titulo.pt)).toEqual([
+      "Base de farmácias a partir de dados abertos",
+      "App nativo em vez de PWA",
+      "Datas no fuso de Maceió",
+    ]);
+  });
+
+  it("decisao fora do destaque tem linha curta nos dois idiomas, que cabe em uma linha", () => {
+    for (const p of projects) {
+      for (const d of (p.decisoes ?? []).filter((x) => !x.destaque)) {
+        for (const lang of ["pt", "en"] as const) {
+          const c = d.curta?.[lang].trim() ?? "";
+          expect(c, `${p.title}: ${d.titulo.pt} ${lang}`).not.toBe("");
+          expect(c.length, `${p.title}: ${c}`).toBeLessThanOrEqual(46);
+        }
+      }
+    }
+  });
+});
+
 describe("metadados da margem", () => {
   it("ano tem quatro digitos e status existe nos dois idiomas", () => {
     for (const p of projects) {

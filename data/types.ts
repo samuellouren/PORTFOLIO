@@ -43,7 +43,10 @@ export interface Video {
   poster: string;
 }
 
-export type Decisao = Texto & { titulo: Texto };
+// `destaque` sobe a decisão para o topo, com título e parágrafo. As outras vão
+// para a lista compacta "Outras decisões", com o título e a `curta`: uma linha
+// tirada do próprio parágrafo, sem fato novo.
+export type Decisao = Texto & { titulo: Texto; destaque?: boolean; curta?: Texto };
 
 // Uma caixa do diagrama de arquitetura. `aparte` é o serviço externo ligado
 // àquela camada, escrito ao lado da caixa.

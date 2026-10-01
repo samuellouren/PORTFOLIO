@@ -66,10 +66,19 @@ test("blocos com fonte aparecem; blocos sem fonte nao", async ({ page }) => {
 test("o contexto e as decisoes moram na pagina do caso", async ({ page }) => {
   await page.goto("/projetos/mapa-farma");
   await expect(page.getByTestId("case-study")).toContainText("Problema");
-  const dec = page.getByTestId("case-decisoes");
-  for (const t of ["Google Maps", "PWA", "150 m", "point-in-polygon", "UTC−3", "papéis"]) {
-    await expect(dec).toContainText(t);
+  const destaque = page.getByTestId("decisoes-destaque");
+  for (const t of ["PWA", "150 m", "point-in-polygon", "UTC−3"]) {
+    await expect(destaque).toContainText(t);
   }
+  await expect(destaque.locator("h3")).toHaveText([
+    "Base de farmácias a partir de dados abertos",
+    "App nativo em vez de PWA",
+    "Datas no fuso de Maceió",
+  ]);
+  const outras = page.getByTestId("decisoes-outras");
+  for (const t of ["Google Maps", "papéis", "Perfil de pagamento"]) await expect(outras).toContainText(t);
+  // a lista compacta nao repete o paragrafo inteiro
+  await expect(outras).not.toContainText("react-native-maps");
   await expect(page.getByTestId("case-arquitetura")).toContainText("Nominatim");
   await page.goto("/projetos/chute-do-vidente");
   await expect(page.getByTestId("case-study")).toContainText("Origem");
@@ -154,6 +163,17 @@ for (const largura of [1440, 375]) {
     }
   });
 }
+
+test("em 375px cada linha curta das outras decisoes cabe sem corte", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  for (const r of rotas) {
+    await page.goto(r.url);
+    const cortadas = await page.getByTestId("decisoes-outras").locator("li p.truncate").evaluateAll((els) =>
+      els.filter((e) => e.scrollWidth > e.clientWidth).map((e) => e.textContent)
+    );
+    expect(cortadas, r.url).toEqual([]);
+  }
+});
 
 test("print principal tem alt descritivo", async ({ page }) => {
   await page.goto("/projetos/mapa-farma");
