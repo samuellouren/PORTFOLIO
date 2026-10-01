@@ -33,6 +33,16 @@ export interface Copy {
 
   notFoundTitle: string;
   notFoundBack: string;
+
+  caseRead: string;
+  caseKicker: string;
+  caseBack: string;
+  caseNext: string;
+  caseGallery: string;
+  caseArchitecture: string;
+  caseChallenge: string;
+  caseLearning: string;
+  caseStack: string;
 }
 
 export interface Contact {
@@ -81,6 +91,16 @@ export const content: Record<Lang, Copy> = {
 
     notFoundTitle: "Página não encontrada.",
     notFoundBack: "Voltar ao início",
+
+    caseRead: "Ler estudo de caso",
+    caseKicker: "Estudo de caso",
+    caseBack: "Voltar aos projetos",
+    caseNext: "Próximo projeto",
+    caseGallery: "Galeria",
+    caseArchitecture: "Arquitetura",
+    caseChallenge: "Maior desafio",
+    caseLearning: "O que faria diferente",
+    caseStack: "Stack",
   },
 
   en: {
@@ -121,6 +141,16 @@ export const content: Record<Lang, Copy> = {
 
     notFoundTitle: "Page not found.",
     notFoundBack: "Back to home",
+
+    caseRead: "Read case study",
+    caseKicker: "Case study",
+    caseBack: "Back to projects",
+    caseNext: "Next project",
+    caseGallery: "Gallery",
+    caseArchitecture: "Architecture",
+    caseChallenge: "Hardest problem",
+    caseLearning: "What I'd do differently",
+    caseStack: "Stack",
   },
 };
 

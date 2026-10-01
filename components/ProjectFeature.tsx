@@ -1,12 +1,12 @@
-import Image from "next/image";
+import Link from "next/link";
 import Ruled from "./Ruled";
 import MarginNote from "./MarginNote";
-import CaseField from "./CaseField";
+import CaseFields from "./CaseFields";
+import ProjectLinks from "./ProjectLinks";
+import ProjectTag from "./ProjectTag";
+import Shot from "./Shot";
 import { content } from "@/data/content";
-import { pick, type Lang, type Project } from "@/data/types";
-
-const slug = (t: string) =>
-  t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-");
+import { caseHref, pick, slugOf, type Lang, type Project } from "@/data/types";
 
 export default function ProjectFeature({
   project: p,
@@ -16,28 +16,16 @@ export default function ProjectFeature({
   lang: Lang;
 }) {
   const t = content[lang];
-  const id = slug(p.title);
-  const temCaso = Boolean(p.contexto || p.decisao || p.resultado);
+  const id = slugOf(p.title);
   const phone = p.shape === "phone";
 
   const shot = p.image ? (
-    <div
-      data-testid={`shot-${id}`}
-      className={
-        phone
-          ? "w-[250px] shrink-0 overflow-hidden rounded-[14px] border border-traco-forte bg-bancada"
-          : "overflow-hidden rounded-[6px] border border-traco-forte bg-bancada"
-      }
-    >
-      <Image
-        src={p.image}
-        alt={p.imageAlt ? pick(p.imageAlt, lang) : ""}
-        width={phone ? 250 : 660}
-        height={phone ? 556 : 345}
-        sizes={phone ? "250px" : "(max-width: 900px) 100vw, 660px"}
-        className="h-auto w-full"
-      />
-    </div>
+    <Shot
+      src={p.image}
+      alt={p.imageAlt ? pick(p.imageAlt, lang) : ""}
+      shape={p.shape}
+      testId={`shot-${id}`}
+    />
   ) : null;
 
   return (
@@ -54,17 +42,7 @@ export default function ProjectFeature({
           <h3 className="font-display text-[22px] font-semibold uppercase tracking-[0.06em]">
             {p.title}
           </h3>
-          {p.tag ? (
-            <span
-              className={
-                p.tag.pt === "Cliente real"
-                  ? "text-[12px] uppercase tracking-[0.14em] text-verdete"
-                  : "text-[12px] uppercase tracking-[0.14em] text-fumo"
-              }
-            >
-              {pick(p.tag, lang)}
-            </span>
-          ) : null}
+          <ProjectTag project={p} lang={lang} />
         </div>
 
         <div className={phone ? "mt-5 flex flex-col gap-6 min-[900px]:flex-row" : "mt-5"}>
@@ -73,47 +51,25 @@ export default function ProjectFeature({
             <p className="text-[16px] leading-[1.7] text-fumo">
               {pick(p.description, lang)}
             </p>
-            {temCaso ? (
-              <dl>
-                {p.contexto ? (
-                  <CaseField label={pick(p.contexto.label, lang)}>
-                    {pick(p.contexto, lang)}
-                  </CaseField>
-                ) : null}
-                {p.decisao ? (
-                  <CaseField label={t.caseDecision}>
-                    {pick(p.decisao, lang)}
-                  </CaseField>
-                ) : null}
-                {p.resultado ? (
-                  <CaseField label={t.caseResult}>
-                    {pick(p.resultado, lang)}
-                  </CaseField>
-                ) : null}
-              </dl>
-            ) : null}
+            <CaseFields project={p} lang={lang} />
+            <p className="mt-6 text-[15px]">
+              <Link
+                href={caseHref(id, lang)}
+                data-testid={`case-link-${id}`}
+                className="-my-2.5 border-b border-brasa py-2.5 font-display text-serragem transition-colors hover:text-brasa"
+              >
+                {t.caseRead}
+                <span className="sr-only"> — {p.title}</span>{" "}
+                <span aria-hidden="true">→</span>
+              </Link>
+            </p>
           </div>
           {phone && shot}
         </div>
 
         <div className="mt-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
           <span className="text-[13px] text-fumo">{p.tech.join(" · ")}</span>
-          <span className="flex gap-5 text-[14px]">
-            <a
-              href={p.github}
-              className="border-b border-traco-forte pb-[1px] transition-colors hover:border-brasa hover:text-brasa"
-            >
-              {t.linkCode} <span aria-hidden="true">↗</span>
-            </a>
-            {p.demo ? (
-              <a
-                href={p.demo}
-                className="border-b border-traco-forte pb-[1px] transition-colors hover:border-brasa hover:text-brasa"
-              >
-                {t.linkDemo} <span aria-hidden="true">↗</span>
-              </a>
-            ) : null}
-          </span>
+          <ProjectLinks project={p} lang={lang} />
         </div>
       </article>
     </Ruled>

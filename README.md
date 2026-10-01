@@ -1,6 +1,6 @@
 # 🗂️ Samuel Lourenço — Portfolio
 
-Site pessoal desenvolvido com Next.js (App Router), apresentando meus projetos, habilidades e formas de contato. Duas rotas renderizadas no servidor: `/` (pt) e `/en` (en).
+Site pessoal desenvolvido com Next.js (App Router), apresentando meus projetos, habilidades e formas de contato. Tudo renderizado no servidor: `/` (pt) e `/en` (en), mais um estudo de caso por projeto em destaque em `/projetos/[slug]` e `/en/projects/[slug]`.
 
 🔗 **[Ver ao vivo](https://portfolio-murex-zeta-35.vercel.app/)**
 
@@ -59,7 +59,7 @@ npx playwright test
 
 ```
 app/          # (pt)/ e (en)/en/: um root layout por idioma; metadata OG, sitemap, robots, 404
-components/   # Header, Home, About, Contact, ProjectFeature, ProjectIndex, Ruled, MarginNote, CaseField
+components/   # Shell, Header, Home, CaseStudy, About, Contact, ProjectFeature, ProjectIndex, Shot, Ruled, MarginNote, CaseField(s)
 data/         # content.ts, projects.ts, types.ts — edite aqui para adicionar projetos
 e2e/          # testes Playwright
 ```

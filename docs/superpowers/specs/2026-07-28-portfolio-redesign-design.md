@@ -398,3 +398,10 @@ Mudanças pedidas pelo Samuel depois de uma auditoria. A regra de proveniência
   publicado em loja. A frase anterior era fato falso.
 - **Ferramentas agrupadas.** A lista plana da §5.3 vira quatro grupos rotulados
   (Front-end, Mobile, Back-end, Dados / Infra), com as mesmas 17 tecnologias.
+- **Páginas de estudo de caso (revoga o não-objetivo da §3).** `/projetos/[slug]`
+  e `/en/projects/[slug]`, estáticas e só para projetos em destaque, cada uma com
+  metadata, OG e entrada no sitemap próprios. Campos novos opcionais
+  (`galeria`, `arquitetura`, `desafio`, `aprendizado`) nascem vazios e não
+  renderizam até o Samuel fornecer o conteúdo. Hoje a página mostra só o que já
+  existia na home (print, descrição, Problema/Origem → Decisão → Resultado, stack,
+  links), então não é a "página de detalhe vazia" que motivou o não-objetivo.

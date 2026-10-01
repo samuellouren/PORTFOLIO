@@ -13,10 +13,19 @@
 //   decisao       — escolha técnica e o motivo real { pt, en }
 //   resultado     — o que mudou de fato { pt, en }
 //
+// Só na página de estudo de caso (/projetos/[slug], /en/projects/[slug]):
+//   galeria       — prints extras [{ src, alt: { pt, en }, shape? }]
+//   arquitetura   — camadas do sistema, uma por item, de cima (cliente) para
+//                   baixo (dados) [{ pt, en }]; vira um diagrama empilhado
+//   desafio       — maior desafio técnico { pt, en }
+//   aprendizado   — o que faria diferente { pt, en }
+// Hoje os quatro estão vazios em todos os projetos: nenhum tem fonte ainda.
+// Cada destaque lista abaixo, em comentário, o que falta perguntar.
+//
 // REGRA DE PROVENIÊNCIA (ver docs/superpowers/specs/2026-07-28-portfolio-redesign-design.md §5.1):
 // nenhum destes campos pode conter fato que não esteja no repositório ou que não
 // tenha sido dito pelo Samuel. Sem fonte, o campo fica ausente e não renderiza.
-import type { Project, SkillGroup } from "./types";
+import { slugOf, type Project, type SkillGroup } from "./types";
 
 export const projects: Project[] = [
   {
@@ -63,6 +72,9 @@ export const projects: Project[] = [
       pt: "Está no ar. Os amigos usaram de verdade: mais de 25 pessoas participaram.",
       en: "It's live. Friends actually used it: more than 25 people joined.",
     },
+    // PENDENTE (sem fonte): galeria, arquitetura, desafio, aprendizado.
+    galeria: [],
+    arquitetura: [],
   },
   {
     id: 7,
@@ -107,6 +119,9 @@ export const projects: Project[] = [
       pt: "Está no ar e sendo usado.",
       en: "It's live and in use.",
     },
+    // PENDENTE (sem fonte): galeria, arquitetura, desafio, aprendizado.
+    galeria: [],
+    arquitetura: [],
   },
   {
     id: 2,
@@ -132,6 +147,9 @@ export const projects: Project[] = [
       en: "started as a plain timer and became an app about breaking the phone habit.",
     },
     // contexto/decisao/resultado ausentes de propósito: sem fatos confirmados.
+    // PENDENTE (sem fonte): galeria, arquitetura, desafio, aprendizado.
+    galeria: [],
+    arquitetura: [],
   },
   {
     id: 3,
@@ -190,6 +208,12 @@ export const projects: Project[] = [
     },
   },
 ];
+
+export const featured: Project[] = projects.filter((p) => p.featured);
+
+export function featuredBySlug(slug: string): Project | undefined {
+  return featured.find((p) => slugOf(p.title) === slug);
+}
 
 // Ferramentas agrupadas por área. São as mesmas 17 da antiga lista plana:
 // agrupar não acrescenta nem remove tecnologia.

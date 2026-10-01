@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { projects, skills } from "./projects";
+import { featured, projects, skills } from "./projects";
+import { slugOf } from "./types";
 
 describe("invariantes dos projetos", () => {
   it("todo destaque tem imagem e forma declarada", () => {
@@ -65,5 +66,35 @@ describe("invariantes de imagem e ferramentas", () => {
     expect(tech).not.toContain("OpenStreetmap");
     expect(tech).not.toContain("Turso(libSQL)");
     expect(tech.some((t) => t.includes("/"))).toBe(false);
+  });
+});
+
+describe("campos do estudo de caso (proveniencia)", () => {
+  it("desafio e aprendizado, quando existem, nao sao string vazia", () => {
+    for (const p of projects) {
+      for (const k of ["desafio", "aprendizado"] as const) {
+        const v = p[k];
+        if (v === undefined) continue;
+        expect(v.pt.trim(), `${p.title}.${k}.pt vazio`).not.toBe("");
+        expect(v.en.trim(), `${p.title}.${k}.en vazio`).not.toBe("");
+      }
+    }
+  });
+
+  it("cada camada da arquitetura e cada item da galeria tem texto nos dois idiomas", () => {
+    for (const p of projects) {
+      for (const c of p.arquitetura ?? []) {
+        expect(c.pt.trim() && c.en.trim(), `${p.title}: camada vazia`).toBeTruthy();
+      }
+      for (const g of p.galeria ?? []) {
+        expect(g.src.startsWith("/projects/"), `${p.title}: src fora de public/projects`).toBe(true);
+        expect(g.alt.pt.trim() && g.alt.en.trim(), `${p.title}: alt vazio em ${g.src}`).toBeTruthy();
+      }
+    }
+  });
+
+  it("slugs dos destaques sao unicos", () => {
+    const slugs = featured.map((p) => slugOf(p.title));
+    expect(new Set(slugs).size).toBe(slugs.length);
   });
 });
