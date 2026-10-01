@@ -75,7 +75,8 @@ export const content: Record<Lang, Copy> = {
     // Faculdade e curso técnico saíram daqui: agora estão na Trajetória.
     aboutParagraphs: [
       "Sou de Maceió, Alagoas, e aprendo construindo projeto real, não seguindo tutorial. Meu ciclo é simples: aprender, construir, revisar — é fazendo que a coisa gruda.",
-      "Hoje procuro uma vaga como dev remoto, no Brasil ou fora, para crescer construindo produto que as pessoas usam de verdade.",
+      // Remoto ou em Maceió: dito pelo Samuel em 2026-10-01 (mesmo texto do contato).
+      "Hoje procuro uma vaga como dev, remota (no Brasil ou fora) ou em Maceió, para crescer construindo produto que as pessoas usam de verdade.",
     ],
 
     workTitle: "Projetos",
@@ -128,7 +129,8 @@ export const content: Record<Lang, Copy> = {
     aboutLabel: "About me",
     aboutParagraphs: [
       "I'm from Maceió, Brazil, and I learn by building real projects, not by following tutorials. The loop is simple: learn, build, review — it only sticks when you make something.",
-      "I'm looking for a remote developer role, in Brazil or abroad, to grow by building products people actually use.",
+      // Remoto ou em Maceió: dito pelo Samuel em 2026-10-01 (mesmo texto do contato).
+      "I'm looking for a developer role, remote (in Brazil or abroad) or in Maceió, to grow by building products people actually use.",
     ],
 
     workTitle: "Work",

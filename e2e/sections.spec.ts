@@ -131,6 +131,13 @@ test("o contato diz o tipo de vaga e a disponibilidade, sem PJ", async ({ page }
   await expect(page.locator("#contato")).toContainText("full-time roles, internships and freelance");
 });
 
+test("o sobre diz a mesma modalidade do contato: remoto ou em Maceio", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("#sobre")).toContainText("remota (no Brasil ou fora) ou em Maceió");
+  await page.goto("/en");
+  await expect(page.locator("#sobre")).toContainText("remote (in Brazil or abroad) or in Maceió");
+});
+
 test("o sobre nao repete o que esta na trajetoria", async ({ page }) => {
   for (const rota of ["/", "/en"]) {
     await page.goto(rota);
