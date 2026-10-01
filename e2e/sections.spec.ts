@@ -138,6 +138,14 @@ test("o sobre diz a mesma modalidade do contato: remoto ou em Maceio", async ({ 
   await expect(page.locator("#sobre")).toContainText("remote (in Brazil or abroad) or in Maceió");
 });
 
+test("a margem da abertura diz remoto ou Maceio", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("main")).toContainText("remoto ou Maceió");
+  await expect(page.locator("main")).not.toContainText("aberto a remoto");
+  await page.goto("/en");
+  await expect(page.locator("main")).toContainText("remote or Maceió");
+});
+
 test("o sobre nao repete o que esta na trajetoria", async ({ page }) => {
   for (const rota of ["/", "/en"]) {
     await page.goto(rota);

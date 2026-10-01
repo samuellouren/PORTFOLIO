@@ -30,7 +30,7 @@ export interface Copy {
 
   footer: string;
   skipLink: string;
-  openToRemote: string;
+  openTo: string;
   caseDecisions: string;
   caseOtherDecisions: string;
   caseResult: string;
@@ -95,7 +95,8 @@ export const content: Record<Lang, Copy> = {
 
     footer: "Feito com café em Maceió.",
     skipLink: "Pular para o conteúdo",
-    openToRemote: "aberto a remoto",
+    // Dito pelo Samuel em 2026-10-01: remoto ou em Maceió (mesmo do contato).
+    openTo: "remoto ou Maceió",
     caseDecisions: "Decisões",
     caseOtherDecisions: "Outras decisões",
     caseResult: "Resultado",
@@ -149,7 +150,8 @@ export const content: Record<Lang, Copy> = {
 
     footer: "Made with coffee in Maceió, Brazil.",
     skipLink: "Skip to content",
-    openToRemote: "open to remote",
+    // Dito pelo Samuel em 2026-10-01: remoto ou em Maceió (mesmo do contato).
+    openTo: "remote or Maceió",
     caseDecisions: "Decisions",
     caseOtherDecisions: "Other decisions",
     caseResult: "Result",

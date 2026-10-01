@@ -13,7 +13,7 @@ export default function Opening({ lang }: { lang: Lang }) {
           <div>Maceió, AL</div>
           <div className="mt-1 flex items-center gap-2 min-[900px]:justify-end">
             <span aria-hidden className="inline-block h-[6px] w-[6px] rounded-full bg-verdete" />
-            <span>{t.openToRemote}</span>
+            <span>{t.openTo}</span>
           </div>
         </div>
       }
