@@ -55,12 +55,12 @@ export interface Imagem {
   shape?: Shape;
 }
 
-// Item da linha do tempo. Sem ano confirmado, `ano` fica ausente.
-// `slug` liga o item ao estudo de caso, quando há um.
+// Item da linha do tempo. `slugs` liga ao estudo de caso cada destaque citado
+// pelo nome no texto.
 export interface Marco {
-  ano?: string;
+  ano: string;
   texto: Texto;
-  slug?: string;
+  slugs?: string[];
 }
 
 export function pick(t: Texto, lang: Lang): string {

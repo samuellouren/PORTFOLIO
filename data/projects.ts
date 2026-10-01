@@ -13,8 +13,10 @@
 //                   Só existe se trouxer fato que NÃO aparece em outro campo do
 //                   mesmo projeto; nota que repete descrição/origem/decisão sai.
 //   meta          — metadados da margem { ano?, papel?, status? }, renderizados
-//                   como coluna de datas ("2026 · no ar"). papel fica vazio em
-//                   todos até o Samuel informar.
+//                   como coluna de datas: "2026 · no ar" na primeira linha, papel
+//                   na segunda. papel só nos três destaques, feitos sozinho (dito
+//                   pelo Samuel em 2026-10-01); Elemental Depths e TalentMatch
+//                   foram em equipe e não levam papel.
 //   resultado     — o que mudou de fato, em 1 frase { pt, en }. Sai no card e no caso.
 //
 // Só na página de estudo de caso (/projetos/[slug], /en/projects/[slug]):
@@ -79,6 +81,8 @@ export const projects: Project[] = [
       // Fonte: github.com/samuellouren/Bolao-Copa — primeiro commit em 2026-06-19
       // e README.md ("Bolão da Copa do Mundo 2026").
       ano: "2026",
+      // Fonte: dito pelo Samuel em 2026-10-01 (full-stack, sozinho, do zero).
+      papel: { pt: "full-stack · sozinho, do zero", en: "full-stack · solo, from scratch" },
       // Fonte: resultado abaixo ("Está no ar").
       status: { pt: "no ar", en: "live" },
     },
@@ -174,6 +178,8 @@ export const projects: Project[] = [
       // docs/superpowers/specs/2026-07-07-mapa-farma-design.md (Data: 2026-07-07);
       // public/curriculoPt.pdf ("Mapa Farma … Maceió, AL · 2026").
       ano: "2026",
+      // Fonte: dito pelo Samuel em 2026-10-01 (full-stack, sozinho, do zero).
+      papel: { pt: "full-stack · sozinho, do zero", en: "full-stack · solo, from scratch" },
       // Fonte: resultado abaixo ("em uso").
       status: { pt: "em uso", en: "in use" },
     },
@@ -272,6 +278,8 @@ export const projects: Project[] = [
     meta: {
       // Fonte: github.com/samuellouren/FocusDrop — primeiro commit em 2026-05-30.
       ano: "2026",
+      // Fonte: dito pelo Samuel em 2026-10-01 (full-stack, sozinho, do zero).
+      papel: { pt: "full-stack · sozinho, do zero", en: "full-stack · solo, from scratch" },
     },
     nota: {
       pt: "começou como um timer simples e virou um app focado no uso consciente do celular.",
@@ -388,34 +396,27 @@ export function featuredBySlug(slug: string): Project | undefined {
   return featured.find((p) => slugOf(p.title) === slug);
 }
 
-// Trajetória, do mais recente para o mais antigo; itens sem ano confirmado
-// vão sem ano. Nada aqui pode repetir o texto do Sobre.
+// Trajetória, do mais recente para o mais antigo. Todo item tem ano. Nada aqui
+// pode repetir o texto do Sobre.
 export const trajetoria: Marco[] = [
   {
-    // Fonte: public/curriculoPt.pdf, "Formação" ("1º período · Em andamento").
-    // Sem ano de início escrito em nenhuma fonte.
+    // Fonte: dito pelo Samuel em 2026-10-01 (papel nos destaques: full-stack,
+    // sozinho, do zero). Mapa Farma e Chute do Vidente são de 2026 (meta.ano).
+    ano: "2026",
+    texto: {
+      pt: "Dev full-stack independente: Mapa Farma (cliente real) e Chute do Vidente (produto próprio), sozinho e do zero.",
+      en: "Independent full-stack developer: Mapa Farma (client work) and Chute do Vidente (own product), solo and from scratch.",
+    },
+    slugs: ["mapa-farma", "chute-do-vidente"],
+  },
+  {
+    // Fonte: public/curriculoPt.pdf, "Formação" ("1º período · Em andamento");
+    // ano de início dito pelo Samuel em 2026-10-01.
+    ano: "2026",
     texto: {
       pt: "Bacharelado em Sistemas de Informação no CESMAC, em andamento.",
       en: "Bachelor's in Information Systems at CESMAC, in progress.",
     },
-  },
-  {
-    // Fonte: meta.ano do Mapa Farma (acima).
-    ano: "2026",
-    texto: {
-      pt: "Mapa Farma, CRM mobile para uma distribuidora farmacêutica. Cliente real.",
-      en: "Mapa Farma, a mobile CRM for a pharmaceutical distributor. Client work.",
-    },
-    slug: "mapa-farma",
-  },
-  {
-    // Fonte: meta.ano do Chute do Vidente (acima).
-    ano: "2026",
-    texto: {
-      pt: "Chute do Vidente, bolão da Copa 2026. Produto próprio.",
-      en: "Chute do Vidente, a 2026 World Cup prediction game. Own product.",
-    },
-    slug: "chute-do-vidente",
   },
   {
     // Fonte: public/curriculoPt.pdf, "Formação" ("Técnico em Informática para
@@ -427,7 +428,8 @@ export const trajetoria: Marco[] = [
     },
   },
   {
-    // Fonte: descrição do Elemental Depths (abaixo do índice). Sem ano em nenhuma fonte.
+    // Fonte: descrição do Elemental Depths (índice); ano dito pelo Samuel em 2026-10-01.
+    ano: "2024",
     texto: {
       pt: "Global Game Jam Alagoas: Elemental Depths, jogo feito em equipe com C# e Unity.",
       en: "Global Game Jam Alagoas: Elemental Depths, a team game built in C# and Unity.",

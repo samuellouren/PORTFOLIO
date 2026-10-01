@@ -1,11 +1,31 @@
 import Link from "next/link";
 import Ruled from "./Ruled";
 import { content } from "@/data/content";
-import { trajetoria } from "@/data/projects";
-import { caseHref, pick, type Lang } from "@/data/types";
+import { featuredBySlug, trajetoria } from "@/data/projects";
+import { caseHref, pick, type Lang, type Marco } from "@/data/types";
+import type { ReactNode } from "react";
+
+// Troca no texto o nome de cada destaque citado por um link para o caso dele.
+function comLinks(m: Marco, lang: Lang): ReactNode[] {
+  let partes: ReactNode[] = [pick(m.texto, lang)];
+  for (const slug of m.slugs ?? []) {
+    const titulo = featuredBySlug(slug)!.title;
+    partes = partes.flatMap<ReactNode>((parte) => {
+      if (typeof parte !== "string" || !parte.includes(titulo)) return [parte];
+      const [antes, ...depois] = parte.split(titulo);
+      return [
+        antes,
+        <Link key={slug} href={caseHref(slug, lang)} className="border-b border-traco-forte transition-colors hover:border-brasa hover:text-brasa">
+          {titulo}
+        </Link>,
+        depois.join(titulo),
+      ];
+    });
+  }
+  return partes;
+}
 
 // Linha do tempo compacta: ano numa coluna estreita, uma linha de texto.
-// Item sem ano confirmado deixa a coluna vazia em vez de inventar uma data.
 export default function Path({ lang }: { lang: Lang }) {
   const t = content[lang];
   return (
@@ -24,15 +44,9 @@ export default function Path({ lang }: { lang: Lang }) {
             className="grid grid-cols-[88px_minmax(0,1fr)] gap-x-4 py-1.5 text-[16px] leading-[1.6]"
           >
             <span className="font-display text-[12px] uppercase leading-[2.2] tracking-[0.14em] tabular-nums text-fumo">
-              {m.ano ?? ""}
+              {m.ano}
             </span>
-            {m.slug ? (
-              <Link href={caseHref(m.slug, lang)} className="transition-colors hover:text-brasa">
-                {pick(m.texto, lang)}
-              </Link>
-            ) : (
-              <span>{pick(m.texto, lang)}</span>
-            )}
+            <span>{comLinks(m, lang)}</span>
           </li>
         ))}
       </ol>

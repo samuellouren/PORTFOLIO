@@ -61,6 +61,19 @@ test("os metadados da margem saem no HTML servido", async ({ request }) => {
   expect(pt).toContain("2026 · no ar");
   expect(en).toContain("2026 · in use");
   expect(en).toContain("2026 · live");
+  expect(pt).toContain("full-stack · sozinho, do zero");
+  expect(en).toContain("full-stack · solo, from scratch");
+});
+
+test("o papel fica na segunda linha da margem, abaixo de ano e status", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  const margem = page.getByTestId("margin-mapa-farma");
+  await expect(margem.getByTestId("project-meta")).toHaveText("2026 · em uso");
+  await expect(margem.getByTestId("project-role")).toHaveText("full-stack · sozinho, do zero");
+  const meta = (await margem.getByTestId("project-meta").boundingBox())!;
+  const papel = (await margem.getByTestId("project-role").boundingBox())!;
+  expect(papel.y).toBeGreaterThanOrEqual(meta.y + meta.height);
 });
 
 test("a margem nao repete o que ja esta no card", async ({ page }) => {

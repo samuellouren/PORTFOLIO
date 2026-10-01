@@ -101,15 +101,34 @@ test("a trajetoria fica entre os projetos e o sobre", async ({ page }) => {
   await expect(page.locator("#trajetoria h2")).toHaveText("Path");
 });
 
-test("a trajetoria lista os cinco marcos e liga os projetos ao estudo de caso", async ({ page }) => {
+test("a trajetoria lista os quatro marcos com ano e liga os projetos ao estudo de caso", async ({ page }) => {
   await page.goto("/");
   const path = page.getByTestId("path");
-  await expect(path.locator("li")).toHaveCount(5);
-  for (const t of ["CESMAC", "Mapa Farma", "Chute do Vidente", "SENAI", "Global Game Jam Alagoas"]) {
+  await expect(path.locator("li")).toHaveCount(4);
+  for (const t of ["Dev full-stack independente", "CESMAC", "SENAI", "Global Game Jam Alagoas"]) {
     await expect(path).toContainText(t);
   }
-  await expect(path).toContainText("2024–2025");
-  await expect(path.getByRole("link", { name: /Mapa Farma/ })).toHaveAttribute("href", "/projetos/mapa-farma");
+  for (const ano of ["2026", "2024–2025", "2024"]) await expect(path).toContainText(ano);
+  await expect(path.getByRole("link", { name: "Mapa Farma" })).toHaveAttribute("href", "/projetos/mapa-farma");
+  await expect(path.getByRole("link", { name: "Chute do Vidente" })).toHaveAttribute(
+    "href",
+    "/projetos/chute-do-vidente"
+  );
+  await page.goto("/en");
+  await expect(page.getByTestId("path").getByRole("link", { name: "Mapa Farma" })).toHaveAttribute(
+    "href",
+    "/en/projects/mapa-farma"
+  );
+});
+
+test("o contato diz o tipo de vaga e a disponibilidade, sem PJ", async ({ page }) => {
+  await page.goto("/");
+  const contato = page.locator("#contato");
+  await expect(contato).toContainText("CLT, estágio e freelas");
+  await expect(contato).toContainText("Posso começar agora");
+  await expect(contato).not.toContainText("PJ");
+  await page.goto("/en");
+  await expect(page.locator("#contato")).toContainText("full-time roles, internships and freelance");
 });
 
 test("o sobre nao repete o que esta na trajetoria", async ({ page }) => {

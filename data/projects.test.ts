@@ -91,8 +91,18 @@ describe("metadados da margem", () => {
     }
   });
 
-  it("papel fica vazio em todos ate o Samuel informar", () => {
-    for (const p of projects) expect(p.meta?.papel, p.title).toBeUndefined();
+  it("papel so nos tres destaques, feitos sozinho; projetos de equipe ficam sem", () => {
+    // Fonte: dito pelo Samuel em 2026-10-01.
+    for (const p of projects) {
+      if (p.featured) {
+        expect(p.meta?.papel, p.title).toEqual({
+          pt: "full-stack · sozinho, do zero",
+          en: "full-stack · solo, from scratch",
+        });
+      } else {
+        expect(p.meta?.papel, p.title).toBeUndefined();
+      }
+    }
   });
 
   it("status so existe onde o resultado ja afirma que esta no ar ou em uso", () => {
@@ -171,24 +181,39 @@ describe("campos do estudo de caso (proveniencia)", () => {
 });
 
 describe("trajetoria", () => {
-  it("todo item tem texto nos dois idiomas e ano so no formato aaaa ou aaaa–aaaa", () => {
+  it("todo item tem texto nos dois idiomas e ano no formato aaaa ou aaaa–aaaa", () => {
     for (const m of trajetoria) {
       expect(m.texto.pt.trim() && m.texto.en.trim(), m.texto.pt).toBeTruthy();
-      if (m.ano !== undefined) expect(m.ano, m.texto.pt).toMatch(/^\d{4}(–\d{4})?$/);
+      expect(m.ano, m.texto.pt).toMatch(/^\d{4}(–\d{4})?$/);
     }
   });
 
-  it("item que liga a um caso aponta para um destaque existente e usa o ano dele", () => {
-    for (const m of trajetoria.filter((x) => x.slug)) {
-      const p = featured.find((f) => slugOf(f.title) === m.slug);
-      expect(p, m.slug).toBeDefined();
-      expect(m.ano, m.slug).toBe(p!.meta?.ano);
+  it("vai do mais recente para o mais antigo", () => {
+    const fim = (ano: string) => Number(ano.slice(-4));
+    const anos = trajetoria.map((m) => fim(m.ano));
+    expect(anos).toEqual([...anos].sort((a, b) => b - a));
+  });
+
+  it("cada slug aponta para um destaque citado pelo nome nos dois idiomas", () => {
+    for (const m of trajetoria) {
+      for (const slug of m.slugs ?? []) {
+        const p = featured.find((f) => slugOf(f.title) === slug);
+        expect(p, slug).toBeDefined();
+        expect(m.texto.pt, slug).toContain(p!.title);
+        expect(m.texto.en, slug).toContain(p!.title);
+      }
     }
   });
 
-  it("faculdade e Game Jam ficam sem ano: nenhuma fonte o confirma", () => {
-    for (const termo of ["CESMAC", "Game Jam"]) {
-      expect(trajetoria.find((m) => m.texto.pt.includes(termo))!.ano, termo).toBeUndefined();
-    }
+  it("CESMAC em 2026 e Game Jam em 2024 (dito pelo Samuel em 2026-10-01)", () => {
+    const ano = (termo: string) => trajetoria.find((m) => m.texto.pt.includes(termo))!.ano;
+    expect(ano("CESMAC")).toBe("2026");
+    expect(ano("Game Jam")).toBe("2024");
+  });
+
+  it("projetos aparecem num item de papel, nao um item por projeto", () => {
+    const comProjeto = trajetoria.filter((m) => m.slugs?.length);
+    expect(comProjeto).toHaveLength(1);
+    expect(comProjeto[0].slugs).toEqual(["mapa-farma", "chute-do-vidente"]);
   });
 });

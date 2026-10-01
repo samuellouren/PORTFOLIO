@@ -87,8 +87,9 @@ export const content: Record<Lang, Copy> = {
     skillsAlso: "Também já usei",
 
     contactTitle: "Contato",
+    // Fonte: dito pelo Samuel em 2026-10-01 (CLT, estágio e freelas; começa já).
     contactSub:
-      "Aberto a vagas, freelas ou só um papo sobre tecnologia. Costumo responder no mesmo dia.",
+      "Aberto a vagas CLT, estágio e freelas, remoto ou em Maceió. Posso começar agora. Costumo responder no mesmo dia.",
 
     footer: "Feito com café em Maceió.",
     skipLink: "Pular para o conteúdo",
@@ -138,8 +139,9 @@ export const content: Record<Lang, Copy> = {
     skillsAlso: "Also used",
 
     contactTitle: "Contact",
+    // Fonte: dito pelo Samuel em 2026-10-01 (CLT, estágio e freelas; começa já).
     contactSub:
-      "Open to roles, freelance work or just talking shop. I usually reply the same day.",
+      "Open to full-time roles, internships and freelance work, remote or in Maceió. I can start right away. I usually reply the same day.",
 
     footer: "Made with coffee in Maceió, Brazil.",
     skipLink: "Skip to content",
