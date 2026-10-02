@@ -39,7 +39,9 @@ for (const largura of [1440, 375]) {
       el.remove();
       return cor;
     });
-    for (const id of ["mapa-farma", "focusdrop"]) {
+    // FocusDrop sem print na home (semPrintNaHome): so o Mapa Farma tem moldura phone.
+    await expect(page.getByTestId("shot-focusdrop")).toHaveCount(0);
+    for (const id of ["mapa-farma"]) {
       const shot = page.getByTestId(`shot-${id}`);
       const caixa = (await shot.boundingBox())!;
       expect(caixa.height, id).toBeLessThanOrEqual(400);

@@ -320,6 +320,9 @@ export const projects: Project[] = [
     featured: true,
     tag: { pt: "Mobile", en: "Mobile" },
     image: "/projects/focos.jpeg",
+    // A captura mostra a semana quase vazia ("1min de 2h hoje"): no card da
+    // home lia como app sem uso. Decisao do Samuel em 2026-10-02 (critica).
+    semPrintNaHome: true,
     imageAlt: {
       pt: "Tela de estatísticas do app: dias seguidos, minutos de foco no dia, gráfico de barras da semana, dias ativos e humor da semana.",
       en: "The app's stats screen: day streak, focus minutes today, a weekly bar chart, active days and the week's mood.",

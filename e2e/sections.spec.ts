@@ -60,7 +60,8 @@ test("as reguas dos contatos tem a mesma largura e o mesmo espacamento", async (
 test("as screenshots dos destaques tem alt descritivo nos dois idiomas", async ({ page }) => {
   for (const rota of ["/", "/en"]) {
     await page.goto(rota);
-    for (const id of ["chute-do-vidente", "mapa-farma", "focusdrop"]) {
+    // O FocusDrop so tem print na pagina do caso (semPrintNaHome).
+    for (const id of ["chute-do-vidente", "mapa-farma"]) {
       const alt = await page.getByTestId(`shot-${id}`).locator("img").getAttribute("alt");
       expect(alt?.trim().length, `${rota} ${id}`).toBeGreaterThan(10);
     }

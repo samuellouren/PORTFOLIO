@@ -24,7 +24,7 @@ export default function ProjectFeature({
   const id = slugOf(p.title);
   const phone = p.shape === "phone";
 
-  const shot = p.image ? (
+  const shot = p.image && !p.semPrintNaHome ? (
     <Shot
       src={p.image}
       alt={p.imageAlt ? pick(p.imageAlt, lang) : ""}

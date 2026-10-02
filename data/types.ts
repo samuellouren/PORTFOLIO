@@ -19,6 +19,9 @@ export interface Project {
   // Vídeo curto de demonstração. Quando existe, substitui o print no card e no
   // caso; o imageAlt continua descrevendo o que se vê.
   video?: Video;
+  // O print fica so na pagina do caso: no card da home ele mais atrapalhava
+  // do que provava.
+  semPrintNaHome?: boolean;
   nota?: Texto;
   // A nota repete origem/decisão da página do caso: sai só na home.
   notaSoNaHome?: boolean;

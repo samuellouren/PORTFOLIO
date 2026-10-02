@@ -11,7 +11,8 @@ export default function Opening({ lang }: { lang: Lang }) {
       margin={
         <div className="text-[0.8125rem] leading-[1.7] text-fumo">
           <div>Maceió, AL</div>
-          <div className="mt-1 flex items-center gap-2 min-[900px]:justify-end">
+          {/* A disponibilidade e o que o recrutador procura: maior e em serragem. */}
+          <div className="mt-1 flex items-center gap-2 text-[0.875rem] text-serragem min-[900px]:justify-end">
             <span aria-hidden className="inline-block h-[6px] w-[6px] rounded-full bg-verdete" />
             <span data-testid="open-to" className="whitespace-nowrap">{t.openTo}</span>
           </div>
