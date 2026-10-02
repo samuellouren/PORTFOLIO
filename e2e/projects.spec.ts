@@ -173,7 +173,7 @@ test("a margem nao repete o que ja esta na mesma pagina", async ({ page }) => {
   await expect(page.getByTestId("project-focusdrop")).not.toContainText("timer simples");
 });
 
-test("em >=900px a moldura phone fica a direita do texto", async ({ page }) => {
+test("em >=640px a moldura phone fica a direita do texto", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
   const project = page.getByTestId("project-mapa-farma");
@@ -182,7 +182,18 @@ test("em >=900px a moldura phone fica a direita do texto", async ({ page }) => {
   expect(moldura!.x).toBeGreaterThan(texto!.x);
 });
 
-test("abaixo de 900px a moldura phone fica empilhada abaixo do texto", async ({ page }) => {
+test("em 768px a moldura phone ja fica ao lado do texto, sem vazio embaixo", async ({ page }) => {
+  // Entre 640 e 899px a margem ja colapsou: empilhado, o print de 250px
+  // ficava sozinho com ~450px vazios ao lado.
+  await page.setViewportSize({ width: 768, height: 900 });
+  await page.goto("/");
+  const texto = await page.getByTestId("project-mapa-farma").locator("p").first().boundingBox();
+  const moldura = await page.getByTestId("shot-mapa-farma").boundingBox();
+  expect(moldura!.x).toBeGreaterThan(texto!.x + texto!.width);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+});
+
+test("abaixo de 640px a moldura phone fica empilhada abaixo do texto", async ({ page }) => {
   await page.setViewportSize({ width: 500, height: 900 });
   await page.goto("/");
   const project = page.getByTestId("project-mapa-farma");

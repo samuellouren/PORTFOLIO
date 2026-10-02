@@ -54,7 +54,7 @@ export default function ProjectFeature({
           <ProjectTag project={p} lang={lang} />
         </div>
 
-        <div className={phone ? "mt-5 flex flex-col gap-6 min-[900px]:flex-row" : "mt-5"}>
+        <div className={phone ? "mt-5 flex flex-col gap-6 sm:flex-row" : "mt-5"}>
           {!phone && shot}
           <div className={phone ? "min-w-0 flex-1" : shot ? "mt-5" : ""}>
             <p data-testid={`resumo-${id}`} className="text-[1.0625rem] leading-[1.6] text-serragem">
@@ -65,7 +65,7 @@ export default function ProjectFeature({
                 {pick(p.resultado, lang)}
               </p>
             ) : null}
-            <p data-testid={`stack-${id}`} className="mt-3 text-[0.8125rem] text-fumo">
+            <p data-testid={`stack-${id}`} className="mt-3 font-display text-[0.8125rem] tracking-[0.04em] text-fumo">
               {p.stack}
             </p>
             <div className="mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-2">

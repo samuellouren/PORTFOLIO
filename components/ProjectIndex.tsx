@@ -27,7 +27,7 @@ export default function ProjectIndex({ lang }: { lang: Lang }) {
                 <span className="sr-only"> — {t.linkCode}</span>{" "}
                 <span aria-hidden="true">↗</span>
               </a>
-              <span className="text-[0.8125rem] text-fumo">{p.stack}</span>
+              <span className="font-display text-[0.8125rem] tracking-[0.04em] text-fumo">{p.stack}</span>
             </div>
             {p.demo ? (
               <a

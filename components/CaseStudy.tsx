@@ -80,7 +80,7 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
             <ProjectTag project={p} lang={lang} />
           </div>
 
-          <div className={phone ? "mt-6 flex flex-col gap-6 min-[900px]:flex-row" : "mt-6"}>
+          <div className={phone ? "mt-6 flex flex-col gap-6 sm:flex-row" : "mt-6"}>
             {!phone && shot}
             <div className={phone ? "min-w-0 flex-1" : shot ? "mt-5" : ""}>
               <p className="text-[1.0625rem] leading-[1.7] text-serragem">{pick(p.description, lang)}</p>
@@ -183,7 +183,7 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
       ) : null}
 
       <Secao id="stack" label={t.caseStack}>
-        <ul className="flex flex-wrap gap-x-2 text-[0.9375rem] text-fumo">
+        <ul className="flex flex-wrap gap-x-2 font-display text-[0.875rem] tracking-[0.04em] text-fumo">
           {p.tech.map((tech, n) => (
             <li key={tech}>
               {tech}
@@ -200,7 +200,11 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
           pagina, sem voltar para a home. Email e curriculo ja existem em content. */}
       <Secao id="contato" label={t.contactTitle}>
         <div className="flex flex-wrap items-baseline gap-x-6 gap-y-4 text-[0.9375rem]">
-          <a href={email.href} className={`${acao} [overflow-wrap:anywhere]`}>
+          {/* Mesma regra da home: o email e a acao principal e leva brasa. */}
+          <a
+            href={email.href}
+            className="-my-2.5 border-b border-brasa py-2.5 font-display text-brasa transition-colors hover:text-serragem [overflow-wrap:anywhere]"
+          >
             {email.value}
           </a>
           <a href={cv.url} download={cv.name} className={`${acao} text-fumo`}>
