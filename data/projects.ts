@@ -11,8 +11,11 @@
 //                   mostra. A `description` fica para a página do caso, como versão
 //                   expandida, e não pode conter o resumo palavra por palavra.
 //   nota          — marginália { pt, en }: frase em 1ª pessoa na margem esquerda.
-//                   Só existe se trouxer fato que NÃO aparece em outro campo do
-//                   mesmo projeto; nota que repete descrição/origem/decisão sai.
+//                   Não pode repetir o que já está NA MESMA PÁGINA. A home não
+//                   mostra origem nem decisões, então lá a nota não repete nada;
+//                   se ela repete um campo da página do caso, marque
+//                   notaSoNaHome e ela some só lá.
+//   notaSoNaHome  — true quando a nota repete origem/decisão do caso.
 //   meta          — metadados da margem { ano?, papel?, status? }, renderizados
 //                   como coluna de datas: "2026 · no ar" na primeira linha. O
 //                   papel sai só na página do caso, um trecho por linha (na home
@@ -44,116 +47,6 @@
 import { slugOf, type Lang, type Marco, type Project } from "./types";
 
 export const projects: Project[] = [
-  {
-    id: 1,
-    title: "Chute do Vidente",
-    // Fonte do resumo e da descrição: Bolao-Copa/README.md (abertura, "Sobre o
-    // projeto", "Funcionalidades").
-    resumo: {
-      pt: "Bolão da Copa 2026 com identidade mística, para cravar palpites e disputar o ranking com os amigos.",
-      en: "A 2026 World Cup prediction game with a mystic twist, for making picks and fighting over the leaderboard with friends.",
-    },
-    description: {
-      pt: "Plataforma full-stack de bolão para a Copa do Mundo 2026. Os palpites travam sozinhos 5 minutos antes de cada jogo, e a pontuação sai dos resultados oficiais: placar exato, resultado certo ou erro. Há ranking geral e ranking por grupo privado, com convite por código. Os pontos aparecem como cristais, com níveis e uma taxa de “premonição”, e a Madame Placar, a vidente de plantão, conduz a experiência.",
-      en: "A full-stack prediction platform for the 2026 World Cup. Picks lock automatically 5 minutes before each match, and scoring comes from the official results: exact score, right outcome or miss. There is a global leaderboard and one per private group, joined by invite code. Points show up as crystals, with levels and a “premonition” rate, and Madame Placar, the resident fortune teller, runs the show.",
-    },
-    tech: [
-      // React: pedido do Samuel em 2026-10-01 (Next.js é framework React).
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Node.js",
-      "Express",
-      "JWT",
-      // Era "Turso"; Bolao-Copa/README.md diz "Turso (libSQL distribuído)".
-      "Turso (libSQL)",
-      "Tailwind CSS",
-    ],
-    github: "https://github.com/samuellouren/Bolao-Copa",
-    demo: "https://bolao-copa-samuel-lourencos-projects.vercel.app/",
-    featured: true,
-    tag: { pt: "Produto próprio", en: "Own product" },
-    image: "/projects/videntes.jpeg",
-    imageAlt: {
-      pt: "Página de ranking do Chute do Vidente: participantes listados por cristais acumulados, com medalhas nos três primeiros.",
-      en: "Chute do Vidente leaderboard page: participants listed by crystals earned, with medals for the top three.",
-    },
-    shape: "web",
-    stack: "Next.js · Node.js · Turso",
-    // nota removida: "nasceu de brincadeira por causa da Copa" repetia o contexto (Origem).
-    meta: {
-      // Fonte: github.com/samuellouren/Bolao-Copa — primeiro commit em 2026-06-19
-      // e README.md ("Bolão da Copa do Mundo 2026").
-      ano: "2026",
-      // Fonte: dito pelo Samuel em 2026-10-01 (full-stack, sozinho, do zero).
-      papel: { pt: "full-stack · sozinho, do zero", en: "full-stack · solo, from scratch" },
-      // Fonte: resultado abaixo ("Está no ar").
-      status: { pt: "no ar", en: "live" },
-    },
-    contexto: {
-      label: { pt: "Origem", en: "Origin" },
-      pt: "Não era demanda de cliente. Eu queria fazer um projeto divertido, e ele nasceu como brincadeira em torno da Copa.",
-      en: "Not client work. I wanted to build something fun, and it started as a joke around the World Cup.",
-    },
-    resultado: {
-      pt: "Está no ar, e os amigos usaram de verdade: mais de 25 pessoas participaram.",
-      en: "It's live, and friends actually used it: more than 25 people joined.",
-    },
-    // Em destaque: a pontuação automática (agendamento externo, rota protegida e
-    // API de resultados) e o fechamento do palpite antes do jogo, que é o que
-    // mantém a disputa justa. Cristais é escolha de produto; rate limiting é padrão.
-    decisoes: [
-      {
-        // Fonte: Bolao-Copa/README.md ("Pontuação automatizada", "Integrações" e a
-        // variável ADMIN_SECRET na tabela de ambiente).
-        destaque: true,
-        titulo: { pt: "Pontuação sem ninguém apertar botão", en: "Scoring with nobody pressing a button" },
-        pt: "Um agendamento externo no cron-job.org dispara o processamento dos jogos encerrados, por uma rota administrativa protegida por segredo. A API busca os resultados oficiais na football-data.org e calcula os pontos de cada palpite.",
-        en: "An external schedule on cron-job.org triggers the processing of finished matches, through an admin route guarded by a secret. The API pulls the official results from football-data.org and scores every pick.",
-      },
-      {
-        // Fonte: Bolao-Copa/README.md ("Palpites em tempo real").
-        destaque: true,
-        titulo: { pt: "Palpite fecha antes do apito", en: "Picks close before kickoff" },
-        pt: "O placar é validado e o palpite fecha automaticamente 5 minutos antes do início de cada jogo.",
-        en: "Scores are validated and picks close automatically 5 minutes before each match starts.",
-      },
-      {
-        // Fonte: dito pelo Samuel (spec do portfólio §5.2; antes era o campo `decisao`).
-        titulo: { pt: "Cristais em vez de dinheiro", en: "Crystals instead of money" },
-        pt: "Os cristais são moeda fictícia, justamente por ser brincadeira. Nada de dinheiro real envolvido.",
-        en: "The crystals are fictional currency, precisely because it's a joke. No real money involved.",
-        curta: {
-          pt: "Moeda fictícia, sem dinheiro real.",
-          en: "Fictional currency, no real money.",
-        },
-      },
-      {
-        // Fonte: Bolao-Copa/README.md ("Backend").
-        titulo: { pt: "Rate limiting nas rotas sensíveis", en: "Rate limiting on sensitive routes" },
-        pt: "Autenticação, palpites, grupos e recuperação de senha têm limite de requisições.",
-        en: "Authentication, picks, groups and password recovery are rate limited.",
-        curta: {
-          pt: "Limite no login, palpites, grupos e senha.",
-          en: "Limits on login, picks, groups and passwords.",
-        },
-      },
-    ],
-    // Fonte: Bolao-Copa/README.md ("Stack técnica", "Integrações").
-    arquitetura: [
-      { pt: "Front-end Next.js (App Router), na Vercel", en: "Next.js front end (App Router), on Vercel" },
-      {
-        pt: "API REST em Node + Express, no Render · JWT e bcrypt",
-        en: "REST API in Node + Express, on Render · JWT and bcrypt",
-        aparte: {
-          pt: "resultados da football-data.org, disparados pelo cron-job.org · e-mails pelo Resend",
-          en: "results from football-data.org, triggered by cron-job.org · email through Resend",
-        },
-      },
-      { pt: "Turso (libSQL)", en: "Turso (libSQL)" },
-    ],
-    // PENDENTE (sem fonte): galeria (novo print), desafio, aprendizado.
-  },
   {
     id: 7,
     title: "Mapa Farma",
@@ -189,8 +82,13 @@ export const projects: Project[] = [
     },
     shape: "phone",
     stack: "React Native · Node.js · Turso",
-    // nota removida: "o cliente queria um software gratuito. usei OpenStreetMap…"
-    // repetia a decisão palavra por palavra.
+    // Fonte: spec §5.2 (dito pelo Samuel em 2026-07-28). Repete a decisão
+    // MapLibre/OpenStreetMap do caso, então só sai na home.
+    nota: {
+      pt: "o cliente queria um software gratuito. usei OpenStreetMap em vez de Google Maps por causa disso.",
+      en: "the client wanted free software. that's why I used OpenStreetMap instead of Google Maps.",
+    },
+    notaSoNaHome: true,
     meta: {
       // Fonte: github.com/samuellouren/Mapa-Farma —
       // docs/superpowers/specs/2026-07-07-mapa-farma-design.md (Data: 2026-07-07);
@@ -283,6 +181,124 @@ export const projects: Project[] = [
       },
     ],
     // PENDENTE (sem fonte): galeria, desafio, aprendizado.
+  },
+  {
+    id: 1,
+    title: "Chute do Vidente",
+    // Fonte do resumo e da descrição: Bolao-Copa/README.md (abertura, "Sobre o
+    // projeto", "Funcionalidades").
+    resumo: {
+      pt: "Bolão da Copa 2026 com identidade mística, para cravar palpites e disputar o ranking com os amigos.",
+      en: "A 2026 World Cup prediction game with a mystic twist, for making picks and fighting over the leaderboard with friends.",
+    },
+    description: {
+      pt: "Plataforma full-stack de bolão para a Copa do Mundo 2026. Os palpites travam sozinhos 5 minutos antes de cada jogo, e a pontuação sai dos resultados oficiais: placar exato, resultado certo ou erro. Há ranking geral e ranking por grupo privado, com convite por código. Os pontos aparecem como cristais, com níveis e uma taxa de “premonição”, e a Madame Placar, a vidente de plantão, conduz a experiência.",
+      en: "A full-stack prediction platform for the 2026 World Cup. Picks lock automatically 5 minutes before each match, and scoring comes from the official results: exact score, right outcome or miss. There is a global leaderboard and one per private group, joined by invite code. Points show up as crystals, with levels and a “premonition” rate, and Madame Placar, the resident fortune teller, runs the show.",
+    },
+    tech: [
+      // React: pedido do Samuel em 2026-10-01 (Next.js é framework React).
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "JWT",
+      // Era "Turso"; Bolao-Copa/README.md diz "Turso (libSQL distribuído)".
+      "Turso (libSQL)",
+      "Tailwind CSS",
+    ],
+    github: "https://github.com/samuellouren/Bolao-Copa",
+    demo: "https://bolao-copa-samuel-lourencos-projects.vercel.app/",
+    featured: true,
+    tag: { pt: "Produto próprio", en: "Own product" },
+    // Recorte do print de tela cheia (spec 6.6, plano B): a 660px o
+    // ranking ficava ilegivel num mar de azul-marinho. Original: videntes.jpeg.
+    image: "/projects/videntes-ranking.jpeg",
+    imageAlt: {
+      pt: "Página de ranking do Chute do Vidente: participantes listados por cristais acumulados, com medalhas nos três primeiros.",
+      en: "Chute do Vidente leaderboard page: participants listed by crystals earned, with medals for the top three.",
+    },
+    shape: "web",
+    stack: "Next.js · Node.js · Turso",
+    // Fonte: spec §5.2 (dito pelo Samuel em 2026-07-28). Repete a Origem do
+    // caso, então só sai na home.
+    nota: {
+      pt: "nasceu de brincadeira por causa da Copa.",
+      en: "born as a joke, because of the World Cup.",
+    },
+    notaSoNaHome: true,
+    meta: {
+      // Fonte: github.com/samuellouren/Bolao-Copa — primeiro commit em 2026-06-19
+      // e README.md ("Bolão da Copa do Mundo 2026").
+      ano: "2026",
+      // Fonte: dito pelo Samuel em 2026-10-01 (full-stack, sozinho, do zero).
+      papel: { pt: "full-stack · sozinho, do zero", en: "full-stack · solo, from scratch" },
+      // Fonte: resultado abaixo ("Está no ar").
+      status: { pt: "no ar", en: "live" },
+    },
+    contexto: {
+      label: { pt: "Origem", en: "Origin" },
+      pt: "Não era demanda de cliente. Eu queria fazer um projeto divertido, e ele nasceu como brincadeira em torno da Copa.",
+      en: "Not client work. I wanted to build something fun, and it started as a joke around the World Cup.",
+    },
+    resultado: {
+      pt: "Está no ar, e os amigos usaram de verdade: mais de 25 pessoas participaram.",
+      en: "It's live, and friends actually used it: more than 25 people joined.",
+    },
+    // Em destaque: a pontuação automática (agendamento externo, rota protegida e
+    // API de resultados) e o fechamento do palpite antes do jogo, que é o que
+    // mantém a disputa justa. Cristais é escolha de produto; rate limiting é padrão.
+    decisoes: [
+      {
+        // Fonte: Bolao-Copa/README.md ("Pontuação automatizada", "Integrações" e a
+        // variável ADMIN_SECRET na tabela de ambiente).
+        destaque: true,
+        titulo: { pt: "Pontuação sem ninguém apertar botão", en: "Scoring with nobody pressing a button" },
+        pt: "Um agendamento externo no cron-job.org dispara o processamento dos jogos encerrados, por uma rota administrativa protegida por segredo. A API busca os resultados oficiais na football-data.org e calcula os pontos de cada palpite.",
+        en: "An external schedule on cron-job.org triggers the processing of finished matches, through an admin route guarded by a secret. The API pulls the official results from football-data.org and scores every pick.",
+      },
+      {
+        // Fonte: Bolao-Copa/README.md ("Palpites em tempo real").
+        destaque: true,
+        titulo: { pt: "Palpite fecha antes do apito", en: "Picks close before kickoff" },
+        pt: "O placar é validado e o palpite fecha automaticamente 5 minutos antes do início de cada jogo.",
+        en: "Scores are validated and picks close automatically 5 minutes before each match starts.",
+      },
+      {
+        // Fonte: dito pelo Samuel (spec do portfólio §5.2; antes era o campo `decisao`).
+        titulo: { pt: "Cristais em vez de dinheiro", en: "Crystals instead of money" },
+        pt: "Os cristais são moeda fictícia, justamente por ser brincadeira. Nada de dinheiro real envolvido.",
+        en: "The crystals are fictional currency, precisely because it's a joke. No real money involved.",
+        curta: {
+          pt: "Moeda fictícia, sem dinheiro real.",
+          en: "Fictional currency, no real money.",
+        },
+      },
+      {
+        // Fonte: Bolao-Copa/README.md ("Backend").
+        titulo: { pt: "Rate limiting nas rotas sensíveis", en: "Rate limiting on sensitive routes" },
+        pt: "Autenticação, palpites, grupos e recuperação de senha têm limite de requisições.",
+        en: "Authentication, picks, groups and password recovery are rate limited.",
+        curta: {
+          pt: "Limite no login, palpites, grupos e senha.",
+          en: "Limits on login, picks, groups and passwords.",
+        },
+      },
+    ],
+    // Fonte: Bolao-Copa/README.md ("Stack técnica", "Integrações").
+    arquitetura: [
+      { pt: "Front-end Next.js (App Router), na Vercel", en: "Next.js front end (App Router), on Vercel" },
+      {
+        pt: "API REST em Node + Express, no Render · JWT e bcrypt",
+        en: "REST API in Node + Express, on Render · JWT and bcrypt",
+        aparte: {
+          pt: "resultados da football-data.org, disparados pelo cron-job.org · e-mails pelo Resend",
+          en: "results from football-data.org, triggered by cron-job.org · email through Resend",
+        },
+      },
+      { pt: "Turso (libSQL)", en: "Turso (libSQL)" },
+    ],
+    // PENDENTE (sem fonte): galeria (novo print), desafio, aprendizado.
   },
   {
     id: 2,

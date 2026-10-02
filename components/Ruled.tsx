@@ -20,9 +20,10 @@ export default function Ruled({
       >
         {margin}
       </div>
+      {/* before: o entalhe da regua no limite de cada secao (spec 4.3). */}
       <div
         data-testid="ruled-content"
-        className="border-l border-traco pb-14 pl-5 pt-4 min-[900px]:pl-8 min-[900px]:pt-14"
+        className="relative border-l border-traco pb-14 pl-5 pt-4 before:absolute before:top-0 before:-left-[4.5px] before:h-px before:w-2 before:bg-traco-forte min-[900px]:pl-8 min-[900px]:pt-14"
       >
         {children}
       </div>

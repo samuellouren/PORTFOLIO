@@ -20,6 +20,8 @@ export interface Project {
   // caso; o imageAlt continua descrevendo o que se vê.
   video?: Video;
   nota?: Texto;
+  // A nota repete origem/decisão da página do caso: sai só na home.
+  notaSoNaHome?: boolean;
   meta?: Meta;
   contexto?: Texto & { label: Texto };
   resultado?: Texto;

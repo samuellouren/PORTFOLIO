@@ -7,7 +7,7 @@ import CaseFields from "./CaseFields";
 import ProjectLinks from "./ProjectLinks";
 import ProjectTag from "./ProjectTag";
 import Shot from "./Shot";
-import { content } from "@/data/content";
+import { content, contacts, CV_FILES } from "@/data/content";
 import { featured } from "@/data/projects";
 import { caseHref, homeHref, pick, slugOf, type Lang, type Project } from "@/data/types";
 import type { ReactNode } from "react";
@@ -33,6 +33,8 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
   const i = featured.findIndex((x) => x.id === p.id);
   const proximo = featured[(i + 1) % featured.length];
   const phone = p.shape === "phone";
+  const email = contacts.find((c) => c.id === "email")!;
+  const cv = CV_FILES[lang];
 
   const decisoes = p.decisoes ?? [];
   const principais = decisoes.filter((d) => d.destaque);
@@ -63,7 +65,8 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
             </p>
             <div className="flex flex-col gap-3 min-[900px]:items-end">
               <ProjectMeta meta={p.meta} lang={lang} papel />
-              {p.nota ? <MarginNote>{pick(p.nota, lang)}</MarginNote> : null}
+              {/* A nota que repete Origem/Decisão desta página só sai na home. */}
+              {p.nota && !p.notaSoNaHome ? <MarginNote>{pick(p.nota, lang)}</MarginNote> : null}
             </div>
           </div>
         }
@@ -80,7 +83,7 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
           <div className={phone ? "mt-6 flex flex-col gap-6 min-[900px]:flex-row" : "mt-6"}>
             {!phone && shot}
             <div className={phone ? "min-w-0 flex-1" : shot ? "mt-5" : ""}>
-              <p className="text-[1.0625rem] leading-[1.7] text-fumo">{pick(p.description, lang)}</p>
+              <p className="text-[1.0625rem] leading-[1.7] text-serragem">{pick(p.description, lang)}</p>
             </div>
             {phone && shot}
           </div>
@@ -190,6 +193,19 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
         </ul>
         <div className="mt-5">
           <ProjectLinks project={p} lang={lang} />
+        </div>
+      </Secao>
+
+      {/* Quem leu ate aqui chega no ponto mais convencido: o contato fica na
+          pagina, sem voltar para a home. Email e curriculo ja existem em content. */}
+      <Secao id="contato" label={t.contactTitle}>
+        <div className="flex flex-wrap items-baseline gap-x-6 gap-y-4 text-[0.9375rem]">
+          <a href={email.href} className={`${acao} [overflow-wrap:anywhere]`}>
+            {email.value}
+          </a>
+          <a href={cv.url} download={cv.name} className={`${acao} text-fumo`}>
+            {t.ctaCv} <span aria-hidden="true">↓</span>
+          </a>
         </div>
       </Secao>
 

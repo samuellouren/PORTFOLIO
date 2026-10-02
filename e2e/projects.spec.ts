@@ -154,12 +154,20 @@ for (const largura of [1440, 900, 375]) {
   });
 }
 
-test("a margem nao repete o que ja esta no card", async ({ page }) => {
+test("a margem nao repete o que ja esta na mesma pagina", async ({ page }) => {
   await page.goto("/");
-  // notas que repetiam Origem e Decisao sairam; a do FocusDrop traz fato novo
-  await expect(page.getByTestId("margin-mapa-farma")).not.toContainText("software gratuito");
-  await expect(page.getByTestId("margin-chute-do-vidente")).not.toContainText("brincadeira");
+  // Na home nao aparecem Origem nem Decisoes: as notas nao repetem nada ali.
+  await expect(page.getByTestId("margin-mapa-farma")).toContainText("software gratuito");
+  await expect(page.getByTestId("margin-chute-do-vidente")).toContainText("brincadeira");
   await expect(page.getByTestId("margin-focusdrop")).toContainText("uso consciente do celular");
+  // Na pagina do caso elas repetiriam a Decisao e a Origem: somem so la.
+  await page.goto("/projetos/mapa-farma");
+  await expect(page.locator("main")).not.toContainText("o cliente queria um software gratuito");
+  await page.goto("/projetos/chute-do-vidente");
+  await expect(page.locator("main")).not.toContainText("nasceu de brincadeira por causa da Copa");
+  await page.goto("/projetos/focusdrop");
+  await expect(page.locator("main")).toContainText("uso consciente do celular");
+  await page.goto("/");
   await expect(page.getByTestId("project-focusdrop")).not.toContainText("timer simples");
 });
 

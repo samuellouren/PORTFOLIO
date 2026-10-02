@@ -22,7 +22,9 @@ export default function Header({
     <header className="mx-auto flex max-w-[900px] flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-traco px-5 py-5 sm:px-8">
       <Link
         href={home}
-        className="-my-3 py-3 font-display text-[0.9375rem] font-semibold uppercase tracking-[0.14em] text-serragem"
+        // Na home o h1 ja diz o nome logo abaixo: no celular o timbre repetia
+        // "Samuel Lourenço" duas vezes em 230px.
+        className={`-my-3 py-3 font-display text-[0.9375rem] font-semibold uppercase tracking-[0.14em] text-serragem${onHome ? " max-[899px]:hidden" : ""}`}
       >
         Samuel Lourenço
       </Link>
@@ -32,7 +34,7 @@ export default function Header({
         <a className="-my-3 py-3 transition-colors hover:text-serragem" href={ancora("sobre")}>{t.navAbout}</a>
         <a className="-my-3 py-3 transition-colors hover:text-serragem" href={ancora("contato")}>{t.navContact}</a>
         <Link
-          className="-my-3 py-3 transition-colors hover:text-brasa"
+          className="-mx-3 -my-3 px-3 py-3 transition-colors hover:text-brasa"
           href={alternateHref}
           hrefLang={lang === "pt" ? "en" : "pt-BR"}
         >
