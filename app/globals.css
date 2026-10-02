@@ -37,6 +37,10 @@
   a {
     /* Toque dispara na hora: link nao tem duplo toque para zoom. */
     touch-action: manipulation;
+    /* O transition-colors do Tailwind tambem anima outline-color: sem isto o
+       anel de foco nascia na cor do texto e levava 150ms para virar brasa.
+       Foco de teclado nao anima. */
+    outline-color: var(--color-brasa);
   }
 
   /* Retorno no instante do toque, nao quando o dedo sai. Sem transicao. */
