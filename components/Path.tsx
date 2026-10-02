@@ -32,7 +32,7 @@ export default function Path({ lang }: { lang: Lang }) {
     <Ruled
       id="trajetoria"
       margin={
-        <h2 className="font-display text-[12px] uppercase tracking-[0.14em] text-fumo">
+        <h2 className="font-display text-[0.75rem] uppercase tracking-[0.14em] text-fumo">
           {t.pathTitle}
         </h2>
       }
@@ -41,9 +41,9 @@ export default function Path({ lang }: { lang: Lang }) {
         {trajetoria.map((m) => (
           <li
             key={m.texto.pt}
-            className="grid grid-cols-[88px_minmax(0,1fr)] gap-x-4 py-1.5 text-[16px] leading-[1.6]"
+            className="grid grid-cols-[88px_minmax(0,1fr)] gap-x-4 py-1.5 text-[1rem] leading-[1.6]"
           >
-            <span className="font-display text-[12px] uppercase leading-[2.2] tracking-[0.14em] tabular-nums text-fumo">
+            <span className="font-display text-[0.75rem] uppercase leading-[2.2] tracking-[0.14em] tabular-nums text-fumo">
               {m.ano}
             </span>
             <span>{comLinks(m, lang)}</span>

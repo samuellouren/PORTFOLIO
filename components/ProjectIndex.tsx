@@ -10,7 +10,7 @@ export default function ProjectIndex({ lang }: { lang: Lang }) {
   return (
     <Ruled
       margin={
-        <h3 className="font-display text-[12px] font-normal uppercase tracking-[0.14em] text-fumo">
+        <h3 className="font-display text-[0.75rem] font-normal uppercase tracking-[0.14em] text-fumo">
           {t.indexLabel}
         </h3>
       }
@@ -21,19 +21,19 @@ export default function ProjectIndex({ lang }: { lang: Lang }) {
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
               <a
                 href={p.github}
-                className="-my-2.5 py-2.5 font-display text-[16px] transition-colors hover:text-brasa"
+                className="-my-2.5 py-2.5 font-display text-[1rem] transition-colors hover:text-brasa"
               >
                 {p.title}
                 <span className="sr-only"> — {t.linkCode}</span>{" "}
                 <span aria-hidden="true">↗</span>
               </a>
-              <span className="text-[13px] text-fumo">{p.stack}</span>
+              <span className="text-[0.8125rem] text-fumo">{p.stack}</span>
             </div>
             {p.demo ? (
               <a
                 href={p.demo}
                 data-testid="index-demo"
-                className="-my-3 inline-block py-3 text-[14px] text-fumo transition-colors hover:text-brasa"
+                className="-my-3 inline-block py-3 text-[0.875rem] text-fumo transition-colors hover:text-brasa"
               >
                 {t.linkDemo}
                 <span className="sr-only"> — {p.title}</span>{" "}
@@ -41,7 +41,7 @@ export default function ProjectIndex({ lang }: { lang: Lang }) {
               </a>
             ) : null}
             {p.nota ? (
-              <p data-testid="index-note" className="mt-1 text-[14px] italic text-fumo">
+              <p data-testid="index-note" className="mt-1 text-[0.875rem] italic text-fumo">
                 {pick(p.nota, lang)}
               </p>
             ) : null}

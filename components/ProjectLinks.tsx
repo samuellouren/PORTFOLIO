@@ -9,7 +9,7 @@ const link =
 export default function ProjectLinks({ project: p, lang }: { project: Project; lang: Lang }) {
   const t = content[lang];
   return (
-    <span className="flex gap-5 text-[13px]">
+    <span className="flex gap-5 text-[0.8125rem]">
       <a href={p.github} className={link}>
         {t.linkCode}
         <span className="sr-only"> — {p.title}</span> <span aria-hidden="true">↗</span>

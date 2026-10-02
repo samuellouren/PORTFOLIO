@@ -25,10 +25,10 @@ export default function GlobalNotFound() {
     <html lang="pt-BR" className={`${bricolage.variable} ${newsreader.variable}`}>
       <body>
         <main className="mx-auto max-w-[660px] px-5 py-24 sm:px-8">
-          <p className="font-display text-[12px] uppercase tracking-[0.14em] text-fumo">404</p>
-          <h1 className="mt-3 font-display text-[28px] font-semibold">{pt.notFoundTitle}</h1>
-          <p lang="en" className="mt-1 text-[17px] italic text-fumo">{en.notFoundTitle}</p>
-          <div className="mt-8 flex flex-wrap gap-6 text-[15px]">
+          <p className="font-display text-[0.75rem] uppercase tracking-[0.14em] text-fumo">404</p>
+          <h1 className="mt-3 font-display text-[1.75rem] font-semibold">{pt.notFoundTitle}</h1>
+          <p lang="en" className="mt-1 text-[1.0625rem] italic text-fumo">{en.notFoundTitle}</p>
+          <div className="mt-8 flex flex-wrap gap-6 text-[0.9375rem]">
             <Link
               href="/"
               className="-my-2.5 border-b border-traco-forte py-2.5 font-display transition-colors hover:border-brasa hover:text-brasa"

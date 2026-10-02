@@ -22,11 +22,11 @@ export default function Header({
     <header className="mx-auto flex max-w-[900px] flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-traco px-5 py-5 sm:px-8">
       <Link
         href={home}
-        className="-my-3 py-3 font-display text-[15px] font-semibold uppercase tracking-[0.14em] text-serragem"
+        className="-my-3 py-3 font-display text-[0.9375rem] font-semibold uppercase tracking-[0.14em] text-serragem"
       >
         Samuel Lourenço
       </Link>
-      <nav className="flex items-baseline gap-5 text-[14px] text-fumo">
+      <nav aria-label={t.navLabel} className="flex items-baseline gap-5 text-[0.875rem] text-fumo">
         {/* Ancoras internas: hover em serragem. O brasa fica pra acao. */}
         <a className="-my-3 py-3 transition-colors hover:text-serragem" href={ancora("projetos")}>{t.navWork}</a>
         <a className="-my-3 py-3 transition-colors hover:text-serragem" href={ancora("sobre")}>{t.navAbout}</a>

@@ -15,8 +15,8 @@ export default function Home({ lang }: { lang: Lang }) {
     <Shell lang={lang} alternateHref={homeHref(lang === "pt" ? "en" : "pt")} onHome>
       <Opening lang={lang} />
       <h2 id="projetos" className="sr-only">{t.workTitle}</h2>
-      {featured.map((p) => (
-        <ProjectFeature key={p.id} project={p} lang={lang} />
+      {featured.map((p, i) => (
+        <ProjectFeature key={p.id} project={p} lang={lang} preload={i === 0} />
       ))}
       <ProjectIndex lang={lang} />
       <Path lang={lang} />

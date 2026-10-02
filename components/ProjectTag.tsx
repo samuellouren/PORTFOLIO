@@ -7,8 +7,8 @@ export default function ProjectTag({ project: p, lang }: { project: Project; lan
     <span
       className={
         p.tag.pt === "Cliente real"
-          ? "font-display text-[12px] uppercase tracking-[0.14em] text-verdete"
-          : "font-display text-[12px] uppercase tracking-[0.14em] text-fumo"
+          ? "font-display text-[0.75rem] uppercase tracking-[0.14em] text-verdete"
+          : "font-display text-[0.75rem] uppercase tracking-[0.14em] text-fumo"
       }
     >
       {pick(p.tag, lang)}

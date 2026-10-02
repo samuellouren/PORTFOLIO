@@ -19,7 +19,7 @@ export default function ProjectMeta({
     .join(" · ");
   const papel = comPapel && meta.papel ? pick(meta.papel, lang) : undefined;
   if (!linha && !papel) return null;
-  const estilo = "font-display text-[12px] uppercase tracking-[0.14em] tabular-nums text-fumo";
+  const estilo = "font-display text-[0.75rem] uppercase tracking-[0.14em] tabular-nums text-fumo";
   return (
     <div>
       {linha ? (

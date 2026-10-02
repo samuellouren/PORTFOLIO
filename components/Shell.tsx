@@ -28,7 +28,7 @@ export default function Shell({
       <main id="conteudo" lang={lang === "pt" ? "pt-BR" : "en"}>
         {children}
       </main>
-      <footer className="mx-auto max-w-[900px] border-t border-traco px-5 py-8 text-[14px] text-fumo sm:px-8">
+      <footer className="mx-auto max-w-[900px] border-t border-traco px-5 py-8 text-[0.875rem] text-fumo sm:px-8">
         {t.footer}
       </footer>
     </>

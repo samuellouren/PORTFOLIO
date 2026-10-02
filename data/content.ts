@@ -30,6 +30,9 @@ export interface Copy {
 
   footer: string;
   skipLink: string;
+  // Nome dos landmarks <nav>: na página do caso há dois.
+  navLabel: string;
+  caseNavLabel: string;
   openTo: string;
   caseDecisions: string;
   caseOtherDecisions: string;
@@ -102,6 +105,8 @@ export const content: Record<Lang, Copy> = {
 
     footer: "Feito com café em Maceió.",
     skipLink: "Pular para o conteúdo",
+    navLabel: "Principal",
+    caseNavLabel: "Entre projetos",
     // Status de disponibilidade, com o ponto verde. Dito pelo Samuel em
     // 2026-10-01: remoto ou em Maceió (mesmo do contato), pode começar agora.
     openTo: "disponível · remoto ou Maceió",
@@ -157,6 +162,8 @@ export const content: Record<Lang, Copy> = {
 
     footer: "Made with coffee in Maceió, Brazil.",
     skipLink: "Skip to content",
+    navLabel: "Main",
+    caseNavLabel: "Between projects",
     // Status de disponibilidade, com o ponto verde. Dito pelo Samuel em
     // 2026-10-01: remoto ou em Maceió (mesmo do contato), pode começar agora.
     openTo: "available · remote or Maceió",

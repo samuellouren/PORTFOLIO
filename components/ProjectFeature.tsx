@@ -13,9 +13,12 @@ import { caseHref, pick, slugOf, type Lang, type Project } from "@/data/types";
 export default function ProjectFeature({
   project: p,
   lang,
+  preload = false,
 }: {
   project: Project;
   lang: Lang;
+  // So o primeiro destaque: o print dele ja aparece na primeira tela e e o LCP.
+  preload?: boolean;
 }) {
   const t = content[lang];
   const id = slugOf(p.title);
@@ -28,6 +31,7 @@ export default function ProjectFeature({
       shape={p.shape}
       video={p.video}
       testId={`shot-${id}`}
+      preload={preload}
       recorte
     />
   ) : null;
@@ -44,7 +48,7 @@ export default function ProjectFeature({
     >
       <article data-testid={`project-${id}`}>
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <h3 className="font-display text-[22px] font-semibold uppercase tracking-[0.06em]">
+          <h3 className="font-display text-[1.375rem] font-semibold uppercase tracking-[0.06em]">
             {p.title}
           </h3>
           <ProjectTag project={p} lang={lang} />
@@ -53,22 +57,22 @@ export default function ProjectFeature({
         <div className={phone ? "mt-5 flex flex-col gap-6 min-[900px]:flex-row" : "mt-5"}>
           {!phone && shot}
           <div className={phone ? "min-w-0 flex-1" : shot ? "mt-5" : ""}>
-            <p data-testid={`resumo-${id}`} className="text-[17px] leading-[1.6] text-serragem">
+            <p data-testid={`resumo-${id}`} className="text-[1.0625rem] leading-[1.6] text-serragem">
               {pick(p.resumo ?? p.description, lang)}
             </p>
             {p.resultado ? (
-              <p data-testid={`resultado-${id}`} className="mt-3 text-[16px] leading-[1.6] text-fumo">
+              <p data-testid={`resultado-${id}`} className="mt-3 text-[1rem] leading-[1.6] text-fumo">
                 {pick(p.resultado, lang)}
               </p>
             ) : null}
-            <p data-testid={`stack-${id}`} className="mt-3 text-[13px] text-fumo">
+            <p data-testid={`stack-${id}`} className="mt-3 text-[0.8125rem] text-fumo">
               {p.stack}
             </p>
             <div className="mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-2">
               <Link
                 href={caseHref(id, lang)}
                 data-testid={`case-link-${id}`}
-                className="-my-2.5 border-b border-brasa py-2.5 font-display text-[15px] text-brasa transition-colors hover:text-serragem"
+                className="-my-2.5 border-b border-brasa py-2.5 font-display text-[0.9375rem] text-brasa transition-colors hover:text-serragem"
               >
                 {t.caseRead}
                 <span className="sr-only"> — {p.title}</span>{" "}

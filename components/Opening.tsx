@@ -9,7 +9,7 @@ export default function Opening({ lang }: { lang: Lang }) {
   return (
     <Ruled
       margin={
-        <div className="text-[13px] leading-[1.7] text-fumo">
+        <div className="text-[0.8125rem] leading-[1.7] text-fumo">
           <div>Maceió, AL</div>
           <div className="mt-1 flex items-center gap-2 min-[900px]:justify-end">
             <span aria-hidden className="inline-block h-[6px] w-[6px] rounded-full bg-verdete" />
@@ -21,10 +21,10 @@ export default function Opening({ lang }: { lang: Lang }) {
       <h1 className="entrada max-w-[560px] font-display text-[clamp(1.9rem,5.5vw,2.9rem)] font-semibold leading-[1.12]">
         Samuel Lourenço
       </h1>
-      <p data-testid="hero-sub" className="entrada mt-4 max-w-[560px] text-[17px] leading-[1.7] text-serragem">
+      <p data-testid="hero-sub" className="entrada mt-4 max-w-[560px] text-[1.0625rem] leading-[1.7] text-serragem">
         {t.heroSub}
       </p>
-      <div className="mt-7 flex flex-wrap items-center gap-5 text-[15px]">
+      <div className="mt-7 flex flex-wrap items-center gap-5 text-[0.9375rem]">
         <a
           href="#projetos"
           className="-my-2.5 border-b border-brasa py-2.5 font-display text-serragem transition-colors hover:text-brasa"

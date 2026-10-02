@@ -12,7 +12,7 @@ import { featured } from "@/data/projects";
 import { caseHref, homeHref, pick, slugOf, type Lang, type Project } from "@/data/types";
 import type { ReactNode } from "react";
 
-const rotulo = "font-display text-[12px] uppercase tracking-[0.14em] text-fumo";
+const rotulo = "font-display text-[0.75rem] uppercase tracking-[0.14em] text-fumo";
 const acao =
   "-my-2.5 border-b border-traco-forte py-2.5 font-display transition-colors hover:border-brasa hover:text-brasa";
 
@@ -56,7 +56,7 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
       <Ruled
         margin={
           <div>
-            <p className="mb-8 text-[14px]">
+            <p className="mb-8 text-[0.875rem]">
               <Link href={voltar} className={`${acao} text-fumo`}>
                 <span aria-hidden="true">←</span> {t.caseBack}
               </Link>
@@ -80,7 +80,7 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
           <div className={phone ? "mt-6 flex flex-col gap-6 min-[900px]:flex-row" : "mt-6"}>
             {!phone && shot}
             <div className={phone ? "min-w-0 flex-1" : shot ? "mt-5" : ""}>
-              <p className="text-[17px] leading-[1.7] text-fumo">{pick(p.description, lang)}</p>
+              <p className="text-[1.0625rem] leading-[1.7] text-fumo">{pick(p.description, lang)}</p>
             </div>
             {phone && shot}
           </div>
@@ -117,11 +117,11 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
                   </span>
                 ) : null}
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
-                  <span className="block rounded-[6px] border border-traco-forte bg-bancada px-4 py-3 text-center font-display text-[14px] sm:w-[300px] sm:shrink-0">
+                  <span className="block rounded-[6px] border border-traco-forte bg-bancada px-4 py-3 text-center font-display text-[0.875rem] sm:w-[300px] sm:shrink-0">
                     {pick(c, lang)}
                   </span>
                   {c.aparte ? (
-                    <span className="text-[14px] italic leading-[1.5] text-fumo">
+                    <span className="text-[0.875rem] italic leading-[1.5] text-fumo">
                       <span aria-hidden="true">↔ </span>
                       {pick(c.aparte, lang)}
                     </span>
@@ -141,10 +141,10 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
             <ol data-testid="decisoes-destaque" className="max-w-[560px] space-y-6">
               {principais.map((d) => (
                 <li key={d.titulo.pt}>
-                  <h3 className="font-display text-[16px] font-semibold leading-[1.4]">
+                  <h3 className="font-display text-[1rem] font-semibold leading-[1.4]">
                     {pick(d.titulo, lang)}
                   </h3>
-                  <p className="mt-1 text-[16px] leading-[1.7] text-serragem">{pick(d, lang)}</p>
+                  <p className="mt-1 text-[1rem] leading-[1.7] text-serragem">{pick(d, lang)}</p>
                 </li>
               ))}
             </ol>
@@ -155,9 +155,9 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
               <ul data-testid="decisoes-outras" className="mt-3 max-w-[560px] divide-y divide-traco">
                 {outras.map((d) => (
                   <li key={d.titulo.pt} className="py-2.5">
-                    <p className="font-display text-[15px] leading-[1.5]">{pick(d.titulo, lang)}</p>
+                    <p className="font-display text-[0.9375rem] leading-[1.5]">{pick(d.titulo, lang)}</p>
                     {d.curta ? (
-                      <p className="truncate text-[14px] leading-[1.6] text-fumo">{pick(d.curta, lang)}</p>
+                      <p className="truncate text-[0.875rem] leading-[1.6] text-fumo">{pick(d.curta, lang)}</p>
                     ) : null}
                   </li>
                 ))}
@@ -169,18 +169,18 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
 
       {p.desafio ? (
         <Secao id="desafio" label={t.caseChallenge}>
-          <p className="max-w-[560px] text-[16px] leading-[1.75]">{pick(p.desafio, lang)}</p>
+          <p className="max-w-[560px] text-[1rem] leading-[1.75]">{pick(p.desafio, lang)}</p>
         </Secao>
       ) : null}
 
       {p.aprendizado ? (
         <Secao id="aprendizado" label={t.caseLearning}>
-          <p className="max-w-[560px] text-[16px] leading-[1.75]">{pick(p.aprendizado, lang)}</p>
+          <p className="max-w-[560px] text-[1rem] leading-[1.75]">{pick(p.aprendizado, lang)}</p>
         </Secao>
       ) : null}
 
       <Secao id="stack" label={t.caseStack}>
-        <ul className="flex flex-wrap gap-x-2 text-[15px] text-fumo">
+        <ul className="flex flex-wrap gap-x-2 text-[0.9375rem] text-fumo">
           {p.tech.map((tech, n) => (
             <li key={tech}>
               {tech}
@@ -195,8 +195,9 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
 
       <Ruled>
         <nav
+          aria-label={t.caseNavLabel}
           data-testid="case-nav"
-          className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-4 text-[15px]"
+          className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-4 text-[0.9375rem]"
         >
           <Link href={voltar} className={acao}>
             <span aria-hidden="true">←</span> {t.caseBack}

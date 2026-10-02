@@ -52,7 +52,8 @@
     background-color: var(--color-torra);
     color: var(--color-serragem);
     font-family: var(--font-body);
-    font-size: 17px;
+    /* rem: segue a fonte padrao que a pessoa escolheu no navegador. */
+    font-size: 1.0625rem;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
