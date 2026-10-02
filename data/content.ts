@@ -109,7 +109,9 @@ export const content: Record<Lang, Copy> = {
     caseNavLabel: "Entre projetos",
     // Status de disponibilidade, com o ponto verde. Dito pelo Samuel em
     // 2026-10-01: remoto ou em Maceió (mesmo do contato), pode começar agora.
-    openTo: "disponível · remoto ou Maceió",
+    // O nível (estágio ou júnior) é o do 3º parágrafo do Sobre; entrou aqui
+    // em 2026-10-02 (crítica): é o primeiro filtro do recrutador.
+    openTo: "estágio ou júnior · remoto ou Maceió",
     caseDecisions: "Decisões",
     caseOtherDecisions: "Outras decisões",
     caseResult: "Resultado",
@@ -166,7 +168,7 @@ export const content: Record<Lang, Copy> = {
     caseNavLabel: "Between projects",
     // Status de disponibilidade, com o ponto verde. Dito pelo Samuel em
     // 2026-10-01: remoto ou em Maceió (mesmo do contato), pode começar agora.
-    openTo: "available · remote or Maceió",
+    openTo: "internship or junior · remote or Maceió",
     caseDecisions: "Decisions",
     caseOtherDecisions: "Other decisions",
     caseResult: "Result",

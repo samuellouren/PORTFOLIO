@@ -99,11 +99,12 @@ test("ler estudo de caso e a acao principal; codigo e demo sao secundarios", asy
   const codigo = card.getByRole("link", { name: /^Código/ });
   const demo = card.getByRole("link", { name: /^Demo/ });
   await expect(principal).toHaveCSS("color", "rgb(206, 103, 51)"); // brasa
-  for (const sec of [codigo, demo]) {
-    await expect(sec).toHaveCSS("color", await page.locator("footer").evaluate((el) => getComputedStyle(el).color)); // fumo
-  }
+  // Codigo em fumo; a demo (o produto no ar) em serragem, mas nenhum dos dois
+  // em brasa nem do tamanho da acao principal.
+  await expect(codigo).toHaveCSS("color", await page.locator("footer").evaluate((el) => getComputedStyle(el).color)); // fumo
+  await expect(demo).toHaveCSS("color", "rgb(233, 225, 213)"); // serragem
   const tam = async (l: typeof principal) => parseFloat(await l.evaluate((el) => getComputedStyle(el).fontSize));
-  expect(await tam(codigo)).toBeLessThan(await tam(principal));
+  for (const sec of [codigo, demo]) expect(await tam(sec)).toBeLessThan(await tam(principal));
 });
 
 test("os metadados da margem saem no HTML servido", async ({ request }) => {

@@ -12,10 +12,15 @@ export default function Opening({ lang }: { lang: Lang }) {
         <div className="text-[0.8125rem] leading-[1.7] text-fumo">
           <div>Maceió, AL</div>
           {/* A disponibilidade e o que o recrutador procura: maior e em serragem. */}
-          <div className="mt-1 flex items-center gap-2 text-[0.875rem] text-serragem min-[900px]:justify-end">
-            <span aria-hidden className="inline-block h-[6px] w-[6px] rounded-full bg-verdete" />
-            <span data-testid="open-to" className="whitespace-nowrap">{t.openTo}</span>
-          </div>
+          {/* Com o nivel o status passa dos 200px da margem e quebra em duas
+              linhas: o ponto vai inline, colado na primeira, e o espaco antes
+              do "·" nao quebra, para o separador nao abrir a segunda linha. */}
+          <p className="mt-1 text-[0.875rem] text-balance text-serragem">
+            <span data-testid="open-to">
+              <span aria-hidden className="mr-2 inline-block h-[6px] w-[6px] rounded-full bg-verdete align-middle" />
+              {t.openTo.replace(" · ", " · ")}
+            </span>
+          </p>
         </div>
       }
     >

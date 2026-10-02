@@ -79,6 +79,16 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
             </h1>
             <ProjectTag project={p} lang={lang} />
           </div>
+          {/* O produto no ar e a prova mais forte para quem nao le codigo:
+              sobe para logo abaixo do titulo (continua tambem em Stack). */}
+          {p.demo ? (
+            <p className="mt-4 text-[0.9375rem]">
+              <a href={p.demo} data-testid="case-demo" className={acao}>
+                {t.linkDemo}
+                <span className="sr-only"> — {p.title}</span> <span aria-hidden="true">↗</span>
+              </a>
+            </p>
+          ) : null}
 
           <div className={phone ? "mt-6 flex flex-col gap-6 sm:flex-row" : "mt-6"}>
             {!phone && shot}
@@ -160,7 +170,7 @@ export default function CaseStudy({ project: p, lang }: { project: Project; lang
                   <li key={d.titulo.pt} className="py-2.5">
                     <p className="font-display text-[0.9375rem] leading-[1.5]">{pick(d.titulo, lang)}</p>
                     {d.curta ? (
-                      <p className="truncate text-[0.875rem] leading-[1.6] text-fumo">{pick(d.curta, lang)}</p>
+                      <p className="text-[0.875rem] leading-[1.6] text-fumo">{pick(d.curta, lang)}</p>
                     ) : null}
                   </li>
                 ))}

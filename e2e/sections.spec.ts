@@ -151,8 +151,8 @@ test("o sobre mostra trabalho em equipe: TalentMatch e game jam", async ({ page 
   await expect(page.locator("#sobre")).toContainText("game jam");
 });
 
-test("a margem da abertura e um status: disponivel, remoto ou Maceio, com o ponto verde", async ({ page }) => {
-  for (const [rota, texto] of [["/", "disponível · remoto ou Maceió"], ["/en", "available · remote or Maceió"]] as const) {
+test("a margem da abertura e um status: nivel, remoto ou Maceio, com o ponto verde", async ({ page }) => {
+  for (const [rota, texto] of [["/", "estágio ou júnior · remoto ou Maceió"], ["/en", "internship or junior · remote or Maceió"]] as const) {
     await page.goto(rota);
     const status = page.getByTestId("open-to");
     await expect(status).toHaveText(texto);

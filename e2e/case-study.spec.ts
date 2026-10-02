@@ -164,12 +164,15 @@ for (const largura of [1440, 375]) {
   });
 }
 
-test("em 375px cada linha curta das outras decisoes cabe sem corte", async ({ page }) => {
-  await page.setViewportSize({ width: 375, height: 800 });
+test("em 320px nenhuma linha curta das outras decisoes e cortada", async ({ page }) => {
+  // Sem truncate: em 320 e 340px ele escondia o fim da frase com reticencias.
+  await page.setViewportSize({ width: 320, height: 800 });
   for (const r of rotas) {
     await page.goto(r.url);
-    const cortadas = await page.getByTestId("decisoes-outras").locator("li p.truncate").evaluateAll((els) =>
-      els.filter((e) => e.scrollWidth > e.clientWidth).map((e) => e.textContent)
+    const cortadas = await page.getByTestId("decisoes-outras").locator("li p").evaluateAll((els) =>
+      els
+        .filter((e) => getComputedStyle(e).textOverflow === "ellipsis" || e.scrollWidth > e.clientWidth)
+        .map((e) => e.textContent)
     );
     expect(cortadas, r.url).toEqual([]);
   }

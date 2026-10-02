@@ -14,11 +14,15 @@ export default function ProjectFeature({
   project: p,
   lang,
   preload = false,
+  secao,
 }: {
   project: Project;
   lang: Lang;
   // So o primeiro destaque: o print dele ja aparece na primeira tela e e o LCP.
   preload?: boolean;
+  // So o primeiro destaque: o rotulo "Projetos" na margem, como Trajetoria,
+  // Sobre e Contato. E o alvo do link "Projetos" do menu.
+  secao?: string;
 }) {
   const t = content[lang];
   const id = slugOf(p.title);
@@ -41,6 +45,11 @@ export default function ProjectFeature({
       id={id}
       margin={
         <div data-testid={`margin-${id}`} className="flex flex-col gap-3 min-[900px]:items-end">
+          {secao ? (
+            <h2 id="projetos" className="font-display text-[0.75rem] uppercase tracking-[0.14em] text-fumo">
+              {secao}
+            </h2>
+          ) : null}
           <ProjectMeta meta={p.meta} lang={lang} />
           {p.nota ? <MarginNote>{pick(p.nota, lang)}</MarginNote> : null}
         </div>

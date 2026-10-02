@@ -33,7 +33,7 @@ export default function ProjectIndex({ lang }: { lang: Lang }) {
               <a
                 href={p.demo}
                 data-testid="index-demo"
-                className="-my-3 inline-block py-3 text-[0.875rem] text-fumo transition-colors hover:text-brasa"
+                className="-my-3 inline-block py-3 text-[0.875rem] text-serragem transition-colors hover:text-brasa"
               >
                 {t.linkDemo}
                 <span className="sr-only"> — {p.title}</span>{" "}
