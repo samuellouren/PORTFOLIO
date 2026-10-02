@@ -54,7 +54,8 @@
 }
 
 .entrada {
-  animation: entrada 250ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  /* ease-out forte: o movimento comeca na hora em que o olho chega. */
+  animation: entrada 250ms cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
