@@ -16,25 +16,36 @@
   --font-body: var(--font-newsreader), Georgia, serif;
 }
 
-body {
-  background-color: var(--color-torra);
-  color: var(--color-serragem);
-  font-family: var(--font-body);
-  font-size: 17px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-}
+/* Base em @layer: fora de camada, estas regras venciam as utilitarias do
+   Tailwind e apagavam o tracking-[...] de todo h2/h3 (rotulos de margem e
+   nomes de projeto saiam com -0.02em). */
+@layer base {
+  body {
+    background-color: var(--color-torra);
+    color: var(--color-serragem);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
 
-h1, h2, h3 {
-  font-family: var(--font-display);
-  letter-spacing: -0.02em;
-}
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
 
-/* Foco visivel: nunca remover sem substituto. */
-:focus-visible {
-  outline: 2px solid var(--color-brasa);
-  outline-offset: 2px;
-  border-radius: 2px;
+  /* Sem palavra sozinha na ultima linha. */
+  p, li, dd {
+    text-wrap: pretty;
+  }
+
+  /* Foco visivel: nunca remover sem substituto. */
+  :focus-visible {
+    outline: 2px solid var(--color-brasa);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 }
 
 @keyframes entrada {

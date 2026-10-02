@@ -10,7 +10,9 @@ export default function ProjectIndex({ lang }: { lang: Lang }) {
   return (
     <Ruled
       margin={
-        <h3 className="text-[13px] text-fumo">{t.indexLabel}</h3>
+        <h3 className="font-display text-[12px] font-normal uppercase tracking-[0.14em] text-fumo">
+          {t.indexLabel}
+        </h3>
       }
     >
       <ul data-testid="project-index" className="divide-y divide-traco">
@@ -31,7 +33,7 @@ export default function ProjectIndex({ lang }: { lang: Lang }) {
               <a
                 href={p.demo}
                 data-testid="index-demo"
-                className="-my-2.5 inline-block py-2.5 text-[14px] text-fumo transition-colors hover:text-brasa"
+                className="-my-3 inline-block py-3 text-[14px] text-fumo transition-colors hover:text-brasa"
               >
                 {t.linkDemo}
                 <span className="sr-only"> — {p.title}</span>{" "}

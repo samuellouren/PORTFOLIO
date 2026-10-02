@@ -28,7 +28,16 @@ export default function Contact({ lang }: { lang: Lang }) {
                 {c.label}
               </span>
               <span className="transition-colors [overflow-wrap:anywhere] group-hover:text-brasa">
-                {c.value}
+                {/* Se o email nao couber, quebra antes do @, nao no meio do ".com". */}
+                {c.value.includes("@") && !c.value.startsWith("@") ? (
+                  <>
+                    {c.value.slice(0, c.value.indexOf("@"))}
+                    <wbr />
+                    {c.value.slice(c.value.indexOf("@"))}
+                  </>
+                ) : (
+                  c.value
+                )}
               </span>
             </a>
           </li>

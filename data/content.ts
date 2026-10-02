@@ -88,7 +88,7 @@ export const content: Record<Lang, Copy> = {
     workTitle: "Projetos",
     linkCode: "Código",
     linkDemo: "Demo",
-    indexLabel: "Outros Projetos",
+    indexLabel: "Outros projetos",
 
     skillsTitle: "Ferramentas",
     // Mesmos rótulos da seção Habilidades do currículo.

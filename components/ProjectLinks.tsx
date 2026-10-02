@@ -2,7 +2,7 @@ import { content } from "@/data/content";
 import type { Lang, Project } from "@/data/types";
 
 const link =
-  "-my-2.5 inline-block py-2.5 text-fumo transition-colors hover:text-brasa";
+  "-my-3 inline-block py-3 text-fumo transition-colors hover:text-brasa";
 
 // Links externos do projeto, secundários: código sempre, demo quando existe.
 // A ação principal do card é o estudo de caso; estes ficam menores e em fumo.
