@@ -26,6 +26,24 @@
    Tailwind e apagavam o tracking-[...] de todo h2/h3 (rotulos de margem e
    nomes de projeto saiam com -0.02em). */
 @layer base {
+  html {
+    /* Sem o flash cinza do navegador no toque; o :active abaixo da o retorno. */
+    -webkit-tap-highlight-color: transparent;
+    /* Sem inflar a fonte quando o celular deita. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  a {
+    /* Toque dispara na hora: link nao tem duplo toque para zoom. */
+    touch-action: manipulation;
+  }
+
+  /* Retorno no instante do toque, nao quando o dedo sai. Sem transicao. */
+  a:active {
+    opacity: 0.7;
+  }
+
   body {
     background-color: var(--color-torra);
     color: var(--color-serragem);

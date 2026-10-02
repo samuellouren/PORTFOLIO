@@ -14,6 +14,9 @@ export const rootMetadata: Metadata = {
 
 export const rootViewport: Viewport = {
   themeColor: "#14100D",
+  // A pagina e sempre escura (spec 3): controles nativos, como os do <video>
+  // e a barra de rolagem, tambem.
+  colorScheme: "dark",
 };
 
 export function RootHtml({

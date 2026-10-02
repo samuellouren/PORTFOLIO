@@ -5,6 +5,7 @@ import "./globals.css";
 import Link from "next/link";
 import { bricolage, newsreader } from "./fonts";
 import { siteUrl } from "./site";
+import { rootViewport } from "./root";
 import { content } from "@/data/content";
 import type { Metadata } from "next";
 
@@ -13,6 +14,9 @@ export const metadata: Metadata = {
   title: "404 — Samuel Lourenço",
   robots: { index: false },
 };
+
+// Sem isto o 404 era a unica pagina com a barra do navegador clara.
+export const viewport = rootViewport;
 
 export default function GlobalNotFound() {
   const pt = content.pt;
